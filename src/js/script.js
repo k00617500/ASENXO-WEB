@@ -10,8 +10,3 @@ window.addEventListener('scroll', () => {
     navbar.classList.remove('scrolled');
   }
 });
-
-setTimeout(() => {
-  document.querySelector('.credit-cards').classList.add('hover');
-}, 2000);
-
