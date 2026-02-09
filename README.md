@@ -22,25 +22,67 @@
 ASENXO is a **web-based project management system** that modernizes the workflow of **DOST’s SETUP 4.0 Program**.  
 It centralizes MSME applications, procurement, compliance reporting, spatial analysis, and predictive performance monitoring into a single intelligent platform.
 
-| Key Focus | Description |
-|-----------|------------|
-| Operational Efficiency | Streamlines project tracking and approvals |
-| Financial Transparency | Monitors fund usage and liquidation |
-| Project Monitoring | Central dashboard for real-time updates |
-| Data-Driven Decisions | Predictive analytics for MSME performance |
+<p align="center">
+  <table>
+    <tr>
+      <th>Key Focus</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>Operational Efficiency</td>
+      <td>Streamlines project tracking and approvals</td>
+    </tr>
+    <tr>
+      <td>Financial Transparency</td>
+      <td>Monitors fund usage and liquidation</td>
+    </tr>
+    <tr>
+      <td>Project Monitoring</td>
+      <td>Central dashboard for real-time updates</td>
+    </tr>
+    <tr>
+      <td>Data-Driven Decisions</td>
+      <td>Predictive analytics for MSME performance</td>
+    </tr>
+  </table>
+</p>
 
 ---
 
 ## ✨ Core Features
 
-| Feature | Details |
-|---------|---------|
-| Centralized Application Portal | Digitizes MSME submissions and evaluations |
-| Procure-to-Pay Tracking | Monitors project lifecycle from approval to liquidation |
-| Predictive Analytics Engine | Regression models forecast risks, delays, performance |
-| GIS Integration | Maps beneficiary locations and supports geographic assessments |
-| Automated Workflows | Rule-based validation reduces admin workload |
-| Admin Dashboard | Real-time insights on funds, compliance, and project status |
+<p align="center">
+  <table>
+    <tr>
+      <th>Feature</th>
+      <th>Details</th>
+    </tr>
+    <tr>
+      <td>Centralized Application Portal</td>
+      <td>Digitizes MSME submissions and evaluations</td>
+    </tr>
+    <tr>
+      <td>Procure-to-Pay Tracking</td>
+      <td>Monitors project lifecycle from approval to liquidation</td>
+    </tr>
+    <tr>
+      <td>Predictive Analytics Engine</td>
+      <td>Regression models forecast risks, delays, performance</td>
+    </tr>
+    <tr>
+      <td>GIS Integration</td>
+      <td>Maps beneficiary locations and supports geographic assessments</td>
+    </tr>
+    <tr>
+      <td>Automated Workflows</td>
+      <td>Rule-based validation reduces admin workload</td>
+    </tr>
+    <tr>
+      <td>Admin Dashboard</td>
+      <td>Real-time insights on funds, compliance, and project status</td>
+    </tr>
+  </table>
+</p>
 
 ---
 
@@ -57,16 +99,34 @@ It centralizes MSME applications, procurement, compliance reporting, spatial ana
 
 ## 🏗 Architecture
 
-| Layer | Purpose |
-|-------|--------|
-| Presentation | Role-based dashboards |
-| Application | Business logic and analytics |
-| Integration | Secure API communication |
-| Data | Centralized database & document storage |
+<p align="center">
+  <table>
+    <tr>
+      <th>Layer</th>
+      <th>Purpose</th>
+    </tr>
+    <tr>
+      <td>Presentation</td>
+      <td>Role-based dashboards</td>
+    </tr>
+    <tr>
+      <td>Application</td>
+      <td>Business logic and analytics</td>
+    </tr>
+    <tr>
+      <td>Integration</td>
+      <td>Secure API communication</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>Centralized database & document storage</td>
+    </tr>
+  </table>
+</p>
 
 ---
 
-## Tech Stack 🛠
+## 🛠 Tech Stack
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" width="48"/>
@@ -82,18 +142,21 @@ It centralizes MSME applications, procurement, compliance reporting, spatial ana
 
 ## 🎯 Intended Users
 
-| User Type |
-|-----------|
-| DOST Regional Coordinators |
-| Provincial Science & Technology Offices |
-| Program Administrators |
-| Approved MSME Beneficiaries |
+<p align="center">
+  <table>
+    <tr><th>User Type</th></tr>
+    <tr><td>DOST Regional Coordinators</td></tr>
+    <tr><td>Provincial Science & Technology Offices</td></tr>
+    <tr><td>Program Administrators</td></tr>
+    <tr><td>Approved MSME Beneficiaries</td></tr>
+  </table>
+</p>
 
 ---
 
 ## 📊 Project Status
 
-**Active Academic Development**
+**Active Academic Development**  
 
 Future enhancements:
 
@@ -108,13 +171,34 @@ Future enhancements:
 
 **Bachelor of Science in Information Systems** — *West Visayas State University*
 
-| Name | Role |
-|------|------|
-| Aldrin E. Bansuelo | Analytics |
-| Jester M. Galfo | Analytics |
-| Sheikha Maris N. Nicolas | Analytics |
-| Zalve Mae A. Magsael | Analytics |
-| Meryll Klaryze A. Polaron | Web Development (Frontend & Backend) |
+<p align="center">
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+    </tr>
+    <tr>
+      <td>Aldrin E. Bansuelo</td>
+      <td>Analytics</td>
+    </tr>
+    <tr>
+      <td>Jester M. Galfo</td>
+      <td>Analytics</td>
+    </tr>
+    <tr>
+      <td>Sheikha Maris N. Nicolas</td>
+      <td>Analytics</td>
+    </tr>
+    <tr>
+      <td>Zalve Mae A. Magsael</td>
+      <td>Analytics</td>
+    </tr>
+    <tr>
+      <td><b>Meryll Klaryze A. Polaron</b></td>
+      <td>Web Development (Frontend & Backend)</td>
+    </tr>
+  </table>
+</p>
 
 ---
 
