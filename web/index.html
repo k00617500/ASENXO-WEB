@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="ASENXO - DOST Region VI Digital Platform">
+
+  <!-- Mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -29,11 +19,210 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>asenxo_web</title>
+  <title>ASENXO</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    
-  <script src="flutter_bootstrap.js" async></script>
+<body class="bg-gray-100">
+
+<!-- NAVBAR -->
+<header class="bg-white shadow">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-green-700">ASENXO</h1>
+
+    <nav class="hidden md:flex gap-4">
+      <a class="px-4 py-2 bg-gray-200 rounded-lg">Home</a>
+      <a class="px-4 py-2 bg-gray-200 rounded-lg">Services</a>
+      <a class="px-4 py-2 bg-gray-200 rounded-lg">Programs</a>
+      <a class="px-4 py-2 bg-gray-200 rounded-lg">About</a>
+    </nav>
+
+    <button class="bg-green-600 text-white px-4 py-2 rounded-lg">Register</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="max-w-7xl mx-auto px-4 py-8">
+  <div class="w-full h-[320px] md:h-[480px] bg-gray-300 rounded-2xl flex items-center justify-center">
+    HERO IMAGE
+  </div>
+</section>
+
+<!-- FEATURE SECTION -->
+<section class="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-10 items-center">
+
+  <div class="space-y-4">
+    <div class="w-40 h-10 bg-gray-300 rounded"></div>
+    <div class="h-6 bg-gray-300 rounded w-3/4"></div>
+    <div class="h-24 bg-gray-300 rounded"></div>
+    <div class="h-12 bg-gray-300 rounded w-2/3"></div>
+  </div>
+
+  <div class="relative h-[260px]">
+    <div class="absolute w-64 h-40 bg-gray-300 rounded-xl rotate-6 right-0"></div>
+    <div class="absolute w-64 h-40 bg-gray-300 rounded-xl -rotate-6 right-10 top-10"></div>
+    <div class="absolute w-64 h-40 bg-gray-300 rounded-xl right-20 top-20"></div>
+  </div>
+
+</section>
+
+<!-- APP SECTION -->
+<section class="bg-gray-200 py-12">
+  <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-6 items-center">
+
+    <div class="bg-gray-300 h-40 rounded-xl flex items-center justify-center">
+      APP QR CODE
+    </div>
+
+    <div class="md:col-span-2 bg-gray-300 h-40 rounded-xl flex items-center justify-center">
+      APPLICATION NAME
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTENT GRID -->
+<section class="max-w-7xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-6">
+
+  <div class="md:col-span-2 bg-gray-300 p-6 rounded-xl space-y-4">
+    <div class="h-6 bg-gray-200 rounded w-1/2"></div>
+    <div class="h-6 bg-gray-200 rounded w-1/3"></div>
+    <div class="h-40 bg-gray-200 rounded"></div>
+    <div class="h-6 bg-gray-200 rounded w-2/3"></div>
+  </div>
+
+  <div class="bg-gray-300 h-full rounded-xl"></div>
+
+</section>
+
+<!-- CARDS -->
+<section class="max-w-7xl mx-auto px-4 pb-20">
+
+  <div class="grid md:grid-cols-2 gap-6 mb-6">
+    <div class="bg-gray-300 h-40 rounded-xl"></div>
+    <div class="bg-gray-300 h-40 rounded-xl"></div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="bg-gray-300 h-48 rounded-xl flex items-center justify-center">IMAGE</div>
+    <div class="bg-gray-300 h-48 rounded-xl flex items-center justify-center">IMAGE</div>
+    <div class="bg-gray-300 h-48 rounded-xl flex items-center justify-center">IMAGE</div>
+  </div>
+
+</section>
+
+<!-- FOOTER FOR DOST REGION VI -->
+<footer class="bg-gray-900 text-gray-300">
+
+  <div class="max-w-7xl mx-auto px-6 py-14 grid md:grid-cols-4 gap-10">
+
+    <!-- Agency -->
+    <div>
+      <h2 class="text-xl font-semibold text-white mb-3">DOST Region VI</h2>
+      <p class="text-sm">
+        Department of Science and Technology Region VI is committed to driving
+        innovation, supporting research, and empowering communities through
+        science and technology across Western Visayas.
+      </p>
+    </div>
+
+    <!-- Navigation -->
+    <div>
+      <h4 class="text-white font-semibold mb-3">NAVIGATION</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#" class="hover:text-white">Home</a></li>
+        <li><a href="#" class="hover:text-white">Programs</a></li>
+        <li><a href="#" class="hover:text-white">Services</a></li>
+        <li><a href="#" class="hover:text-white">Announcements</a></li>
+      </ul>
+    </div>
+
+    <!-- Company -->
+    <div>
+      <h4 class="text-white font-semibold mb-3">ABOUT</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#" class="hover:text-white">About DOST VI</a></li>
+        <li><a href="#" class="hover:text-white">About SETUP 4.0</a></li>
+      </ul>
+
+      <button class="mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm">
+        Contact Us
+      </button>
+    </div>
+
+    <!-- Support -->
+    <div>
+      <h4 class="text-white font-semibold mb-3">SUPPORT</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="#" class="hover:text-white">Documentation</a></li>
+        <li><a href="#" class="hover:text-white">Help Center</a></li>
+        <li><a href="#" class="hover:text-white">Request Assistance</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section class="border-t border-gray-700">
+    <div class="max-w-7xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-10">
+
+      <div>
+        <h2 class="text-2xl text-white font-semibold mb-2">Get in touch</h2>
+        <p class="mb-6 text-sm">Have questions or need assistance? Reach out to DOST Region VI.</p>
+
+        <form class="space-y-4">
+          <div class="grid md:grid-cols-2 gap-4">
+            <input class="p-3 rounded bg-gray-800 border border-gray-700" placeholder="First name" required>
+            <input class="p-3 rounded bg-gray-800 border border-gray-700" placeholder="Last name" required>
+          </div>
+
+          <input class="w-full p-3 rounded bg-gray-800 border border-gray-700" placeholder="Email address" required>
+          <input class="w-full p-3 rounded bg-gray-800 border border-gray-700" placeholder="Phone number">
+
+          <textarea rows="4" class="w-full p-3 rounded bg-gray-800 border border-gray-700" placeholder="Your message"></textarea>
+
+          <button class="bg-green-600 hover:bg-green-700 px-6 py-3 rounded text-white">
+            Send Message
+          </button>
+        </form>
+      </div>
+
+      <div class="space-y-6 text-sm">
+        <div>
+          <h4 class="text-white font-semibold">Call us</h4>
+          <p>Mon–Fri, 8am–5pm</p>
+          <strong>(033) 320-0901</strong>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold">Visit us</h4>
+          <p>
+            DOST Region VI Compound,<br>
+            Gen. Luna St., La Paz,<br>
+            Iloilo City, Philippines
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bottom -->
+  <div class="border-t border-gray-700 text-sm">
+    <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p>© 2025 Department of Science and Technology Region VI. All rights reserved.</p>
+
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-white">Terms of Service</a>
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
