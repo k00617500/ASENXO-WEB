@@ -10,199 +10,163 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <title>ASENXO</title>
-  
-  <!-- Tailwind -->
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <style>
-  
-    #navbar {
-      background-color: rgba(255, 255, 255, 0.95); 
-      backdrop-filter: blur(8px); 
-      -webkit-backdrop-filter: blur(8px); 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-   
-    #navbar.scrolled {
-      background-color: rgba(255, 255, 255, 0.95); 
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-  </style>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 font-sans" style="font-family: 'Inter', sans-serif;">
+<body class="bg-gray-100 font-sans">
 
-<!-- NAVBAR -->
-<header id="navbar" class="fixed top-0 left-0 w-full z-50 rounded-bl-3xl rounded-br-3xl transition-all duration-300">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-    <!-- Logo -->
-    <img src="src/img/logo-name.png" alt="ASENXO Logo" class="h-10">
+  <!-- NAVBAR -->
+  <header id="navbar" class="fixed top-0 left-0 w-full z-50 rounded-bl-3xl rounded-br-3xl transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <img src="src/img/logo-name.png" alt="ASENXO Logo" class="h-10">
 
-    <!-- Navbar Links -->
-    <nav class="hidden md:flex space-x-4">
-      <a href="#" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300">Home</a>
-      <a href="#" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300">Services</a>
-      <a href="#" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300">Programs</a>
-      <a href="#" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300">About</a>
-    </nav>
+      <nav class="hidden md:flex space-x-4">
+        <a href="#" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300">Home</a>
+        <a href="#" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300">Services</a>
+        <a href="#" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300">Programs</a>
+        <a href="#" class="px-4 py-2 bg-gray-200 rounded-full hover:bg-gray-300">About</a>
+      </nav>
 
-    <!-- Register Button -->
-    <button class="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700">Register</button>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="max-w-7xl mx-auto px-4 py-10 mt-24">
-  <div class="w-full h-80 bg-gray-300 rounded-lg flex items-center justify-center">
-    HERO IMAGE
-  </div>
-</section>
-
-<!-- FEATURE SECTION -->
-<section class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
-  <div class="space-y-3">
-    <div class="h-6 bg-gray-300 rounded"></div>
-    <div class="h-6 bg-gray-300 rounded"></div>
-    <div class="h-24 bg-gray-300 rounded"></div>
-    <div class="h-6 bg-gray-300 rounded"></div>
-  </div>
-  <div class="relative h-64">
-    <div class="absolute w-64 h-40 bg-gray-300 rounded transform rotate-6 right-0"></div>
-    <div class="absolute w-64 h-40 bg-gray-300 rounded transform -rotate-6 top-10 right-10"></div>
-    <div class="absolute w-64 h-40 bg-gray-300 rounded top-20 right-20"></div>
-  </div>
-</section>
-
-<!-- APP SECTION -->
-<section class="bg-gray-200 py-12">
-  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div class="h-40 bg-gray-300 rounded flex items-center justify-center">APP QR CODE</div>
-    <div class="h-40 bg-gray-300 rounded flex items-center justify-center md:col-span-2">APPLICATION NAME</div>
-  </div>
-</section>
-
-<!-- CONTENT GRID -->
-<section class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-  <div class="md:col-span-2 bg-gray-300 p-6 rounded space-y-3">
-    <div class="h-6 bg-gray-200 rounded"></div>
-    <div class="h-6 bg-gray-200 rounded"></div>
-    <div class="h-40 bg-gray-200 rounded"></div>
-    <div class="h-12 bg-gray-200 rounded"></div>
-  </div>
-  <div class="bg-gray-300 rounded h-64"></div>
-</section>
-
-<!-- CARDS SECTION -->
-<section class="max-w-7xl mx-auto px-4 py-12 space-y-8">
-  <!-- Grid Cards -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="bg-gray-300 h-40 rounded"></div>
-    <div class="bg-gray-300 h-40 rounded"></div>
-  </div>
-
-  <!-- Credit Cards -->
-  <div class="relative w-full h-64 flex items-center justify-center" style="perspective:1000px;">
-    <img src="src/img/MSME Card.png" alt="MSME Card"
-      class="absolute w-56 h-36 rounded shadow-lg hover:scale-105 hover:-translate-y-7 hover:z-30 transition-all duration-300"
-      style="left:-80px;">
-    <img src="src/img/PSTO Card.png" alt="PSTO Card"
-      class="absolute w-56 h-36 rounded shadow-lg hover:scale-105 hover:-translate-y-7 hover:z-30 transition-all duration-300 z-20">
-    <img src="src/img/DOST ADMIN Card.png" alt="DOST ADMIN Card"
-      class="absolute w-56 h-36 rounded shadow-lg hover:scale-105 hover:-translate-y-7 hover:z-30 transition-all duration-300"
-      style="right:-80px;">
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer class="bg-gray-900 text-gray-300 pt-12">
-  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-6 pb-12 border-b border-gray-700">
-    <div>
-      <h2 class="text-white font-bold text-lg mb-2">DOST Region VI</h2>
-      <p>Department of Science and Technology Region VI is committed to driving innovation...</p>
+      <button class="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700">Register</button>
     </div>
-    <div>
-      <h4 class="text-white font-semibold mb-2">NAVIGATION</h4>
-      <ul class="space-y-1">
-        <li><a href="#" class="hover:text-white">Home</a></li>
-        <li><a href="#" class="hover:text-white">Programs</a></li>
-        <li><a href="#" class="hover:text-white">Services</a></li>
-        <li><a href="#" class="hover:text-white">Announcements</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="text-white font-semibold mb-2">ABOUT</h4>
-      <ul class="space-y-1">
-        <li><a href="#" class="hover:text-white">About DOST VI</a></li>
-        <li><a href="#" class="hover:text-white">About SETUP 4.0</a></li>
-      </ul>
-      <button class="mt-2 bg-green-600 px-4 py-2 rounded hover:bg-green-700">Contact Us</button>
-    </div>
-    <div>
-      <h4 class="text-white font-semibold mb-2">SUPPORT</h4>
-      <ul class="space-y-1">
-        <li><a href="#" class="hover:text-white">Documentation</a></li>
-        <li><a href="#" class="hover:text-white">Help Center</a></li>
-        <li><a href="#" class="hover:text-white">Request Assistance</a></li>
-      </ul>
-    </div>
-  </div>
+  </header>
 
-  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6 py-12 border-b border-gray-700">
-    <div>
-      <h2 class="text-white font-bold mb-2">Get in touch</h2>
-      <p class="mb-4">Have questions or need assistance? Reach out to DOST Region VI.</p>
-      <form class="space-y-3">
-        <div class="flex space-x-2">
-          <input type="text" placeholder="First name" required class="w-1/2 p-2 rounded bg-gray-800 text-white border border-gray-600">
-          <input type="text" placeholder="Last name" required class="w-1/2 p-2 rounded bg-gray-800 text-white border border-gray-600">
+  <!-- HERO -->
+  <section class="max-w-7xl mx-auto px-4 py-10 mt-24">
+    <div class="w-full h-80 bg-gray-300 rounded-lg flex items-center justify-center">
+      HERO IMAGE
+    </div>
+  </section>
+
+  <!-- FEATURE SECTION -->
+  <section class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+    <div class="space-y-3">
+      <div class="h-6 bg-gray-300 rounded"></div>
+      <div class="h-6 bg-gray-300 rounded"></div>
+      <div class="h-24 bg-gray-300 rounded"></div>
+      <div class="h-6 bg-gray-300 rounded"></div>
+    </div>
+    <div class="relative h-64">
+      <div class="absolute w-64 h-40 bg-gray-300 rounded transform rotate-6 right-0"></div>
+      <div class="absolute w-64 h-40 bg-gray-300 rounded transform -rotate-6 top-10 right-10"></div>
+      <div class="absolute w-64 h-40 bg-gray-300 rounded top-20 right-20"></div>
+    </div>
+  </section>
+
+  <!-- APP SECTION -->
+  <section class="bg-gray-200 py-12">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="h-40 bg-gray-300 rounded flex items-center justify-center">APP QR CODE</div>
+      <div class="h-40 bg-gray-300 rounded flex items-center justify-center md:col-span-2">APPLICATION NAME</div>
+    </div>
+  </section>
+
+  <!-- CONTENT GRID -->
+  <section class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="md:col-span-2 bg-gray-300 p-6 rounded space-y-3">
+      <div class="h-6 bg-gray-200 rounded"></div>
+      <div class="h-6 bg-gray-200 rounded"></div>
+      <div class="h-40 bg-gray-200 rounded"></div>
+      <div class="h-12 bg-gray-200 rounded"></div>
+    </div>
+    <div class="bg-gray-300 rounded h-64"></div>
+  </section>
+
+  <!-- CARDS SECTION -->
+  <section class="max-w-7xl mx-auto px-4 py-12 space-y-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-gray-300 h-40 rounded"></div>
+      <div class="bg-gray-300 h-40 rounded"></div>
+    </div>
+
+    <div class="relative w-full h-64 flex items-center justify-center" style="perspective:1000px;">
+      <img src="src/img/MSME Card.png" alt="MSME Card"
+        class="absolute w-56 h-36 rounded shadow-lg hover:scale-105 hover:-translate-y-7 hover:z-30 transition-all duration-300"
+        style="left:-80px;">
+      <img src="src/img/PSTO Card.png" alt="PSTO Card"
+        class="absolute w-56 h-36 rounded shadow-lg hover:scale-105 hover:-translate-y-7 hover:z-30 transition-all duration-300 z-20">
+      <img src="src/img/DOST ADMIN Card.png" alt="DOST ADMIN Card"
+        class="absolute w-56 h-36 rounded shadow-lg hover:scale-105 hover:-translate-y-7 hover:z-30 transition-all duration-300"
+        style="right:-80px;">
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-300 pt-12">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-6 pb-12 border-b border-gray-700">
+      <div>
+        <h2 class="text-white font-bold text-lg mb-2">DOST Region VI</h2>
+        <p>Department of Science and Technology Region VI is committed to driving innovation...</p>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-2">NAVIGATION</h4>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:text-white">Home</a></li>
+          <li><a href="#" class="hover:text-white">Programs</a></li>
+          <li><a href="#" class="hover:text-white">Services</a></li>
+          <li><a href="#" class="hover:text-white">Announcements</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-2">ABOUT</h4>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:text-white">About DOST VI</a></li>
+          <li><a href="#" class="hover:text-white">About SETUP 4.0</a></li>
+        </ul>
+        <button class="mt-2 bg-green-600 px-4 py-2 rounded hover:bg-green-700">Contact Us</button>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-2">SUPPORT</h4>
+        <ul class="space-y-1">
+          <li><a href="#" class="hover:text-white">Documentation</a></li>
+          <li><a href="#" class="hover:text-white">Help Center</a></li>
+          <li><a href="#" class="hover:text-white">Request Assistance</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6 py-12 border-b border-gray-700">
+      <div>
+        <h2 class="text-white font-bold mb-2">Get in touch</h2>
+        <p class="mb-4">Have questions or need assistance? Reach out to DOST Region VI.</p>
+        <form class="space-y-3">
+          <div class="flex space-x-2">
+            <input type="text" placeholder="First name" required class="w-1/2 p-2 rounded bg-gray-800 text-white border border-gray-600">
+            <input type="text" placeholder="Last name" required class="w-1/2 p-2 rounded bg-gray-800 text-white border border-gray-600">
+          </div>
+          <input type="email" placeholder="Email address" required class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600">
+          <input type="tel" placeholder="Phone number" class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600">
+          <textarea rows="4" placeholder="Your message" class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600"></textarea>
+          <button type="submit" class="bg-green-600 px-4 py-2 rounded hover:bg-green-700">Send Message</button>
+        </form>
+      </div>
+      <div class="space-y-6">
+        <div>
+          <h4 class="text-white font-semibold mb-1">Call us</h4>
+          <p>Mon–Fri, 8am–5pm</p>
+          <strong>(033) 320-0901</strong>
         </div>
-        <input type="email" placeholder="Email address" required class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600">
-        <input type="tel" placeholder="Phone number" class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600">
-        <textarea rows="4" placeholder="Your message" class="w-full p-2 rounded bg-gray-800 text-white border border-gray-600"></textarea>
-        <button type="submit" class="bg-green-600 px-4 py-2 rounded hover:bg-green-700">Send Message</button>
-      </form>
-    </div>
-    <div class="space-y-6">
-      <div>
-        <h4 class="text-white font-semibold mb-1">Call us</h4>
-        <p>Mon–Fri, 8am–5pm</p>
-        <strong>(033) 320-0901</strong>
-      </div>
-      <div>
-        <h4 class="text-white font-semibold mb-1">Visit us</h4>
-        <p>DOST Region VI Compound,<br>Gen. Luna St., La Paz,<br>Iloilo City, Philippines</p>
+        <div>
+          <h4 class="text-white font-semibold mb-1">Visit us</h4>
+          <p>DOST Region VI Compound,<br>Gen. Luna St., La Paz,<br>Iloilo City, Philippines</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center text-sm space-y-2 md:space-y-0">
-    <p>© 2025 Department of Science and Technology Region VI. All rights reserved.</p>
-    <div class="space-x-4">
-      <a href="#" class="hover:text-white">Terms of Service</a>
-      <a href="#" class="hover:text-white">Privacy Policy</a>
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center text-sm space-y-2 md:space-y-0">
+      <p>© 2025 Department of Science and Technology Region VI. All rights reserved.</p>
+      <div class="space-x-4">
+        <a href="#" class="hover:text-white">Terms of Service</a>
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<script>
-
-  let lastScroll = 0;
-  const navbar = document.getElementById('navbar');
-
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-
-    if (currentScroll < lastScroll) {
-      navbar.classList.add('scrolled'); 
-    } else {
-      navbar.classList.remove('scrolled'); 
-    }
-
-    lastScroll = currentScroll;
-  });
-</script>
-
+  <!-- Custom JS -->
+  <script src="script.js"></script>
 </body>
 </html>
