@@ -21,6 +21,17 @@
 
 <body>
 
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="loader-content">
+
+    <h2 class="loader-text">Sa ASENXO, Tuloy ang progreso!</h2>
+
+    <div class="loader-bar"></div>
+  </div>
+</div>
+
+
 <!-- NAVBAR -->
 <header class="navbar">
   <div class="container nav-inner">
@@ -42,7 +53,7 @@
       <a href="#programs">Programs</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <a href="#reg" class="btn primary">Apply Now</a>
+      <a href="#reg" class="btn primary">Register Now</a>
     </nav>
 
   </div>
@@ -73,6 +84,17 @@
 
         <a class="btn outline">Discover Benefits</a>
       </div>
+
+          <!-- HERO STATS -->
+    <section class="hero-stats">
+      <div class="stats-container">
+        <div class="stat">
+          <h2 id="msme-count">0</h2>
+          <p>SETUP MSMEs in the Region</p>
+        </div>
+      </div>
+    </section>
+
     </div>
 
     <!-- RIGHT -->
@@ -129,28 +151,56 @@
   </div>
 </div>
 
+<!-- SERVICES -->
+<section id="services" class="services">
+  <div class="container">
 
-<!-- FEATURES -->
-<section class="features">
+    <div class="section-header">
+      <h2>Our Services</h2>
+      <p>The ASENXO web system provides tools to streamline applications, project tracking, fund management, reporting, and performance monitoring for MSMEs.</p>
+    </div>
 
+    <div class="services-grid">
 
-</section>
+      <!-- SERVICE 1: Application Submission -->
+      <div class="service-card">
+        <div class="service-icon">📝</div>
+        <h3>Application Submission</h3>
+        <p>Enable MSME beneficiaries to submit program applications, upload required compliance documents, and receive real-time notifications.</p>
+      </div>
 
+      <!-- SERVICE 2: Project & Workflow Management -->
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>Project & Workflow Management</h3>
+        <p>Track and monitor projects, design program-specific workflows, and use rule-based systems to manage tasks efficiently.</p>
+      </div>
 
-<!-- APP -->
-<section class="app-section">
-  <div class="app-grid">
-    <div class="qr-code"></div>
-    <div class="app-name"></div>
+      <!-- SERVICE 3: Technology Needs Assessment & GIS -->
+      <div class="service-card">
+        <div class="service-icon">🗺️</div>
+        <h3>Technology & Spatial Analysis</h3>
+        <p>Perform Technology Needs Assessments, evaluate market sites, and integrate GIS-based location analysis for predictive support.</p>
+      </div>
+
+      <!-- SERVICE 4: Reporting & Fund Tracking -->
+      <div class="service-card">
+        <div class="service-icon">💼</div>
+        <h3>Reporting & Fund Tracking</h3>
+        <p>Submit financial and accomplishment reports, monitor disbursements, and track fund utilization seamlessly through the web system.</p>
+      </div>
+
+      <!-- SERVICE 5: Performance Evaluation & Dashboard -->
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <h3>Performance Evaluation & Analytics</h3>
+        <p>Use dashboards with analytics (LightGBM-based) to monitor MSME performance, including sales, jobs created, and other key metrics.</p>
+      </div>
+
+    </div>
   </div>
 </section>
 
-
-<!-- CONTENT GRID -->
-<section class="content-grid">
-  <div class="main-content"></div>
-  <div class="side-content"></div>
-</section>
 
 <!-- FOOTER -->
 <footer>
@@ -158,6 +208,35 @@
     <p>© 2025 Department of Science and Technology Region VI.</p>
   </div>
 </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- JS -->
@@ -184,6 +263,35 @@
     toggle.setAttribute('aria-pressed', isActive);
   });
 </script>
+<script>
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+    setTimeout(() => {
+      preloader.classList.add("hide");
+    }, 2000); 
+  });
+</script>
+<script>
+function animateCount(id, target, duration) {
+  let start = 0;
+  const element = document.getElementById(id);
+  const stepTime = Math.abs(Math.floor(duration / target)); 
+  const timer = setInterval(() => {
+    start += 1;
+    element.textContent = start;
+    if (start >= target) {
+      clearInterval(timer);
+    }
+  }, stepTime);
+}
+
+
+window.addEventListener('load', () => {
+  animateCount('msme-count', 1422, 2000); 
+});
+</script>
+
+
 
 
 
