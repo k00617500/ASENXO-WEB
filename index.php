@@ -151,55 +151,70 @@
   </div>
 </div>
 
-<!-- SERVICES -->
+<!-- SERVICES SECTION -->
 <section id="services" class="services">
-  <div class="container">
+  <div class="services-wrapper">
 
-    <div class="section-header">
-      <h2>Our Services</h2>
-      <p>The ASENXO web system provides tools to streamline applications, project tracking, fund management, reporting, and performance monitoring for MSMEs.</p>
+    <div class="services-left">
+      <h2>Services</h2>
+      <p>
+        ASENXO offers MSMEs a complete suite of digital solutions:
+        submit applications, track projects, analyze performance,
+        monitor funds, and more — all seamlessly in one platform.
+      </p>
     </div>
 
-    <div class="services-grid">
+    <div class="services-right">
+      <div class="services-container">
 
-      <!-- SERVICE 1: Application Submission -->
-      <div class="service-card">
-        <div class="service-icon">📝</div>
-        <h3>Application Submission</h3>
-        <p>Enable MSME beneficiaries to submit program applications, upload required compliance documents, and receive real-time notifications.</p>
+        <div class="service-card">
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK1.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/BG1.png');"></div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK2.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/BG2.png');"></div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK3.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/BG3.png');"></div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK4.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/BG4.png');"></div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK5.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/BG5.png');"></div>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="card-inner">
+            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK6.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/BG6.png');"></div>
+          </div>
+        </div>
+
       </div>
-
-      <!-- SERVICE 2: Project & Workflow Management -->
-      <div class="service-card">
-        <div class="service-icon">📊</div>
-        <h3>Project & Workflow Management</h3>
-        <p>Track and monitor projects, design program-specific workflows, and use rule-based systems to manage tasks efficiently.</p>
-      </div>
-
-      <!-- SERVICE 3: Technology Needs Assessment & GIS -->
-      <div class="service-card">
-        <div class="service-icon">🗺️</div>
-        <h3>Technology & Spatial Analysis</h3>
-        <p>Perform Technology Needs Assessments, evaluate market sites, and integrate GIS-based location analysis for predictive support.</p>
-      </div>
-
-      <!-- SERVICE 4: Reporting & Fund Tracking -->
-      <div class="service-card">
-        <div class="service-icon">💼</div>
-        <h3>Reporting & Fund Tracking</h3>
-        <p>Submit financial and accomplishment reports, monitor disbursements, and track fund utilization seamlessly through the web system.</p>
-      </div>
-
-      <!-- SERVICE 5: Performance Evaluation & Dashboard -->
-      <div class="service-card">
-        <div class="service-icon">📈</div>
-        <h3>Performance Evaluation & Analytics</h3>
-        <p>Use dashboards with analytics (LightGBM-based) to monitor MSME performance, including sales, jobs created, and other key metrics.</p>
-      </div>
-
     </div>
+
   </div>
 </section>
+
 
 
 <!-- FOOTER -->
@@ -292,6 +307,34 @@ window.addEventListener('load', () => {
 </script>
 
 
+<script>
+const cards = document.querySelectorAll('.service-card');
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const inner = card.querySelector('.card-inner');
+    inner.classList.toggle('flipped'); 
+  });
+});
+
+function goToServices() {
+  document.getElementById("services").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+</script>
+
+<script>
+
+function scrollServices(e) {
+  e.preventDefault();
+  document.getElementById("services").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+
+</script>
 
 
 
