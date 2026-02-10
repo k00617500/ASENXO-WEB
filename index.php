@@ -12,6 +12,8 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="src\img\ASENXO-FAVICON.png">
 
   <!-- CSS -->
   <link rel="stylesheet" href="src/css/index-style.css">
@@ -20,12 +22,11 @@
 </head>
 
 <body>
-
 <!-- PRELOADER -->
 <div id="preloader">
   <div class="loader-content">
 
-    <h2 class="loader-text">Sa ASENXO, Tuloy ang progreso!</h2>
+    <h2 class="loader-text">Sa ASENXO, Tuloy ang progreso sa negosyo!</h2>
 
     <div class="loader-bar"></div>
   </div>
@@ -41,10 +42,58 @@
       <img src="src/img/logo-name.png" class="logo-img" alt="ASENXO Logo">
 
       <div class="brand-segment">
-        <a href="#personal" class="segment active">Personal</a>
+        <a href="#personal" id="personalHover" class="segment active">Personal</a>
         <a href="#executive" class="segment">Executive</a>
+        <a href="#platform" class="segment">Platform</a>
       </div>
     </div>
+
+      <!-- PERSONAL OVERLAY -->
+        <div id="personalOverlay" class="overlay-hover">
+          <div class="overlay-card">
+
+            <div class="overlay-img-container">
+              <img src="src/img/personal-card.jpg" class="overlay-img">
+            </div>
+            
+            <div class="overlay-details">
+              <h2>MSME Account</h2>
+
+              <p>
+                A centralized platform that helps small businesses apply for programs,
+                manage compliance documents, and track progress with ease.
+              </p>
+
+              <ul class="feature-list">
+                <li>
+                  <img src="src/img/icons/submit-icon.png" alt="Submit Icon">
+                  <span>Submit SETUP program applications</span>
+                </li>
+
+                <li>
+                  <img src="src/img/icons/upload-icon.png" alt="Upload Icon">
+                  <span>Upload and manage requirements</span>
+                </li>
+
+                <li>
+                  <img src="src/img/icons/business-icon.png" alt="Track Icon">
+                  <span>Track application status in real time</span>
+                </li>
+
+                <li>
+                  <img src="src/img/icons/monitor-icon.png" alt="Dashboard Icon">
+                  <span>Access dashboards and business insights</span>
+                </li>
+              </ul>
+
+              <a href="#">Explore →</a>
+            </div>
+
+
+        </div>
+      </div>
+
+
 
 
     <!-- RIGHT -->
@@ -256,6 +305,7 @@
 
 <!-- JS -->
 <script src="src/js/script.js"></script>
+
 <script>
   setTimeout(() => {
     const cards = [
@@ -265,11 +315,13 @@
     ];
 
     cards.forEach((card, i) => {
-      card.style.transitionDelay = `${i * 0.2}s`;
+      card.style.transitionDelay = `${i * 0.5}s`;
       card.classList.add('diagonal');
     });
   }, 800);
 </script>
+
+
 <script>
   const toggle = document.querySelector('.toggle-btn');
 
@@ -278,6 +330,8 @@
     toggle.setAttribute('aria-pressed', isActive);
   });
 </script>
+
+
 <script>
   window.addEventListener("load", () => {
     const preloader = document.getElementById("preloader");
@@ -286,6 +340,8 @@
     }, 2000); 
   });
 </script>
+
+
 <script>
 function animateCount(id, target, duration) {
   let start = 0;
@@ -299,7 +355,6 @@ function animateCount(id, target, duration) {
     }
   }, stepTime);
 }
-
 
 window.addEventListener('load', () => {
   animateCount('msme-count', 1422, 2000); 
@@ -332,11 +387,37 @@ function scrollServices(e) {
     behavior: "smooth"
   });
 }
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+const trigger = document.getElementById("personalHover");
+const overlay = document.getElementById("personalOverlay");
+
+let timeout;
+
+function openOverlay() {
+  clearTimeout(timeout);
+  overlay.classList.add("show");
+}
+
+function closeOverlay() {
+  timeout = setTimeout(() => {
+    overlay.classList.remove("show");
+  }, 150);
+}
+
+trigger.addEventListener("mouseenter", openOverlay);
+overlay.addEventListener("mouseenter", openOverlay);
+
+trigger.addEventListener("mouseleave", closeOverlay);
+overlay.addEventListener("mouseleave", closeOverlay);
+
+});
 
 
 </script>
-
-
 
 
 
