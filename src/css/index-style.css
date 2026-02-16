@@ -442,8 +442,8 @@ p{
 
 .hero-left h1 {
   font-size: clamp(48px, 6vw, 82px);
-  font-weight: 800;
-  line-height: 1.02;
+  font-weight: 500;
+  line-height: 1;
   letter-spacing: -0.02em;
   color: rgb(0, 222, 118);
   margin-bottom: 18px;
