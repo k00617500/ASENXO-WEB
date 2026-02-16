@@ -299,9 +299,6 @@
 
     <div class="services-left">
       <h2>Services</h2>
-      <p>
-      ASENXO is an all-in-one platform for MSMEs to manage applications, funds, and performance.
-      </p>
     </div>
 
     <div class="services-right">
@@ -354,6 +351,8 @@
 
   </div>
 </section>
+
+
 
 
 
