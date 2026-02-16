@@ -43,55 +43,148 @@
 
       <div class="brand-segment">
         <a href="#personal" id="personalHover" class="segment active">Personal</a>
-        <a href="#executive" class="segment">Executive</a>
-        <a href="#platform" class="segment">Platform</a>
+        <a href="#executive" id="technicalHover" class="segment">Technical</a>
+        <a href="#executive" id="executiveHover" class="segment">Executive</a>
       </div>
     </div>
 
       <!-- PERSONAL OVERLAY -->
-        <div id="personalOverlay" class="overlay-hover">
-          <div class="overlay-card">
+<div id="personalOverlay" class="overlay-hover">
+  <div class="overlay-card">
 
-            <div class="overlay-img-container">
-              <img src="src/img/personal-card.jpg" class="overlay-img">
-            </div>
-            
-            <div class="overlay-details">
-              <h2>MSME Account</h2>
+    <div class="overlay-img-container">
+      <img src="src/img/personal-card.png" class="overlay-img" alt="MSME Account">
+    </div>
+    
+    <div class="overlay-details">
+      <h2>MSME Account</h2>
 
-              <p>
-                A centralized platform that helps small businesses apply for programs,
-                manage compliance documents, and track progress with ease.
-              </p>
+      <p>
+        A centralized platform that helps small businesses apply for programs,
+        manage compliance documents, and track progress with ease.
+      </p>
 
-              <ul class="feature-list">
-                <li>
-                  <img src="src/img/icons/submit-icon.png" alt="Submit Icon">
-                  <span>Submit SETUP program applications</span>
-                </li>
+      <ul class="feature-list">
+        <li>
+          <img src="src/img/icons/submit-icon.png" alt="Submit Icon">
+          <span>Submit SETUP program applications</span>
+        </li>
 
-                <li>
-                  <img src="src/img/icons/upload-icon.png" alt="Upload Icon">
-                  <span>Upload and manage requirements</span>
-                </li>
+        <li>
+          <img src="src/img/icons/upload-icon.png" alt="Upload Icon">
+          <span>Upload and manage requirements</span>
+        </li>
 
-                <li>
-                  <img src="src/img/icons/business-icon.png" alt="Track Icon">
-                  <span>Track application status in real time</span>
-                </li>
+        <li>
+          <img src="src/img/icons/business-icon.png" alt="Track Icon">
+          <span>Track application status in real time</span>
+        </li>
 
-                <li>
-                  <img src="src/img/icons/monitor-icon.png" alt="Dashboard Icon">
-                  <span>Access dashboards and business insights</span>
-                </li>
-              </ul>
+        <li>
+          <img src="src/img/icons/monitor-icon.png" alt="Dashboard Icon">
+          <span>Access dashboards and business insights</span>
+        </li>
+      </ul>
 
-              <a href="#">Explore →</a>
-            </div>
+      <a href="#">Explore →</a>
+    </div>
+
+  </div>
+</div>
 
 
-        </div>
-      </div>
+<!-- TECHNICAL OVERLAY -->
+<div id="technicalOverlay" class="overlay-hover">
+  <div class="overlay-card">
+
+    <div class="overlay-img-container">
+      <img src="src/img/technical-card.png" class="overlay-img" alt="Technical Account">
+    </div>
+    
+    <div class="overlay-details">
+      <h2>Technical Account</h2>
+
+      <p>
+      A dedicated interface for technical PSTOs to assist MSMEs with
+      SETUP program requirements, verify documents, and provide guidance submissions and system processes efficiently.
+      </p>
+
+      <ul class="feature-list">
+        <li>
+          <img src="src/img/icons/PSTO/receive-icon.png" alt="Monitor Icon">
+          <span>Receive MSME SETUP applications</span>
+        </li>  
+
+        <li>
+          <img src="src/img/icons/PSTO/eval-icon.png" alt="Document Icon">
+          <span>Verify and validate compliance documents</span>
+        </li>
+
+        <li>
+          <img src="src/img/icons/PSTO/tna-icon.png" alt="Setup Icon">
+          <span>Evaluate business TNA & Geographical Area</span>
+        </li>
+
+        <li>
+          <img src="src/img/icons/PSTO/endorse-icon.png" alt="Setup Icon">
+          <span>Endorse enterpreneurs to the region</span>
+        </li>
+
+      </ul>
+
+      <a href="#">Explore →</a>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- EXECUTIVE OVERLAY -->
+<div id="executiveOverlay" class="overlay-hover">
+  <div class="overlay-card">
+
+    <div class="overlay-img-container">
+      <img src="src/img/executive-card.png" class="overlay-img" alt="Executive Account">
+    </div>
+    
+    <div class="overlay-details">
+      <h2>Executive Account</h2>
+
+      <p>
+        A management-level dashboard designed for decision-makers to
+        oversee projects, financial disbursements, and monitor performance.
+      </p>
+
+      <ul class="feature-list">
+        <li>
+          <img src="src/img/icons/ADMIN\view-icon.png" alt="Approve Icon">
+          <span>Review approved SETUP-MSMEs' transactions</span>
+        </li>
+
+        <li>
+          <img src="src/img/icons/ADMIN/track-icon.png" alt="Team Icon">
+          <span>Manage internal projects and workflows</span>
+        </li>
+
+        <li>
+          <img src="src/img/icons/ADMIN/data-icon.png" alt="Analytics Icon">
+          <span>Access performance analytics</span>
+        </li>
+
+        <li>
+          <img src="src/img/icons/ADMIN/docu-icon.png" alt="Report Icon">
+          <span>Generate reports and summaries</span>
+        </li>
+
+      </ul>
+
+      <a href="#">Explore →</a>
+    </div>
+
+  </div>
+</div>
+
+
 
 
 
@@ -207,9 +300,7 @@
     <div class="services-left">
       <h2>Services</h2>
       <p>
-        ASENXO offers MSMEs a complete suite of digital solutions:
-        submit applications, track projects, analyze performance,
-        monitor funds, and more — all seamlessly in one platform.
+      ASENXO is an all-in-one platform for MSMEs to manage applications, funds, and performance.
       </p>
     </div>
 
@@ -219,42 +310,42 @@
         <div class="service-card">
           <div class="card-inner">
             <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK1.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/BG1.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG1.png');"></div>
           </div>
         </div>
 
         <div class="service-card">
           <div class="card-inner">
             <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK2.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/BG2.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG2.png');"></div>
           </div>
         </div>
 
         <div class="service-card">
           <div class="card-inner">
             <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK3.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/BG3.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG3.png');"></div>
           </div>
         </div>
 
         <div class="service-card">
           <div class="card-inner">
             <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK4.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/BG4.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG4.png');"></div>
           </div>
         </div>
 
         <div class="service-card">
           <div class="card-inner">
             <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK5.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/BG5.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG5.png');"></div>
           </div>
         </div>
 
         <div class="service-card">
           <div class="card-inner">
             <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK6.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/BG6.png');"></div>
+            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG6.png');"></div>
           </div>
         </div>
 
@@ -392,32 +483,118 @@ function scrollServices(e) {
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-const trigger = document.getElementById("personalHover");
-const overlay = document.getElementById("personalOverlay");
+  const personalBtn = document.getElementById("personalHover");
+  const overlay = document.getElementById("personalOverlay");
 
-let timeout;
+  let autoCloseTimer;
 
-function openOverlay() {
-  clearTimeout(timeout);
-  overlay.classList.add("show");
-}
+  personalBtn.addEventListener("mouseenter", function () {
 
-function closeOverlay() {
-  timeout = setTimeout(() => {
-    overlay.classList.remove("show");
-  }, 150);
-}
+  
+    overlay.classList.add("show");
 
-trigger.addEventListener("mouseenter", openOverlay);
-overlay.addEventListener("mouseenter", openOverlay);
+    clearTimeout(autoCloseTimer);
 
-trigger.addEventListener("mouseleave", closeOverlay);
-overlay.addEventListener("mouseleave", closeOverlay);
+    autoCloseTimer = setTimeout(() => {
+      overlay.classList.remove("show");
+    }, 3000);
+
+  });
 
 });
-
-
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const technicalBtn = document.getElementById("technicalHover");
+  const technicalOverlay = document.getElementById("technicalOverlay");
+
+  let autoCloseTimer;
+
+  technicalBtn.addEventListener("mouseenter", function () {
+
+    technicalOverlay.classList.add("show");
+
+    clearTimeout(autoCloseTimer);
+
+    autoCloseTimer = setTimeout(() => {
+      technicalOverlay.classList.remove("show");
+    }, 3000);
+
+  });
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const executiveBtn = document.getElementById("executiveHover");
+  const executiveOverlay = document.getElementById("executiveOverlay");
+
+  let autoCloseTimer;
+
+  executiveBtn.addEventListener("mouseenter", function () {
+
+    executiveOverlay.classList.add("show");
+
+    clearTimeout(autoCloseTimer);
+
+    autoCloseTimer = setTimeout(() => {
+      executiveOverlay.classList.remove("show");
+    }, 3000);
+
+  });
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const overlayIDs = ["personalOverlay", "technicalOverlay", "executiveOverlay"];
+
+  overlayIDs.forEach(id => {
+    const overlay = document.getElementById(id);
+    if (!overlay) return;
+
+    const items = overlay.querySelectorAll(".feature-list li");
+
+    function autoHighlightFeatures() {
+      const initialDelay = 500; 
+      const interval = 500;     
+
+      items.forEach((item, index) => {
+        setTimeout(() => {
+         
+          items.forEach(i => i.classList.remove("highlight"));
+          
+          item.classList.add("highlight");
+        }, initialDelay + index * interval);
+      });
+
+      setTimeout(() => {
+        items.forEach(i => i.classList.remove("highlight"));
+      }, initialDelay + items.length * interval + 500);
+    }
+
+
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.attributeName === "class" && overlay.classList.contains("show")) {
+          autoHighlightFeatures();
+        }
+      });
+    });
+
+    observer.observe(overlay, { attributes: true });
+  });
+
+});
+</script>
+
+
 
 
 
