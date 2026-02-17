@@ -731,134 +731,57 @@ p{
 
 /* SERVICES SECTION */
 .services {
-  padding: 60px 40px;
+  padding: 60px 20px;
   background-color: #fff;
-  display: flex;
-  justify-content: center; 
+  overflow: hidden; 
 }
 
-/* WRAPPER: LEFT + RIGHT */
-.services-wrapper {
-  display: flex;
-  flex-direction: column; 
-  align-items: center;    
-  gap: 40px;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* LEFT COLUMN */
-.services-left {
-  text-align: center; 
-}
-
-.services-left h2 {
-  font-size: 45px;
-  margin-top: -5px;
-  margin-bottom: -10px;
-  color: rgb(27, 27, 27);
-  font-weight: bolder;
-}
-
-/* RIGHT COLUMN */
-.services-right {
-  width: 100%;
-}
-
-/* GRID CONTAINER */
 .services-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); 
-  grid-template-rows: repeat(2, auto);
-  gap: 24px;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  justify-items: center;  
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
 }
 
+/* Rows */
+.service-row {
+  display: flex;
+  gap: 15px; 
+  width: max-content; 
+}
 
-
-/* CARD WRAPPER */
+/* Cards */
 .service-card {
-  width: 100%;             
-  max-width: 500px;       
-  aspect-ratio: 500 / 545; 
+  width: 260px; 
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
-
-/* FLIP ANIMATION */
-.card-inner {
-  position: relative;
+/* Card */
+.card-front, .card-back {
   width: 100%;
   height: 100%;
-  transition: transform 0.8s ease;
-  transform-style: preserve-3d;
-}
-
-.service-card:hover .card-inner,
-.card-inner.flipped {
-  transform: rotateY(180deg);
-}
-
-/* CARD FACES */
-.card-front,
-.card-back {
-  position: absolute;
-  inset: 0;
-  border-radius: 15px;
   background-size: cover;
   background-position: center;
-  backface-visibility: hidden;
 }
 
-/* BACK SIDE */
-.card-back {
-  transform: rotateY(180deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  color: #fff;
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  .services-left h2 {
-    font-size: 36px;
-  }
-  .services-left p {
-    font-size: 18px;
-  }
+@keyframes scroll-right {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(50%); }
 }
 
-@media (max-width: 768px) {
-  .services-container {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  .service-card {
-    width: 200px;
-  }
-}
+/* Responsive */
+@media (max-width: 1440px) { .service-card { width: 150px; } }
+@media (max-width: 1024px) { .service-card { width: 130px; } }
+@media (max-width: 768px)  { .service-card { width: 100px; } }
+@media (max-width: 480px)  { .service-card { width: 80px; } }
 
-@media (max-width: 480px) {
-  .services-left h2 {
-    font-size: 28px;
-  }
-  .services-left p {
-    font-size: 16px;
-  }
-  .services-container {
-    grid-template-columns: 1fr;
-  }
-  .service-card {
-    width: 100%;
-    max-width: 260px;
-  }
-}
 
 
 

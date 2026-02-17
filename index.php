@@ -295,62 +295,32 @@
 
 <!-- SERVICES SECTION -->
 <section id="services" class="services">
-  <div class="services-wrapper">
+  <div class="services-container">
 
-    <div class="services-left">
-      <h2>Services</h2>
+    <!-- Top Row -->
+    <div class="service-row top">
+      <!-- 12 cards -->
+      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK1.png');"></div></div>
+      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK2.png');"></div></div>
+      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK3.png');"></div></div>
+      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK4.png');"></div></div>
+      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK5.png');"></div></div>
+      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK6.png');"></div></div>
     </div>
 
-    <div class="services-right">
-      <div class="services-container">
-
-        <div class="service-card">
-          <div class="card-inner">
-            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK1.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG1.png');"></div>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="card-inner">
-            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK2.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG2.png');"></div>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="card-inner">
-            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK3.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG3.png');"></div>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="card-inner">
-            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK4.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG4.png');"></div>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="card-inner">
-            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK5.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG5.png');"></div>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="card-inner">
-            <div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK6.png');"></div>
-            <div class="card-back" style="background-image:url('src/img/services/cards/back/BG6.png');"></div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
+    <!-- Bottom Row -->
+    <div class="service-row bottom">
+      <!-- 12 cards -->
+      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG1.png');"></div></div>
+      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG2.png');"></div></div>
+      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG3.png');"></div></div>
+      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG4.png');"></div></div>
+      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG5.png');"></div></div>
+      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG6.png');"></div></div>
   </div>
 </section>
+
+
 
 
 
@@ -449,24 +419,6 @@ function animateCount(id, target, duration) {
 window.addEventListener('load', () => {
   animateCount('msme-count', 1422, 2000); 
 });
-</script>
-
-
-<script>
-const cards = document.querySelectorAll('.service-card');
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    const inner = card.querySelector('.card-inner');
-    inner.classList.toggle('flipped'); 
-  });
-});
-
-function goToServices() {
-  document.getElementById("services").scrollIntoView({
-    behavior: "smooth"
-  });
-}
-
 </script>
 
 <script>
@@ -593,9 +545,21 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<script>
+  
+  const container = document.querySelector('.services-container');
+  const leftArrow = document.querySelector('.arrow.left');
+  const rightArrow = document.querySelector('.arrow.right');
 
+  leftArrow.addEventListener('click', () => {
+    container.scrollBy({ left: -350, behavior: 'smooth' });
+  });
 
+  rightArrow.addEventListener('click', () => {
+    container.scrollBy({ left: 350, behavior: 'smooth' });
+  });
 
+</script>
 
 </body>
 </html>
