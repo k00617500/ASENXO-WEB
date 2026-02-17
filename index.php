@@ -293,35 +293,52 @@
   </div>
 </div>
 
-<!-- SERVICES SECTION -->
-<section id="services" class="services">
-  <div class="services-container">
+<!-- SERVICES -->
+<section class="services">
+  <div class="services-slider">
+    <div class="services-track">
+      <div class="services-slide">
+        <div class="service-row">
+   
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK1.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK2.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK3.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK4.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK5.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK6.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG1.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG2.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG3.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG4.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG5.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG6.png');"></div>
 
-    <!-- Top Row -->
-    <div class="service-row top">
-      <!-- 12 cards -->
-      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK1.png');"></div></div>
-      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK2.png');"></div></div>
-      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK3.png');"></div></div>
-      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK4.png');"></div></div>
-      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK5.png');"></div></div>
-      <div class="service-card"><div class="card-front" style="background-image:url('src/img/services/cards/BG-BACK6.png');"></div></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK1.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK2.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK3.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK4.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK5.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/BG-BACK6.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG1.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG2.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG3.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG4.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG5.png');"></div>
+          <div class="service-card" style="background-image:url('src/img/services/cards/back/BG6.png');"></div>
+        </div>
+      </div>
     </div>
-
-    <!-- Bottom Row -->
-    <div class="service-row bottom">
-      <!-- 12 cards -->
-      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG1.png');"></div></div>
-      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG2.png');"></div></div>
-      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG3.png');"></div></div>
-      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG4.png');"></div></div>
-      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG5.png');"></div></div>
-      <div class="service-card"><div class="card-back" style="background-image:url('src/img/services/cards/back/BG6.png');"></div></div>
   </div>
 </section>
 
+<!-- PROGRAM -->
+<section is="program" class="program">
+  <div class="program-cointainer">
 
 
+
+  </div>
+</section>
 
 
 
@@ -501,65 +518,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  const overlayIDs = ["personalOverlay", "technicalOverlay", "executiveOverlay"];
-
-  overlayIDs.forEach(id => {
-    const overlay = document.getElementById(id);
-    if (!overlay) return;
-
-    const items = overlay.querySelectorAll(".feature-list li");
-
-    function autoHighlightFeatures() {
-      const initialDelay = 500; 
-      const interval = 500;     
-
-      items.forEach((item, index) => {
-        setTimeout(() => {
-         
-          items.forEach(i => i.classList.remove("highlight"));
-          
-          item.classList.add("highlight");
-        }, initialDelay + index * interval);
-      });
-
-      setTimeout(() => {
-        items.forEach(i => i.classList.remove("highlight"));
-      }, initialDelay + items.length * interval + 500);
-    }
-
-
-    const observer = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        if (mutation.attributeName === "class" && overlay.classList.contains("show")) {
-          autoHighlightFeatures();
-        }
-      });
-    });
-
-    observer.observe(overlay, { attributes: true });
-  });
-
-});
-</script>
-
-<script>
-  
-  const container = document.querySelector('.services-container');
-  const leftArrow = document.querySelector('.arrow.left');
-  const rightArrow = document.querySelector('.arrow.right');
-
-  leftArrow.addEventListener('click', () => {
-    container.scrollBy({ left: -350, behavior: 'smooth' });
-  });
-
-  rightArrow.addEventListener('click', () => {
-    container.scrollBy({ left: 350, behavior: 'smooth' });
-  });
-
-</script>
 
 </body>
 </html>
