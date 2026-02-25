@@ -1,8 +1,7 @@
 <p align="center">
-  <img width="2500" height="1122" alt="asenxo_banner" src="YOUR-BANNER-LINK-HERE" />
+  <img width="7778" height="1433" alt="ASENXO" src="https://github.com/user-attachments/assets/1e06e3cf-3dc6-45c4-964b-245584ed9e34" />
 </p>
 
-<h1 align="center">ASENXO</h1>
 <h3 align="center">Project Management System for DOST-SETUP 4.0 with MSME Predictive Analytics</h3>
 
 <p align="center">
