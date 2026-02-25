@@ -193,7 +193,7 @@
 </header>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" style="background-color: #07111c;">
   <div class="container hero-inner">
 
     <!-- LEFT -->
@@ -397,7 +397,7 @@
 </section>
 
 <!-- CONTACT US -->
-<section id="contact" class="contact-section">
+<section id="contact" class="contact-section" style="background-color: #07111c;">
   <div class="container">
     <div class="contact-wrapper">
       
@@ -424,7 +424,9 @@
             <label>Message</label>
             <textarea name="message" rows="4" placeholder="Type Here..." required></textarea>
           </div>
-          <button type="submit" class="btn-send">Send Now</button>
+          <button type="submit" class="btn-send" style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 18px;">
+            Send Now
+          </button>
         </form>
       </div>
 
@@ -461,14 +463,16 @@
           </div>
         </div>
 
-        <div class="map-container-small">
+        <div class="map-container-small" style="width:100%; height:300px; overflow:hidden; border-radius:12px; margin-bottom: 10px;">
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.1983637841!2d122.56213687584166!3d10.71192918943265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33ee6b169e08c6e3%3A0x77c18f226ce2ea08!2sDepartment%20of%20Science%20and%20Technology%20Regional%20Office!5e0!3m2!1sen!2sph!4v1709123456789!5m2!1sen!2sph" 
-            allowfullscreen="" loading="lazy">
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.1916315264853!2d122.5618451758535!3d10.720516559489241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aee51566436625%3A0xc348508107936a28!2sDOST%20Region%20VI!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph" 
+            style="border:0; width:100%; height:100%;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
       </div>
-
     </div> 
   </div>
 </section>
