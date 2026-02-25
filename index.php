@@ -365,7 +365,7 @@
 </section>
 
 <!-- ABOUT US -->
-<div class="about-image-container" style="background-color: #07111c;">
+<div class="about-image-container" section id="about" style="background-color: #07111c;">
   <img src="src/img/ABOUT.png" alt="About ASENXO" class="about-main-img">
 </div>
 
@@ -396,6 +396,7 @@
   </div>
 </section>
 
+<!-- CONTACT US -->
 <section id="contact" class="contact-section">
   <div class="container">
     <div class="contact-wrapper">
@@ -406,7 +407,7 @@
           <h2 class="section-title">Get In Touch</h2>
         </div>
 
-        <form action="send_mail.php" method="POST" class="dark-form">
+        <form action="php/send-cont.php" method="POST" class="dark-form">
           <div class="input-group">
             <label>Name</label>
             <input type="text" name="name" placeholder="Your Name..." required>
