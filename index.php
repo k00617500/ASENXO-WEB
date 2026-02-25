@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="ASENXO - DOST Region VI Digital Platform">
 
-  <!-- Inter Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <!-- Bricolage Grotesque Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- FAVICON -->
   <link rel="icon" type="image/png" href="src\img\ASENXO-FAVICON.png">
@@ -227,15 +227,19 @@
         <a class="btn outline">Discover Benefits</a>
       </div>
 
-          <!-- HERO STATS -->
-    <section class="hero-stats">
-      <div class="stats-container">
-        <div class="stat">
-          <h2 id="msme-count">0</h2>
-          <p>SETUP MSMEs in the Region</p>
-        </div>
+    <!-- HERO STATS -->
+  <section class="hero-stats">
+    <div class="stats-container">
+      <div class="stat">
+        <h2 id="msme-count">0</h2>
+        <p>Region VI SETUP MSMEs</p>
       </div>
-    </section>
+      <div class="stat">
+        <h2 id="nat-count">0</h2>
+        <p>SETUP MSMEs Nationwide</p>
+      </div>
+    </div>
+  </section>
 
     </div>
 
@@ -294,7 +298,10 @@
 </div>
 
 <!-- SERVICES -->
-<section class="services">
+<section class="services" id="services">
+<div class="services-title">
+    <h2>Services</h2>
+  </div>
   <div class="services-slider">
     <div class="services-track">
       <div class="services-slide">
@@ -435,6 +442,35 @@ function animateCount(id, target, duration) {
 
 window.addEventListener('load', () => {
   animateCount('msme-count', 1422, 2000); 
+});
+</script>
+
+<script>
+
+function scrollServices(e) {
+  e.preventDefault();
+  document.getElementById("services").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+</script>
+
+<script>
+function animateCount(id, target, duration) {
+  let start = 0;
+  const element = document.getElementById(id);
+  const stepTime = Math.abs(Math.floor(duration / target)); 
+  const timer = setInterval(() => {
+    start += 1;
+    element.textContent = start;
+    if (start >= target) {
+      clearInterval(timer);
+    }
+  }, stepTime);
+}
+
+window.addEventListener('load', () => {
+  animateCount('nat-count', 1422, 2000); 
 });
 </script>
 
