@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- FAVICON -->
-  <link rel="icon" type="image/png" href="src\img\ASENXO-FAVICON.png">
+  <link rel="icon" type="image/png" href="favicon.png">
 
   <!-- CSS -->
   <link rel="stylesheet" href="src/css/index-style.css">
@@ -25,25 +25,22 @@
 <!-- PRELOADER -->
 <div id="preloader">
   <div class="loader-content">
-
     <h2 class="loader-text">Sa ASENXO, Tuloy ang progreso sa negosyo!</h2>
-
     <div class="loader-bar"></div>
   </div>
 </div>
 
 
 <!-- NAVBAR -->
-<header class="navbar">
-  <div class="container nav-inner">
 
-    <!-- LEFT -->
+  <header class="navbar">
+  <div class="container nav-inner">
+   
     <div class="nav-brand">
       <img src="src/img/logo-name.png" class="logo-img" alt="ASENXO Logo">
-
       <div class="brand-segment">
         <a href="#personal" id="personalHover" class="segment active">Personal</a>
-        <a href="#executive" id="technicalHover" class="segment">Technical</a>
+        <a href="#technical" id="technicalHover" class="segment">Technical</a>
         <a href="#executive" id="executiveHover" class="segment">Executive</a>
       </div>
     </div>
@@ -184,23 +181,16 @@
   </div>
 </div>
 
-
-
-
-
-
-    <!-- RIGHT -->
-    <nav class="nav-links">
-      <a href="#services">Services</a>
+  <!-- RIGHT -->
+  <nav class="nav-links">
       <a href="#programs">Programs</a>
+      <a href="#services">Services</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
       <a href="#reg" class="btn primary">Register Now</a>
     </nav>
-
   </div>
 </header>
-
 
 <!-- HERO -->
 <section class="hero">
@@ -240,8 +230,7 @@
       </div>
     </div>
   </section>
-
-    </div>
+  </div>
 
     <!-- RIGHT -->
     <div class="hero-right" style="width: 1100px; height: 500px;">
@@ -297,8 +286,45 @@
   </div>
 </div>
 
+<!-- PROGRAMS -->
+<section id="programs" class="programs-section">
+  <div class="container">
+    <div class="programs-title">
+      <h2>Programs</h2>
+    </div>
+    <div class="programs-grid">
+     
+      <!-- Program Card 1: iFUND -->
+      <div class="program-card">
+        <img src="src/img/programs/iFUND.png" alt="iFUND icon" />
+      </div>
+
+      <!-- Program Card 2: Technology Consultancy -->
+      <div class="program-card">
+        <img src="src/img/programs/Technology Consultancy.png" alt="Technology Consultancy icon" />
+      </div>
+
+      <!-- Program Card 3: Tech Training -->
+      <div class="program-card">
+        <img src="src/img/programs/Tech Training.png" alt="Tech Training icon" />
+      </div>
+
+      <!-- Program Card 4: One Lab -->
+      <div class="program-card">
+        <img src="src/img/programs/One Lab.png" alt="One Lab icon" />
+      </div>
+
+      <!-- Program Card 5: One Expert -->
+      <div class="program-card">
+        <img src="src/img/programs/One Expert.png" alt="One Expert icon" />
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- SERVICES -->
-<section class="services" id="services">
+<section class="services" id="services" style="background-color: #07111c;">
 <div class="services-title">
     <h2>Services</h2>
   </div>
@@ -338,14 +364,114 @@
   </div>
 </section>
 
-<!-- PROGRAM -->
-<section is="program" class="program">
-  <div class="program-cointainer">
+<!-- ABOUT US -->
+<div class="about-image-container" style="background-color: #07111c;">
+  <img src="src/img/ABOUT.png" alt="About ASENXO" class="about-main-img">
+</div>
 
 
-
+<!-- DOWNLOAD (ASENXO Mobile App) -->
+<section id="download" class="download-section" style="background-color: #07111c;">
+  <div class="container">
+    <div class="download-wrapper">
+      <div class="download-content">
+        <div class="services-title">
+          <h2>Download the ASENXO Mobile App</h2>
+        </div>
+        <p class="download-lead">Manage your business on the go. Apply for programs, track requirements, and receive real‑time notifications—all from your mobile device.</p>
+        <div class="app-badges">
+          <a href="#" class="app-badge">
+            <img src="src/img/google-play-badge.png" alt="Get it on Google Play">
+          </a>
+          <a href="#" class="app-badge">
+            <img src="src/img/app-store-badge.png" alt="Download on the App Store">
+          </a>
+        </div>
+        <p class="availability">Available for iOS and Android.</p>
+      </div>
+      <div class="download-mockup">
+        <img src="src/img/app-mockup.png" alt="ASENXO App Mockup" class="mockup-img">
+      </div>
+    </div>
   </div>
 </section>
+
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="contact-wrapper">
+      
+      <div class="contact-form-container">
+        <div class="form-header">
+          <p class="section-subtitle">Contact Us</p>
+          <h2 class="section-title">Get In Touch</h2>
+        </div>
+
+        <form action="send_mail.php" method="POST" class="dark-form">
+          <div class="input-group">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your Name..." required>
+          </div>
+          <div class="input-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="example@youmail.com" required>
+          </div>
+          <div class="input-group">
+            <label>Subject</label>
+            <input type="text" name="subject" placeholder="Title...">
+          </div>
+          <div class="input-group">
+            <label>Message</label>
+            <textarea name="message" rows="4" placeholder="Type Here..." required></textarea>
+          </div>
+          <button type="submit" class="btn-send">Send Now</button>
+        </form>
+      </div>
+
+      <div class="contact-details-container">
+        <p class="details-intro">Reach out to our team for inquiries, support, or partnership opportunities. We'd love to hear from you!</p>
+        
+        <div class="details-grid">
+          <div class="detail-box">
+            <img src="https://unpkg.com/lucide-static@latest/icons/phone.svg" alt="Phone">
+            <h4>Phone Number</h4>
+            <p>(033) 320-0093</p>
+          </div>
+
+          <div class="detail-box">
+            <img src="https://unpkg.com/lucide-static@latest/icons/mail.svg" alt="Email">
+            <h4>Email Address</h4>
+            <p>
+              <a href="mailto:ord@ro6.dost.gov.ph" style="color: #ffffff; text-decoration: none; opacity: 0.8;">
+                ord@ro6.dost.gov.ph
+              </a>
+            </p>
+          </div>
+
+          <div class="detail-box">
+            <img src="https://unpkg.com/lucide-static@latest/icons/clock.svg" alt="Clock">
+            <h4>Office Hours</h4>
+            <p>Mon - Fri: 8:00 AM - 5:00 PM</p>
+          </div>
+
+          <div class="detail-box">
+            <img src="https://unpkg.com/lucide-static@latest/icons/map-pin.svg" alt="Location">
+            <h4>Our Office</h4>
+            <p>DOST VI, Magsaysay Village, La Paz, Iloilo City</p>
+          </div>
+        </div>
+
+        <div class="map-container-small">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.1983637841!2d122.56213687584166!3d10.71192918943265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33ee6b169e08c6e3%3A0x77c18f226ce2ea08!2sDepartment%20of%20Science%20and%20Technology%20Regional%20Office!5e0!3m2!1sen!2sph!4v1709123456789!5m2!1sen!2sph" 
+            allowfullscreen="" loading="lazy">
+          </iframe>
+        </div>
+      </div>
+
+    </div> 
+  </div>
+</section>
+
 
 
 
@@ -470,7 +596,7 @@ function animateCount(id, target, duration) {
 }
 
 window.addEventListener('load', () => {
-  animateCount('nat-count', 1422, 2000); 
+  animateCount('nat-count', 36000, 2000); 
 });
 </script>
 
