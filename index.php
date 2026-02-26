@@ -39,7 +39,7 @@
     <div class="nav-brand">
       <img src="src/img/logo-name.png" class="logo-img" alt="ASENXO Logo">
       <div class="brand-segment">
-        <a href="#personal" id="personalHover" class="segment active">Personal</a>
+        <a href="#personal" id="personalHover" class="segment active" style="background: white; color:  #00934E; font-weight: bold">Personal</a>
         <a href="#technical" id="technicalHover" class="segment">Technical</a>
         <a href="#executive" id="executiveHover" class="segment">Executive</a>
       </div>
@@ -187,7 +187,7 @@
       <a href="#services">Services</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <a href="#reg" class="btn primary">Register Now</a>
+      <a href="register.php" class="btn primary">Register Now</a>
     </nav>
   </div>
 </header>
@@ -214,7 +214,7 @@
       </a>
 
 
-        <a class="btn outline">Discover Benefits</a>
+        <a class="btn outline" href="#programs">Discover Benefits</a>
       </div>
 
     <!-- HERO STATS -->
@@ -282,15 +282,29 @@
       <img src="src/img/marquee/fr.png" alt="FR Logo">
       <img src="src/img/marquee/phlgps.png" alt="PHLGPS Logo">
       <img src="src/img/marquee/qgis.png" alt="QGIS Logo">
+
+      <img src="src/img/marquee/asenxo.png" alt="ASENXO Logo">
+      <img src="src/img/marquee/dost.png" alt="DOST Logo">
+      <img src="src/img/marquee/stp.png" alt="STP Logo">
+      <img src="src/img/marquee/fr.png" alt="FR Logo">
+      <img src="src/img/marquee/phlgps.png" alt="PHLGPS Logo">
+      <img src="src/img/marquee/qgis.png" alt="QGIS Logo">
+
+      <img src="src/img/marquee/asenxo.png" alt="ASENXO Logo">
+      <img src="src/img/marquee/dost.png" alt="DOST Logo">
+      <img src="src/img/marquee/stp.png" alt="STP Logo">
+      <img src="src/img/marquee/fr.png" alt="FR Logo">
+      <img src="src/img/marquee/phlgps.png" alt="PHLGPS Logo">
+      <img src="src/img/marquee/qgis.png" alt="QGIS Logo">
     </div>
   </div>
 </div>
 
 <!-- PROGRAMS -->
-<section id="programs" class="programs-section">
+<section id="programs" class="programs-section" >
   <div class="container">
     <div class="programs-title">
-      <h2>Programs</h2>
+      <h2 style="color: #0b0b0b;">Programs</h2>
     </div>
     <div class="programs-grid">
      
