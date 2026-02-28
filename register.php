@@ -1,48 +1,78 @@
-<!--<?php
-session_start();
-require_once 'config.php'; // Database connection
+<?php
+/*
+|--------------------------------------------------------------------------
+| REGISTER PAGE BACKEND LOGIC (CURRENTLY DISABLED)
+|--------------------------------------------------------------------------
+| This block handles:
+| 1. Session initialization
+| 2. OTP verification step detection
+| 3. OTP validation
+| 4. User insertion into database
+| 5. Error handling
+|
+| It is currently commented out for testing UI purposes.
+|--------------------------------------------------------------------------
+*/
 
-$step = 1; // 1 = registration form, 2 = OTP verification
-$error = '';
-$email = '';
+// Start session
+// session_start();
 
-// If user is in OTP step (session contains registration data)
-if (isset($_SESSION['reg_email']) && isset($_SESSION['reg_otp'])) {
-    $step = 2;
-    $email = $_SESSION['reg_email'];
-}
+// Include database connection
+// require_once 'config.php';
 
-// Handle OTP verification
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_otp'])) {
-    $entered_otp = trim($_POST['otp']);
-    if (isset($_SESSION['reg_otp']) && $_SESSION['reg_otp'] == $entered_otp && time() < $_SESSION['reg_otp_expiry']) {
-        // Save user to database
-        $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-        $stmt->execute([
-            $_SESSION['reg_name'],
-            $_SESSION['reg_email'],
-            $_SESSION['reg_password'] // already hashed
-        ]);
+// Default step: 1 = Registration Form, 2 = OTP Verification
+// $step = 1;
+// $error = '';
+// $email = '';
 
-        // Clear session variables
-        unset($_SESSION['reg_name'], $_SESSION['reg_email'], $_SESSION['reg_password'],
-              $_SESSION['reg_otp'], $_SESSION['reg_otp_expiry']);
+// If user already has OTP session data, move to step 2
+// if (isset($_SESSION['reg_email']) && isset($_SESSION['reg_otp'])) {
+//     $step = 2;
+//     $email = $_SESSION['reg_email'];
+// }
 
-        // Redirect to login or success page
-        header('Location: login.php?registered=1');
-        exit;
-    } else {
-        $error = 'Invalid or expired OTP.';
-    }
-}
+// Handle OTP verification form submission
+// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_otp'])) {
 
-// Check for error messages from send_otp.php (passed via session)
-if (isset($_SESSION['reg_error'])) {
-    $error = $_SESSION['reg_error'];
-    unset($_SESSION['reg_error']);
-}
+//     $entered_otp = trim($_POST['otp']);
+
+//     // Validate OTP and check expiration
+//     if (isset($_SESSION['reg_otp']) &&
+//         $_SESSION['reg_otp'] == $entered_otp &&
+//         time() < $_SESSION['reg_otp_expiry']) {
+
+//         // Insert verified user into database
+//         $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+//         $stmt->execute([
+//             $_SESSION['reg_name'],
+//             $_SESSION['reg_email'],
+//             $_SESSION['reg_password'] // Password already hashed
+//         ]);
+
+//         // Clear registration session data
+//         unset(
+//             $_SESSION['reg_name'],
+//             $_SESSION['reg_email'],
+//             $_SESSION['reg_password'],
+//             $_SESSION['reg_otp'],
+//             $_SESSION['reg_otp_expiry']
+//         );
+
+//         // Redirect to login page after successful registration
+//         header('Location: login.php?registered=1');
+//         exit;
+
+//     } else {
+//         $error = 'Invalid or expired OTP.';
+//     }
+// }
+
+// Check for error messages passed from send_otp.php
+// if (isset($_SESSION['reg_error'])) {
+//     $error = $_SESSION['reg_error'];
+//     unset($_SESSION['reg_error']);
+// }
 ?>
--->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,6 +83,10 @@ if (isset($_SESSION['reg_error'])) {
 
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <!-- Correct CSS path -->
+    <link rel="stylesheet" href="src/css/register-style.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>

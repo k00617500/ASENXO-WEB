@@ -39,7 +39,10 @@
     <div class="nav-brand">
       <img src="src/img/logo-name.png" class="logo-img" alt="ASENXO Logo">
       <div class="brand-segment">
-        <a href="#personal" id="personalHover" class="segment active" style="background: white; color:  #00934E; font-weight: bold">Personal</a>
+      <a href="#personal" id="personalHover" class="segment active" 
+        style="background: white; color: #00934E; font-weight: bold; padding: 0.5rem 1rem; border-radius: 15px;">
+        Personal
+      </a>
         <a href="#technical" id="technicalHover" class="segment">Technical</a>
         <a href="#executive" id="executiveHover" class="segment">Executive</a>
       </div>
@@ -187,7 +190,7 @@
       <a href="#services">Services</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <a href="register.php" class="btn primary">Register Now</a>
+      <a href="register-mock.php" class="btn primary">Register Now</a>
     </nav>
   </div>
 </header>
@@ -257,7 +260,7 @@
 </section>
 
 
-<div class="powered-by">
+<div class="powered-by" style="background-color: #07111c;">
   <p>Powered by</p>
 
   <div class="logo-marquee">
@@ -301,11 +304,8 @@
 </div>
 
 <!-- PROGRAMS -->
-<section id="programs" class="programs-section" >
+<section id="programs" class="programs-section" style="background-color: #07111c;">
   <div class="container">
-    <div class="programs-title">
-      <h2 style="color: #0b0b0b;">Programs</h2>
-    </div>
     <div class="programs-grid">
      
       <!-- Program Card 1: iFUND -->
@@ -379,30 +379,34 @@
 </section>
 
 <!-- ABOUT US -->
-<div class="about-image-container" section id="about" style="background-color: #07111c;">
-  <img src="src/img/ABOUT.png" alt="About ASENXO" class="about-main-img">
-</div>
-
+<section id="about" class="about-image-container" style="background-color: #07111c;">
+  <video class="about-main-video" autoplay muted loop playsinline>
+    <source src="src/vid/about.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</section>
 
 <!-- DOWNLOAD (ASENXO Mobile App) -->
-<section id="download" class="download-section" style="background-color: #07111c;">
+<section id="download" class="download-section" style="background-color: #07111c; padding: 4rem 0;">
   <div class="container">
     <div class="download-wrapper">
+      <!-- Left Content -->
       <div class="download-content">
         <div class="services-title">
-          <h2>Download the ASENXO Mobile App</h2>
+          <h2 style="color: #ffffff;">Download the ASENXO Mobile App</h2>
         </div>
-        <p class="download-lead">Manage your business on the go. Apply for programs, track requirements, and receive real‑time notifications—all from your mobile device.</p>
+        <p class="download-lead">
+          Manage your business on the go. Apply for programs, track requirements, and receive real-time notifications—all from your mobile device.
+        </p>
         <div class="app-badges">
-          <a href="#" class="app-badge">
-            <img src="src/img/google-play-badge.png" alt="Get it on Google Play">
+          <a href="https://play.google.com/store/apps/details?id=YOUR_APP_ID" target="_blank">
+            <img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" class="app-badge">
           </a>
-          <a href="#" class="app-badge">
-            <img src="src/img/app-store-badge.png" alt="Download on the App Store">
-          </a>
+          <p class="note">Available for Android.</p>
         </div>
-        <p class="availability">Available for iOS and Android.</p>
       </div>
+
+      <!-- Right Mockup -->
       <div class="download-mockup">
         <img src="src/img/app-mockup.png" alt="ASENXO App Mockup" class="mockup-img">
       </div>
@@ -494,14 +498,50 @@
 
 
 
-
 <!-- FOOTER -->
-<footer>
+<footer class="main-footer">
+  <div class="container footer-container">
+
+    <!-- Column 1: Brand -->
+    <div class="footer-col brand-col">
+      <img src="src/img/logo-name.png" alt="ASENXO Logo" class="footer-logo">
+      <p class="footer-desc">
+        ASENXO is the official digital platform supporting DOST-SETUP 4.0,
+        empowering MSMEs in Region VI through innovation, automation,
+        and data-driven transformation.
+      </p>
+    </div>
+
+    <!-- Column 2: Quick Links -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#programs" class="footer-scroll">Programs</a></li>
+        <li><a href="#services" class="footer-scroll">Services</a></li>
+        <li><a href="#about" class="footer-scroll">About Us</a></li>
+        <li><a href="#contact" class="footer-scroll">Contact</a></li>
+        <li><a href="register-mock.php">Register</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 3: Programs -->
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#programs" class="footer-scroll">SETUP 4.0</a></li>
+        <li><a href="#programs" class="footer-scroll">iFUND</a></li>
+        <li><a href="#programs" class="footer-scroll">OneLab</a></li>
+        <li><a href="#programs" class="footer-scroll">OneExpert</a></li>
+        <li><a href="#programs" class="footer-scroll">Technology Consultancy</a></li>
+      </ul>
+    </div>
+
+  </div>
+
   <div class="footer-bottom">
-    <p>© 2025 Department of Science and Technology Region VI.</p>
+    <p>© 2025 Department of Science and Technology Region VI. All Rights Reserved.</p>
   </div>
 </footer>
-
 
 
 
@@ -699,6 +739,16 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-
+<script>
+document.querySelectorAll('.footer-scroll').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if(target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
 </body>
 </html>
