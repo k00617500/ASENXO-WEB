@@ -1,4 +1,4 @@
-<?php
+<!--<?php
 session_start();
 require_once 'config.php'; // Database connection
 
@@ -42,6 +42,8 @@ if (isset($_SESSION['reg_error'])) {
     unset($_SESSION['reg_error']);
 }
 ?>
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
