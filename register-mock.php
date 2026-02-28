@@ -298,20 +298,24 @@
                     return;
                 }
 
-                if (token !== pendingOtp) {
-                    showMessage('Invalid OTP. Please try again.', 'error');
-                    return;
-                }
-
                 const verifyBtn = document.getElementById('verifyOtpBtn');
                 verifyBtn.disabled = true;
                 verifyBtn.textContent = 'Verifying...';
 
                 try {
-                    // OTP is correct – you can now mark the user as verified in your database
-                    // For example, update a `verified` column in your profiles table.
-                    // You might need to call a backend endpoint to do that.
-                    // Since Supabase already created the user, you can just proceed.
+                    const response = await fetch('verify-otp.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: pendingEmail,
+                            otp: token,
+                            first_name: document.querySelector('input[name="first_name"]').value,
+                            last_name: document.querySelector('input[name="last_name"]').value,
+                            referral_code: document.querySelector('input[name="referral_code"]').value
+                        })
+                    });
+                    const data = await response.json();
+                    if (!data.success) throw new Error(data.error);
 
                     showMessage('✅ Email verified! Redirecting to login...', 'success');
                     form.reset();
