@@ -187,14 +187,16 @@
 
             // ---------- Send OTP via your backend (PHPMailer) ----------
             async function sendOtpEmail(email, otp) {
-                // FIXED: changed URL to match the actual PHP filename (underscore)
-                const response = await fetch('send_otp.php', {
+            const response = await fetch('send-otp.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, otp })
                 });
-                if (!response.ok) throw new Error('Failed to send OTP email');
-                return await response.json();
+                const data = await response.json();
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to send OTP email');
+                }
+                return data;
             }
 
             // ---------- Create OTP input section ----------
