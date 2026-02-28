@@ -281,3 +281,79 @@ body {
     background: var(--accent);
     color: white;
 }
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --form-success-bg: rgba(46, 204, 113, 0.15);
+    --form-success-color: #2ecc71;
+    --form-success-border: rgba(46, 204, 113, 0.3);
+    --form-error-bg: rgba(231, 76, 60, 0.15);
+    --form-error-color: #e74c3c;
+    --form-error-border: rgba(231, 76, 60, 0.3);
+    --otp-bg: #1a1a1a;
+    --otp-border: #333;
+    --otp-text: #fff;
+    --resend-color: #00ff91;
+}
+
+/* Form message styles */
+.form-message {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.form-message.success {
+    background-color: var(--form-success-bg);
+    color: var(--form-success-color);
+    border: 1px solid var(--form-success-border);
+    display: block;
+}
+
+.form-message.error {
+    background-color: var(--form-error-bg);
+    color: var(--form-error-color);
+    border: 1px solid var(--form-error-border);
+    display: block;
+}
+
+.otp-container {
+    margin-top: 1.5rem;
+}
+
+.otp-inputs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.otp-box {
+    width: 50px;
+    height: 60px;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 1px solid var(--otp-border);
+    border-radius: 8px;
+    background: var(--otp-bg);
+    color: var(--otp-text);
+}
+
+.resend-timer {
+    color: var(--resend-color);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.resend-timer.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}

@@ -8,17 +8,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/css/verify-style.css">
 </head>
-
 <body>
     <main class="verify-container">
         <div class="verify-card">
 
+            <!-- Back button (redirects to register-mock.php) -->
+            <a href="register-mock.php" class="back-link">
+                <i>←</i> Back
+            </a>
+
+            <!-- Logo (links to index.php) -->
             <a href="index.php" class="logo-link">
                 <img src="src/img/logo-name.png" alt="ASENXO Logo" class="logo-img">
             </a>
 
             <h1>OTP Verification</h1>
-            <p class="info-text">
+            <p class="info-text" id="email-info">
                 Enter the 6-digit verification code sent to your email.
             </p>
 
@@ -27,16 +32,60 @@
                 <div class="otp-inputs" id="otp-inputs"></div>
             </div>
 
+            <!-- Status message (confirmation, no OTP revealed) -->
+            <div class="status-message" id="status-message"></div>
+
             <!-- Action Buttons -->
             <div class="action-buttons">
                 <a href="register-mock.php" class="btn btn-cancel">Cancel</a>
                 <button id="verify-btn" class="btn btn-verify">Verify</button>
             </div>
 
+            <!-- Resend section with clickable underlined timer -->
+            <div class="resend-section">
+                Didn't get the code? 
+                <span class="resend-timer" id="resend-timer">Resend code in 59 seconds</span>
+            </div>
+
         </div>
     </main>
 
     <script>
+        // --- Get email from sessionStorage (set on registration page) ---
+        let userEmail = sessionStorage.getItem('userEmail');
+        if (!userEmail) {
+            // Fallback for demo 
+            userEmail = 'user@example.com';
+        }
+
+        let currentOTP = '';
+
+        // --- Generate a random 6-digit OTP ---
+        function generateOTP() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        function sendOtpToEmail(otp) {
+     
+            console.log(`[DEV] OTP for ${userEmail}: ${otp}`);
+
+            // Show a non‑revealing status message on the page
+            const statusDiv = document.getElementById('status-message');
+            statusDiv.textContent = `✅ A verification code has been sent to ${userEmail}.`;
+            statusDiv.style.display = 'block';
+
+            // Hide after 5 seconds
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // --- Initial "email send" on page load ---
+        (function init() {
+            currentOTP = generateOTP();
+            sendOtpToEmail(currentOTP);
+        })();
+
         // --- Create 6 OTP input boxes ---
         const otpContainer = document.getElementById('otp-inputs');
 
@@ -48,17 +97,14 @@
             input.setAttribute('inputmode', 'numeric');
             input.setAttribute('pattern', '[0-9]*');
 
-            // Allow only digits
             input.addEventListener('input', (e) => {
                 e.target.value = e.target.value.replace(/[^0-9]/g, '');
-
                 if (e.target.value.length === 1) {
                     const next = e.target.nextElementSibling;
                     if (next) next.focus();
                 }
             });
 
-            // Backspace to previous box
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Backspace' && !e.target.value) {
                     const prev = e.target.previousElementSibling;
@@ -82,10 +128,8 @@
                 alert('Please enter the complete 6-digit OTP.');
                 return;
             }
-n
-            const correctOTP = "123456"; 
 
-            if (enteredOTP === correctOTP) {
+            if (enteredOTP === currentOTP) {
                 window.location.href = "verified.php";
             } else {
                 alert("Invalid OTP. Please try again.");
@@ -94,7 +138,7 @@ n
             }
         });
 
-        // --- Allow Paste of 6-digit OTP ---
+        // --- Paste support ---
         otpContainer.addEventListener('paste', (e) => {
             e.preventDefault();
             const pasteData = (e.clipboardData || window.clipboardData).getData('text');
@@ -107,6 +151,44 @@ n
                 inputs[5].focus();
             }
         });
+
+        // --- RESEND TIMER with clickable link (always active) ---
+        (function() {
+            const timerSpan = document.getElementById('resend-timer');
+            let secondsLeft = 59;
+            let timerInterval = null;
+
+            function updateDisplay() {
+                timerSpan.textContent = `Resend code in ${secondsLeft} seconds`;
+            }
+
+            function startTimer() {
+                if (timerInterval) clearInterval(timerInterval);
+                secondsLeft = 59;
+                updateDisplay();
+
+                timerInterval = setInterval(() => {
+                    secondsLeft--;
+                    if (secondsLeft >= 0) {
+                        updateDisplay();
+                    }
+                    if (secondsLeft <= 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        timerSpan.textContent = "Resend code";
+                    }
+                }, 1000);
+            }
+
+            function resendCode() {
+                currentOTP = generateOTP();
+                sendOtpToEmail(currentOTP);
+                startTimer();
+            }
+
+            timerSpan.addEventListener('click', resendCode);
+            startTimer();
+        })();
     </script>
 </body>
 </html>

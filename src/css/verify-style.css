@@ -1,200 +1,196 @@
-
-
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+:root {
+    --bg-body: #0a0a0a;
+    --bg-card: #0e0e0e;
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --text-muted: #aaa;
+    --border-color: #2a2a2a;
+    --input-bg: #121212;
+    --input-border: #2a2a2a;
+    --accent: #00df8d;
+    --google-btn-bg: #1a1a1a;
+    --google-btn-border: #2a2a2a;
+    --divider-color: #555;
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--bg-body);
+    font-family: "Inter", sans-serif;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    margin: 0;
 }
 
+/* Main container */
 .verify-container {
     width: 100%;
-    max-width: 520px;
+    max-width: 480px;
+    margin: 0 auto;
 }
 
+/* Card */
 .verify-card {
-    background: white;
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    text-align: center;
+    background: var(--bg-card);
+    border-radius: 25px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    color: var(--text-primary);
+    position: relative;
 }
 
+/* Back link (top left) */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s;
+}
+.back-link:hover {
+    color: var(--accent);
+}
+.back-link i {
+    margin-right: 0.3rem;
+    font-style: normal;
+}
+
+/* Logo */
 .logo-link {
-    display: inline-block;
+    display: block;
+    text-align: center;
     margin-bottom: 1.5rem;
 }
-
 .logo-img {
-    height: 40px;
-    width: auto;
+    max-width: 180px;
+    height: auto;
 }
 
+/* Headings */
 h1 {
     font-size: 1.8rem;
-    font-weight: 700;
-    color: #2d3748;
-    margin-bottom: 0.5rem;
-}
-
-h2 {
-    font-size: 1.2rem;
     font-weight: 600;
-    color: #4a5568;
-    margin: 1.5rem 0 0.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+.info-text {
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
 }
 
-.info-text {
-    color: #718096;
-    font-size: 0.95rem;
-    line-height: 1.5;
+/* Status message (email sent confirmation) */
+.status-message {
+    background: rgba(0, 223, 141, 0.1);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 0.75rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    display: none; /* hidden by default */
+}
+
+/* OTP input section */
+.verify-input-section {
     margin-bottom: 1rem;
 }
-
-.qr-section {
-    margin: 1.5rem 0;
-}
-
-.qr-code {
-    display: flex;
-    justify-content: center;
-    margin: 1rem 0;
-}
-
-.qr-code img {
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 8px;
-    background: white;
-}
-
-.manual-secret {
-    background: #f7fafc;
-    border-radius: 12px;
-    padding: 1rem;
-    margin: 1rem 0;
-}
-
-.secret-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 0.5rem 1rem;
-    margin-top: 0.5rem;
-}
-
-.secret-box code {
-    font-family: monospace;
-    font-size: 1rem;
-    color: #2d3748;
-    letter-spacing: 1px;
-}
-
-.copy-btn {
-    background: #edf2f7;
-    border: none;
-    border-radius: 6px;
-    padding: 0.3rem 0.8rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #4a5568;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.copy-btn:hover {
-    background: #e2e8f0;
-}
-
-.email-code-info {
-    background: #ebf8ff;
-    border-radius: 12px;
-    padding: 1rem;
-    margin: 1.5rem 0;
-    color: #2c5282;
-}
-
-.email-code {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    margin-top: 0.5rem;
-}
-
 .otp-inputs {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
     justify-content: center;
-    margin: 1.5rem 0;
+    flex-wrap: wrap;
 }
-
 .otp-box {
-    width: 3rem;
+    width: 3.5rem;
     height: 3.5rem;
-    text-align: center;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+    color: var(--text-primary);
     font-size: 1.8rem;
     font-weight: 600;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    background: white;
-    color: #2d3748;
+    text-align: center;
     outline: none;
-    transition: border 0.2s;
+    transition: border 0.2s, box-shadow 0.2s;
 }
-
 .otp-box:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(0, 223, 141, 0.2);
+}
+.otp-box::-webkit-outer-spin-button,
+.otp-box::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.otp-box[type="text"] {
+    -moz-appearance: textfield;
 }
 
+/* Resend section */
+.resend-section {
+    text-align: center;
+    margin: 1.5rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+.resend-timer {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--accent);
+}
+.resend-timer:hover {
+    opacity: 0.8;
+}
+
+/* Action buttons */
 .action-buttons {
     display: flex;
     gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
-
 .btn {
-    padding: 0.75rem 2rem;
-    border-radius: 40px;
+    flex: 1;
+    padding: 0.9rem 1rem;
+    border-radius: 15px;
     font-weight: 600;
     font-size: 1rem;
-    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
     transition: all 0.2s;
     border: none;
-    cursor: pointer;
+    text-decoration: none;
     display: inline-block;
 }
-
 .btn-cancel {
-    background: #edf2f7;
-    color: #4a5568;
+    background: var(--google-btn-bg);
+    border: 1px solid var(--google-btn-border);
+    color: var(--text-primary);
 }
-
 .btn-cancel:hover {
-    background: #e2e8f0;
-}
-
-.btn-verify {
-    background: #667eea;
+    background: var(--accent);
     color: white;
-    box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+    border-color: var(--accent);
 }
-
+.btn-verify {
+    background: var(--text-primary);
+    color: var(--bg-card);
+    border: 1px solid transparent;
+}
 .btn-verify:hover {
-    background: #5a67d8;
-    transform: translateY(-1px);
+    background: var(--accent);
+    color: white;
 }
