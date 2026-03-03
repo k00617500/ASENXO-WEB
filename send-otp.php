@@ -1,6 +1,5 @@
 <?php
-// 1. Load PHPMailer - REQUIRED
-require 'vendor/autoload.php'; 
+require 'vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -16,11 +15,10 @@ if (empty($email) || empty($otp)) {
     exit;
 }
 
-// 2. Database Connection - UPDATE THESE VALUES
-$db_host = 'db.hmxrblblcpbikxkcwwni.supabase.co'; // Get this from Supabase Settings > Database
+$db_host = 'https://hmxrblblcpbikkxcwwni.supabase.co'; // Get this from Supabase Settings > Database
 $db_name = 'postgres';
 $db_user = 'postgres';
-$db_pass = 'YOUR_ACTUAL_DATABASE_PASSWORD'; // The password you set when creating the project
+$db_pass = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteHJibGJsY3BiaWtreGN3d25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODY0MDksImV4cCI6MjA4Nzg2MjQwOX0.qC4Lm2KbToc0f1syHpMWJmQqRhQTosNfFzBrfTXSWDw'; // The password you set when creating the project
 
 try {
     $pdo = new PDO("pgsql:host=$db_host;dbname=$db_name", $db_user, $db_pass, [

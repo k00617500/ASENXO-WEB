@@ -291,6 +291,7 @@
 
             // ---------- Verify OTP ----------
             async function verifyOtp() {
+
                 const otpBoxes = document.querySelectorAll('.otp-box');
                 const token = Array.from(otpBoxes).map(b => b.value).join('');
                 if (token.length !== 6) {
@@ -338,6 +339,7 @@
                     return;
                 }
 
+                const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
                 const email = document.querySelector('input[name="email"]').value;
                 const password = document.querySelector('input[name="password"]').value;
                 const firstName = document.querySelector('input[name="first_name"]').value;
@@ -365,16 +367,16 @@
                         }
                     });
 
-                    if (error) throw error;
+                    if (error) throw error; 
 
-                    const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-
+                    // Use './' to stay inside your project folder
                     const response = await fetch('./send-otp.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email: email, otp: generatedOtp })
+                        body: JSON.stringify({ 
+                            email: email, 
+                            otp: generatedOtp 
                     });
-
                     // Redirect to your waiting room
                     window.location.href = 'verification.php?email=' + encodeURIComponent(email);
 
