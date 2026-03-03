@@ -14,7 +14,7 @@ use PHPMailer\PHPMailer\Exception;
 $db_host = 'db.hmxrblblcpbikkxcwwni.supabase.co'; 
 $db_name = 'postgres';
 $db_user = 'postgres';
-$db_pass = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteHJibGJsY3BiaWtreGN3d25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODY0MDksImV4cCI6MjA4Nzg2MjQwOX0.qC4Lm2KbToc0f1syHpMWJmQqRhQTosNfFzBrfTXSWDw'; 
+$db_pass = 'qkoczbdhdfcmqnoi'; 
 $db_port = 5432;
 
 // 2. Get Input Data
