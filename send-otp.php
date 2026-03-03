@@ -15,7 +15,7 @@ $db_host = 'db.hmxrblblcpbikkxcwwni.supabase.co';
 $db_name = 'postgres';
 $db_user = 'postgres';
 $db_pass = 'qkoczbdhdfcmqnoi'; 
-$db_port = 5432;
+$db_port = 6543;
 
 // 2. Get Input Data
 $data = json_decode(file_get_contents('php://input'), true);
