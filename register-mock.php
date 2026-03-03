@@ -362,7 +362,7 @@
                         password,
                         options: { 
                             data: metadata,
-                            emailRedirectTo: 'http://localhost/dummy' 
+                            emailRedirectTo: 'http://localhost/' 
                         }
                     });
                     if (error) throw error;

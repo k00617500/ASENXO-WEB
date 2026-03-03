@@ -16,8 +16,8 @@ html{
     --text-secondary: #e0e0e0;
     --text-muted: #aaa;
     --input-bg: #121212;
-    --border-color: #2a2a2a;       
-    --accent: #00df8d;              
+    --input-border: #2a2a2a;
+    --accent: #00df8d;
     --google-btn-bg: #1a1a1a;
     --google-btn-border: #2a2a2a;
     --divider-color: #555;
@@ -44,12 +44,6 @@ body {
     justify-content: center;
     padding: 1rem;
     margin: 0;
-    animation: bodyFade 0.9s ease-out;
-}
-
-@keyframes bodyFade {
-    0% { background-color: #000; }
-    100% { background-color: #0a0a0a; }
 }
 
 .register-card {
@@ -59,25 +53,11 @@ body {
     width: 100%;
     background: var(--bg-card);
     border-radius: 25px;
-    padding: 0;
+    padding: 0;         
     overflow: hidden;
     margin: 0 auto;
     box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
-    animation: cardIntro 0.7s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-    transform-origin: center;
-    will-change: transform, opacity;
-}
-
-@keyframes cardIntro {
-    0% {
-        opacity: 0;
-        transform: translateY(30px) scale(0.98);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
 }
 
 .form-col {
@@ -85,10 +65,14 @@ body {
     color: var(--text-primary);
     padding: 2rem 2rem;
     width: 100%;
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: center; 
+    text-align: center;  
+}
+
+.mail-icon-wrapper {
+    margin-bottom: 1.5rem;
+    color: var(--accent); 
 }
 
 .verify-header {
@@ -96,7 +80,6 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-    width: 100%;
 }
 
 .back-link {
@@ -125,26 +108,11 @@ body {
     display: block;
 }
 
-.logo-link {
-    display: block;
-    text-decoration: none;
-}
-
-.mail-icon-wrapper {
-    margin-bottom: 1.5rem;
-    color: var(--accent);
-}
-.mail-icon-wrapper i {
-    font-size: 4rem; 
-    filter: drop-shadow(0 4px 8px rgba(0,223,141,0.2));
-}
-
-/* main heading */
 h2 {
     font-size: 1.9rem;
     font-weight: 600;
     line-height: 1.2;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.2rem;
     color: var(--text-primary);
 }
 
@@ -152,61 +120,69 @@ h2 {
     color: var(--text-secondary);
     font-size: 1rem;
     line-height: 1.5;
-    margin-bottom: 2rem;
-    max-width: 320px;
+    margin-bottom: 1rem;
 }
 
-.login-action {
-    margin-top: 1rem;
-    width: 100%;
-}
-
-.login-button {
-    display: inline-block;
-    background: var(--accent);
-    color: #ffffff;
-    font-weight: 700;
+.email-highlight {
+    font-weight: 600;
     font-size: 1.2rem;
-    padding: 0.9rem 2.2rem;
-    border-radius: 60px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-    box-shadow: 0 8px 20px rgba(0, 223, 141, 0.25);
-    letter-spacing: -0.01em;
-    width: auto;
-    min-width: 260px;
-    max-width: 100%;
-}
-
-.login-button:hover {
-    background: #00c27a;
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(0, 223, 141, 0.35);
-    color: #000;
-}
-
-.login-button:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 12px rgba(0, 223, 141, 0.4);
-}
-
-.footnote {
-    margin-top: 2rem;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    border-top: 1px solid var(--border-color);
-    padding-top: 1.5rem;
-    width: 100%;
-}
-.footnote a {
-    color: var(--text-secondary);
-    text-decoration: underline var(--accent) dotted;
-    text-underline-offset: 4px;
-    font-weight: 500;
-}
-.footnote a:hover {
     color: var(--accent);
+    background: rgba(0, 223, 141, 0.08);
+    padding: 0.75rem 1rem;
+    border-radius: 40px;
+    display: inline-block;
+    margin: 0.5rem 0 1.8rem 0;
+    border: 1px dashed var(--accent);
+    word-break: break-all;
+}
+
+.resend-section {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.resend-link {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1rem;
+}
+
+.resend-link:hover {
+    opacity: 0.8;
+    text-decoration: none;
+}
+
+
+.google-btn, .divider, .input-group, .password-checklist, .modal, .otp-container {
+    
+}
+
+
+.google-btn, .divider, .input-group, .password-checklist, .modal, .otp-container {
+    display: none;
+}
+.form-col > :not(.verify-header):not(h2):not(.description):not(.email-highlight):not(.resend-section) {
+  
+}
+
+
+.mail-icon-wrapper {
+    margin-bottom: 1.5rem;
+    color: var(--accent); 
+
 }
 
 @media (max-width: 480px) {
@@ -218,11 +194,6 @@ h2 {
     }
     .logo-text {
         font-size: 1.4rem;
-    }
-    .login-button {
-        font-size: 1rem;
-        padding: 0.75rem 1.5rem;
-        min-width: 220px;
     }
 }
 
