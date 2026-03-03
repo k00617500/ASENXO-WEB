@@ -352,8 +352,6 @@
                 signupBtn.disabled = true;
                 signupBtn.textContent = 'Creating account...';
 
-                // const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-
                 try {
                     // Build metadata object
                     const metadata = { first_name: firstName, last_name: lastName };
@@ -373,7 +371,7 @@
                        pendingEmail = email;
                         const otpCode = generateOtp(); 
 
-                        const response = await fetch('./send-otp.php', {
+                        const response = await fetch('send-otp.php', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ 
@@ -393,7 +391,7 @@
                             console.error("PHP Error Detail:", textError);
                             throw new Error("Server Error: PHP returned HTML. Check Console (F12) > Errors.");
                         }
-                        
+
                         window.location.href = 'verification.php?email=' + encodeURIComponent(email);
 
                     } catch (err) {
