@@ -52,51 +52,54 @@
 </div>
 
 <script>
-    const form = document.getElementById('registrationForm');
-    const msgDiv = document.getElementById('message');
-    const btn = document.getElementById('submitBtn');
+    const otpBoxes = document.querySelectorAll('.otp-box');
+    const finishBtn = document.getElementById('finishBtn');
+    const message = document.getElementById('formMessage');
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    // Auto-focus logic for the 6 boxes
+    otpBoxes.forEach((box, idx) => {
+        box.addEventListener('input', (e) => {
+            if (e.target.value.length === 1 && idx < 5) otpBoxes[idx + 1].focus();
+        });
+        box.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !e.target.value && idx > 0) otpBoxes[idx - 1].focus();
+        });
+    });
+
+    finishBtn.addEventListener('click', async () => {
+        const code = Array.from(otpBoxes).map(b => b.value).join('');
         
-        // Reset UI
-        msgDiv.className = '';
-        msgDiv.textContent = 'Processing...';
-        msgDiv.style.display = 'block';
-        btn.disabled = true;
+        if (code.length < 6) {
+            message.innerText = "Please enter the full 6-digit code.";
+            message.style.color = "#ff4d4d";
+            return;
+        }
 
-        const formData = {
-            email: document.getElementById('email').value,
-            otp: document.getElementById('otp').value,
-            first_name: document.getElementById('first_name').value,
-            last_name: document.getElementById('last_name').value,
-            referral_code: document.getElementById('referral_code').value
-        };
+        finishBtn.disabled = true;
+        finishBtn.textContent = "Verifying...";
 
         try {
-            // REPLACE 'your_script_name.php' with the actual filename of your PHP code
-            const response = await fetch('verify-otp.php', {
+            // We fetch our backend logic file 'verify-otp.php'
+            const response = await fetch('./verify-otp.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({ otp: code })
             });
 
             const result = await response.json();
 
             if (result.success) {
-                msgDiv.className = 'success';
-                msgDiv.textContent = 'Registration successful! Redirecting...';
-                form.reset();
-                // Optional: window.location.href = '/dashboard';
+                message.style.color = "#28a745";
+                message.innerText = "Account activated! Redirecting to login...";
+                setTimeout(() => window.location.href = 'login-mock.php', 2000);
             } else {
-                msgDiv.className = 'error';
-                msgDiv.textContent = result.error || 'An unknown error occurred.';
+                throw new Error(result.error || "Invalid verification code.");
             }
         } catch (err) {
-            msgDiv.className = 'error';
-            msgDiv.textContent = 'Connection failed. Please check your server.';
-        } finally {
-            btn.disabled = false;
+            message.style.color = "#ff4d4d";
+            message.innerText = err.message;
+            finishBtn.disabled = false;
+            finishBtn.textContent = "Complete Registration";
         }
     });
 </script>
