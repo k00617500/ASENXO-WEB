@@ -181,7 +181,6 @@
             }
 
             // ---------- Generate random 6-digit OTP ----------
-            // const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
             // function generatedOtp() {
             //    return Math.floor(100000 + Math.random() * 900000).toString();
             // }
@@ -353,7 +352,7 @@
                 signupBtn.disabled = true;
                 signupBtn.textContent = 'Creating account...';
 
-                const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+                // const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
 
                 try {
                     // Build metadata object
@@ -372,11 +371,8 @@
                     if (error) throw error;
 
                         pendingEmail = email;
-                        const otp = generatedOtp(
-                            Math.floor(100000 + Math.random() * 900000).toString();
-                        );
+                        const otp = generatedOtp();
 
-                        // Change 'send-otp.php' to './send-otp.php'
                         const response = await fetch('./send-otp.php', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
