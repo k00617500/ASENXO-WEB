@@ -114,7 +114,7 @@
                     formMessage.className = 'form-message success';
                     formMessage.textContent = 'Login successful! Redirecting...';
                     setTimeout(() => {
-                        window.location.href = 'ASENXO-WEB\msme-home.php'; // or your desired landing page
+                        window.location.href = 'msme-home.php'; // or your desired landing page
                     }, 1500);
                 } catch (err) {
                     formMessage.className = 'form-message error';
