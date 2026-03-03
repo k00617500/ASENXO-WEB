@@ -386,7 +386,7 @@
                             })
                         });
 
-                        /* const contentType = response.headers.get("content-type");
+                        const contentType = response.headers.get("content-type");
                         if (contentType && contentType.indexOf("application/json") !== -1) {
                             const data = await response.json();
                             if (!data.success) throw new Error(data.error || 'Failed to send OTP');
@@ -395,7 +395,7 @@
                             console.error("Server returned HTML instead of JSON:", textError);
                             throw new Error("Server Error: Check your PHP logs or Network tab.");
                         }
- */
+
                         window.location.href = 'verification.php?email=' + encodeURIComponent(email);
 
                     } catch (err) {
