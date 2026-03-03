@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
+// Disable raw error output to prevent the "Unexpected token <" error
 error_reporting(0); 
 ini_set('display_errors', 0);
 
@@ -9,12 +10,14 @@ require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-
-$db_host = 'https://hmxrblblcpbikkxcwwni.supabase.co'; // Get this from Supabase Settings > Database
+// 1. Connection Details - Host must NOT include 'https://'
+$db_host = 'db.hmxrblblcpbikkxcwwni.supabase.co'; 
 $db_name = 'postgres';
 $db_user = 'postgres';
-$db_pass = 'qkoczbdhdfcmqnoi';
+$db_pass = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteHJibGJsY3BiaWtreGN3d25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODY0MDksImV4cCI6MjA4Nzg2MjQwOX0.qC4Lm2KbToc0f1syHpMWJmQqRhQTosNfFzBrfTXSWDw'; 
+$db_port = 5432;
 
+// 2. Get Input Data
 $data = json_decode(file_get_contents('php://input'), true);
 $email = trim($data['email'] ?? '');
 $otp   = trim($data['otp'] ?? '');
@@ -24,25 +27,14 @@ if (empty($email) || empty($otp)) {
     exit;
 }
 
-
-// 4. Attempt Connection
-$conn = mysqli_connect($host, $user, $pass, $db, $port);
-
-// --- INSERT THIS PART HERE ---
-if (!$conn) {
-    echo json_encode([
-        "success" => false, 
-        "error" => "Database connection failed: " . mysqli_connect_error()
-    ]);
-    exit; // Stop the script here so it doesn't try to send an email
-}
-// -----------------------------
-
 try {
-    $pdo = new PDO("pgsql:host=$db_host;dbname=$db_name", $db_user, $db_pass, [
+    // 3. Database Connection (PostgreSQL)
+    $dsn = "pgsql:host=$db_host;port=$db_port;dbname=$db_name";
+    $pdo = new PDO($dsn, $db_user, $db_pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ]);
 
+    // 4. Save/Update OTP in Database
     $stmt = $pdo->prepare("
         INSERT INTO email_verifications (email, otp, expires_at)
         VALUES (:email, :otp, NOW() + INTERVAL '10 minutes')
@@ -50,20 +42,14 @@ try {
         SET otp = EXCLUDED.otp, expires_at = EXCLUDED.expires_at
     ");
     $stmt->execute(['email' => $email, 'otp' => $otp]);
-} catch (PDOException $e) {
-    echo json_encode(['success' => false, 'error' => 'Database connection failed']);
-    exit;
-}
 
-// 3. Send Email
-$mail = new PHPMailer(true);
-
-try {
+    // 5. Send Email via PHPMailer
+    $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'dost.asenxo@gmail.com';
-    $mail->Password   = 'qkoczbdhdfcmqnoi'; // Gmail App Password
+    $mail->Password   = 'qkoczbdhdfcmqnoi'; 
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
@@ -75,6 +61,10 @@ try {
 
     $mail->send();
     echo json_encode(['success' => true]);
+
+} catch (PDOException $e) {
+    echo json_encode(['success' => false, 'error' => 'Database error: ' . $e->getMessage()]);
 } catch (Exception $e) {
-    echo json_encode(['success' => false, 'error' => $mail->ErrorInfo]);
+    echo json_encode(['success' => false, 'error' => 'Mailer error: ' . $mail->ErrorInfo]);
 }
+?>
