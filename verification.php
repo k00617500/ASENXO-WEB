@@ -1,5 +1,4 @@
 <?php
-// verification.php
 session_start();
 $email = $_GET['email'] ?? '';
 if (empty($email)) {
@@ -52,7 +51,7 @@ if (empty($email)) {
             gap: 8px;
             transition: color 0.3s;
         }
-        .back-link:hover { color: #e2b974; }
+        .back-link:hover { color: #00df8d; }
         .logo-img { height: 30px; }
         .mail-icon {
             width: 80px;
@@ -63,7 +62,7 @@ if (empty($email)) {
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            color: #e2b974;
+            color: #00df8d;
             font-size: 40px;
         }
         h2 {
@@ -83,7 +82,7 @@ if (empty($email)) {
             background: #1a1a1a;
             padding: 15px;
             border-radius: 12px;
-            color: #e2b974;
+            color: #00df8d;
             font-weight: 500;
             margin-bottom: 30px;
             word-break: break-all;
@@ -107,12 +106,12 @@ if (empty($email)) {
             transition: border-color 0.3s;
         }
         .otp-box:focus {
-            border-color: #e2b974;
+            border-color: #00df8d;
             outline: none;
         }
         .verify-btn {
             width: 100%;
-            background: #e2b974;
+            background: #00df8d;
             color: #000;
             border: none;
             padding: 15px;
@@ -135,7 +134,7 @@ if (empty($email)) {
         .resend-link {
             background: none;
             border: none;
-            color: #e2b974;
+            color: #22c55e;
             cursor: pointer;
             font-size: 14px;
             text-decoration: underline;
@@ -252,7 +251,6 @@ if (empty($email)) {
             verificationMessage.innerHTML = text;
         }
 
-        // Timer Logic
         function updateTimer() {
             timerText.textContent = `Resend code in ${seconds} seconds`;
             resendBtn.disabled = true;
@@ -274,7 +272,6 @@ if (empty($email)) {
             }, 1000);
         }
 
-        // OTP Input Focus Logic
         otpBoxes.forEach((box, idx) => {
             box.addEventListener('input', (e) => {
                 e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -285,7 +282,6 @@ if (empty($email)) {
             });
         });
 
-        // VERIFY OTP LOGIC
         async function verifyOtp() {
     const enteredOtp = Array.from(otpBoxes).map(b => b.value).join('');
     if (enteredOtp.length !== 6) {
@@ -297,7 +293,6 @@ if (empty($email)) {
     verifyBtn.textContent = 'Verifying...';
 
     try {
-        // QUERY THE DATABASE INSTEAD OF SESSION STORAGE
         const { data: record, error: fetchError } = await supabase
             .from('email_verifications')
             .select('*')
@@ -309,14 +304,12 @@ if (empty($email)) {
         }
 
         if (enteredOtp === record.otp) {
-            // SUCCESS: Update user profile status
             await supabase.from('user_profiles').update({ email_verified: true }).eq('email', email);
             await supabase.from('email_verifications').delete().eq('email', email);
             
             showMessage('✅ Verified! Redirecting...', 'success');
             setTimeout(() => window.location.href = 'login-mock.php?verified=true', 2000);
         } else {
-            // Update attempts in DB
             await supabase.from('email_verifications')
                 .update({ attempts: (record.attempts || 0) + 1 })
                 .eq('email', email);
@@ -328,7 +321,6 @@ if (empty($email)) {
         verifyBtn.textContent = 'Verify Email';
     }
 }
-        // RESEND OTP LOGIC (The new part)
         async function resendOtp() {
             resendBtn.disabled = true;
             try {
@@ -341,7 +333,6 @@ if (empty($email)) {
 
                 if (error) throw error;
                 
-                // Note: Ensure your send-otp.php is set up to handle this POST request
                 fetch('send-otp.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -356,7 +347,6 @@ if (empty($email)) {
             }
         }
 
-        // Init
         resetTimer();
         verifyBtn.addEventListener('click', verifyOtp);
         resendBtn.addEventListener('click', resendOtp);

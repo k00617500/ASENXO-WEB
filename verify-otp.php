@@ -1,5 +1,4 @@
 <?php
-// verify-otp.php
 header('Content-Type: application/json');
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
@@ -9,15 +8,12 @@ require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Supabase Database Connection - UPDATE THESE VALUES
 $db_host = 'aws-1-ap-southeast-2.pooler.supabase.com';
 $db_port = 6543;
 $db_name = 'postgres';
 $db_user = 'postgres.hmxrblblcpbikkxcwwni';
 $db_pass = 'qkoczbdhdfcmqnoi';
-// old pass > qkoczbdhdfcmqnoi
 
-// Get input data
 $data = json_decode(file_get_contents('php://input'), true);
 $email = trim($data['email'] ?? '');
 $otp = trim($data['otp'] ?? '');
@@ -31,17 +27,14 @@ if (empty($email) || empty($otp)) {
 }
 
 try {
-    // Connect to Supabase PostgreSQL
     $dsn = "pgsql:host=$db_host;port=$db_port;dbname=$db_name;sslmode=require";
     $pdo = new PDO($dsn, $db_user, $db_pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
     ]);
 
-    // Start transaction
     $pdo->beginTransaction();
 
-    // Check if OTP exists and is valid
     $stmt = $pdo->prepare("
         SELECT * FROM email_verifications 
         WHERE email = :email 
@@ -53,7 +46,6 @@ try {
     $verification = $stmt->fetch();
 
     if (!$verification) {
-        // Increment attempts
         $pdo->prepare("
             UPDATE email_verifications 
             SET attempts = attempts + 1 
@@ -65,12 +57,8 @@ try {
         exit;
     }
 
-    // Delete used OTP
     $pdo->prepare("DELETE FROM email_verifications WHERE email = :email")->execute(['email' => $email]);
 
-    // Get user from auth.users and insert/update user_profiles
-    // Note: You'll need to get the user ID from Supabase Auth
-    // For now, we'll create/update the profile
     $stmt = $pdo->prepare("
         INSERT INTO user_profiles (id, email, first_name, last_name, referral_code, email_verified)
         VALUES (
@@ -98,7 +86,6 @@ try {
 
     $pdo->commit();
 
-    // Send welcome email
     try {
         $mail = new PHPMailer(true);
         $mail->isSMTP();
@@ -145,7 +132,6 @@ try {
         ";
         $mail->send();
     } catch (Exception $e) {
-        // Log welcome email error but don't fail verification
         error_log("Welcome email failed: " . $e->getMessage());
     }
 

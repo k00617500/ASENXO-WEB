@@ -56,7 +56,6 @@
     const finishBtn = document.getElementById('finishBtn');
     const message = document.getElementById('formMessage');
 
-    // Auto-focus logic for the 6 boxes
     otpBoxes.forEach((box, idx) => {
         box.addEventListener('input', (e) => {
             if (e.target.value.length === 1 && idx < 5) otpBoxes[idx + 1].focus();
@@ -79,7 +78,6 @@
         finishBtn.textContent = "Verifying...";
 
         try {
-            // We fetch our backend logic file 'verify-otp.php'
             const response = await fetch('./verify-otp.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

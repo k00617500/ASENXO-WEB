@@ -1,5 +1,4 @@
 <?php
-// register-mock.php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -98,7 +97,6 @@ session_start();
         </div>
     </main>
 
-    <!-- Terms Modal -->
     <div id="termsModal" class="modal">
         <div class="modal-content">
             <h4 style="color: #e2b974; margin-bottom: 20px;">Terms and Conditions</h4>
@@ -122,7 +120,6 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
     (function() {
-        // Supabase client - CORRECT URL
         const SUPABASE_URL = 'https://hmxrblblcpbikkxcwwni.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteHJibGJsY3BiaWtreGN3d25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODY0MDksImV4cCI6MjA4Nzg2MjQwOX0.qC4Lm2KbToc0f1syHpMWJmQqRhQTosNfFzBrfTXSWDw';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
@@ -134,7 +131,6 @@ session_start();
             }
             });;
 
-        // DOM elements
         const form = document.getElementById('registerForm');
         const signupBtn = document.getElementById('signupBtn');
         const formMessage = document.getElementById('formMessage');
@@ -145,7 +141,6 @@ session_start();
         const modal = document.getElementById('termsModal');
         const closeBtn = document.getElementById('closeModal');
 
-        // Password toggle
         if (toggleBtn && passwordInput && toggleIcon) {
             toggleBtn.addEventListener('click', () => {
                 const type = passwordInput.type === 'password' ? 'text' : 'password';
@@ -155,7 +150,6 @@ session_start();
             });
         }
 
-        // Terms modal
         if (termsLink) {
             termsLink.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -165,7 +159,6 @@ session_start();
         if (closeBtn) closeBtn.addEventListener('click', () => modal.style.display = 'none');
         window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
 
-        // Password Checklist
         const password = document.getElementById("password");
         const checklist = document.getElementById("passwordChecklist");
         if (password && checklist) {
@@ -195,18 +188,15 @@ session_start();
             });
         }
 
-        // Helper: show message
         function showMessage(text, type = 'success') {
             formMessage.className = `form-message ${type}`;
             formMessage.innerHTML = text;
         }
 
-        // Generate random 6-digit OTP
         function generateOtp() {
             return Math.floor(100000 + Math.random() * 900000).toString();
         }
 
-        // Handle form submit
    form.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -225,7 +215,6 @@ session_start();
     signupBtn.textContent = 'Creating account...';
 
     try {
-        // 1. Register with Supabase Auth
         const { data, error: authError } = await supabase.auth.signUp({
             email,
             password,
@@ -236,11 +225,9 @@ session_start();
 
         if (authError) throw authError;
 
-        // 2. Generate OTP and Expiry
         const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
         const expiresAt = new Date(Date.now() + 10 * 60000).toISOString();
 
-        // 3. Store in Database (Crucial for verification.php)
         const { error: dbError } = await supabase
             .from('email_verifications')
             .upsert({ 
@@ -252,7 +239,6 @@ session_start();
 
         if (dbError) throw dbError;
 
-        // 4. Send the Email via PHP
         try {
             await fetch('send-otp.php', {
                 method: 'POST',
@@ -267,10 +253,8 @@ session_start();
             console.warn('Email fetch failed, but code is in DB.');
         }
 
-        // 5. Update UI (Green box, No Modal)
         showMessage('✅ Email Sent! Please check your Email.', 'success');
         
-        // 6. Redirect after short delay
         setTimeout(() => {
             window.location.href = 'verification.php?email=' + encodeURIComponent(email);
         }, 2000);

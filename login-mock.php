@@ -1,5 +1,4 @@
 <?php
-// login-mock.php
 session_start();
 $verified = $_GET['verified'] ?? false;
 ?>
@@ -97,7 +96,6 @@ $verified = $_GET['verified'] ?? false;
             const pwdInput = document.getElementById('password');
             const toggleIcon = document.getElementById('toggleIcon');
 
-            // Password toggle
             if (toggleBtn && pwdInput && toggleIcon) {
                 toggleBtn.addEventListener('click', () => {
                     const type = pwdInput.type === 'password' ? 'text' : 'password';
@@ -107,7 +105,6 @@ $verified = $_GET['verified'] ?? false;
                 });
             }
 
-            // Handle login
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const email = document.getElementById('email').value;
@@ -150,7 +147,6 @@ $verified = $_GET['verified'] ?? false;
                 }
             });
 
-            // Google login
             document.getElementById('googleLogin').addEventListener('click', async () => {
                 const { error } = await supabase.auth.signInWithOAuth({ 
                     provider: 'google',
@@ -161,7 +157,6 @@ $verified = $_GET['verified'] ?? false;
                 if (error) console.error(error);
             });
 
-            // Forgot password
             document.getElementById('forgotPassword').addEventListener('click', (e) => {
                 e.preventDefault();
                 const email = prompt('Enter your email address to reset your password:');
