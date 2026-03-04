@@ -88,5 +88,33 @@
         </div>
     </div>
     <!-- fixed: removed stray closing tag </a> that was outside body -->
+     <script>
+        // In verification.php, update verifyOtp function
+            async function verifyOtp() {
+                const token = Array.from(otpBoxes).map(b => b.value).join('');
+                if (token.length !== 6) {
+                    showMessage('Please enter the complete 6-digit code.', 'error');
+                    return;
+                }
+
+                // Get stored OTP from session
+                const storedOtp = sessionStorage.getItem('pending_otp');
+                const storedEmail = sessionStorage.getItem('pending_email');
+
+                if (token === storedOtp) {
+                    showMessage('✅ Email verified successfully! Redirecting...', 'success');
+                    
+                    // Clear session
+                    sessionStorage.removeItem('pending_otp');
+                    sessionStorage.removeItem('pending_email');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'login-mock.php?verified=true';
+                    }, 2000);
+                } else {
+                    showMessage('Invalid verification code.', 'error');
+                }
+            }
+     </script>
 </body>
 </html>

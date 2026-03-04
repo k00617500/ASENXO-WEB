@@ -232,7 +232,19 @@ session_start();
                     // Generate OTP
                     const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
 
-                    // Send OTP email
+                    // Store in session storage
+                    sessionStorage.setItem('pending_email', email);
+                    sessionStorage.setItem('pending_otp', generatedOtp);
+                    sessionStorage.setItem('pending_first_name', firstName);
+                    sessionStorage.setItem('pending_last_name', lastName);
+                    
+                    // Show OTP in alert for testing
+                    alert(`Your verification code is: ${generatedOtp}\n\n(This is for testing - in production, this would be sent via email)`);
+                    
+                    // Redirect to verification
+                    window.location.href = 'verification.php?email=' + encodeURIComponent(email);
+
+                    /* // Send OTP email
                     const response = await fetch('send-otp.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -242,9 +254,9 @@ session_start();
                             firstName: firstName,
                             lastName: lastName
                         })
-                    });
+                    }); */
 
-                    const mailResult = await response.json();
+                    /* const mailResult = await response.json();
 
                     if (mailResult.success) {
                         // Store registration data in session storage for verification page
@@ -260,7 +272,7 @@ session_start();
                         window.location.href = 'verification.php?email=' + encodeURIComponent(email);
                     } else {
                         throw new Error(mailResult.error || 'Failed to send verification email.');
-                    }
+                    } */
 
                 } catch (err) {
                     showMessage(err.message, 'error');
