@@ -1,7 +1,8 @@
 <?php
 // send-otp.php
 header('Content-Type: application/json');
-error_reporting(0);
+// Enable error reporting for debugging, but catch it in the JSON response
+error_reporting(E_ALL);
 ini_set('display_errors', 0);
 
 require 'vendor/autoload.php';
@@ -9,20 +10,18 @@ require 'vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Get input data
+// Get input data from the JavaScript fetch request
 $data = json_decode(file_get_contents('php://input'), true);
 $email = trim($data['email'] ?? '');
 $otp = trim($data['otp'] ?? '');
 $firstName = trim($data['firstName'] ?? 'User');
-$lastName = trim($data['lastName'] ?? '');
 
 if (empty($email) || empty($otp)) {
-    echo json_encode(['success' => false, 'error' => 'Missing email or OTP']);
+    echo json_encode(['success' => false, 'error' => 'Missing email or OTP data.']);
     exit;
 }
 
 try {
-    // Send email via PHPMailer
     $mail = new PHPMailer(true);
     
     // Server settings
@@ -30,63 +29,47 @@ try {
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'dost.asenxo@gmail.com';
-    $mail->Password   = 'qkoczbdhdfcmqnoi'; // Use App Password if 2FA is enabled
+    $mail->Password   = 'qkoczbdhdfcmqnoi'; 
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
-    $mail->Timeout    = 30;
 
     // Recipients
     $mail->setFrom('dost.asenxo@gmail.com', 'ASENXO');
-    $mail->addAddress($email, "$firstName $lastName");
-    $mail->addReplyTo('support@asenxo.com', 'ASENXO Support');
+    $mail->addAddress($email);
 
     // Content
     $mail->isHTML(true);
-    $mail->Subject = 'Verify Your ASENXO Account';
+    $mail->Subject = "Your ASENXO Verification Code: $otp";
     
-    // Build verification link
+    // Build the link back to your verification page
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
-    $verificationLink = $protocol . $_SERVER['HTTP_HOST'] . '/THS/ASENXO-WEB/verification.php?email=' . urlencode($email);
+    $host = $_SERVER['HTTP_HOST'];
+    // Adjust this path if your folder name is different
+    $verificationLink = $protocol . $host . '/THS/ASENXO-WEB/verification.php?email=' . urlencode($email);
     
-    // Simple HTML email template
     $mail->Body = "
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #e2b974; color: #000; padding: 20px; text-align: center; }
-            .otp-code { font-size: 32px; font-weight: bold; color: #e2b974; text-align: center; padding: 20px; }
-        </style>
-    </head>
-    <body>
-        <div class='container'>
-            <div class='header'>
-                <h2>Welcome to ASENXO, " . htmlspecialchars($firstName) . "!</h2>
-            </div>
-            <p>Thank you for registering. Your verification code is:</p>
-            <div class='otp-code'>" . $otp . "</div>
-            <p>This code expires in 10 minutes.</p>
-            <p>Click this link to verify: <a href='" . $verificationLink . "'>Verify Email</a></p>
+    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px; overflow: hidden;'>
+        <div style='background: #e2b974; color: #000; padding: 20px; text-align: center;'>
+            <h2>Welcome to ASENXO, " . htmlspecialchars($firstName) . "!</h2>
         </div>
-    </body>
-    </html>
-    ";
-    
-    // Plain text alternative
-    $mail->AltBody = "Welcome to ASENXO, $firstName!\n\nYour verification code is: $otp\n\nClick here to verify: $verificationLink\n\nThis code expires in 10 minutes.";
+        <div style='padding: 30px; text-align: center;'>
+            <p style='font-size: 16px; color: #555;'>Your 6-digit verification code is:</p>
+            <h1 style='font-size: 48px; letter-spacing: 10px; color: #e2b974; margin: 20px 0;'>$otp</h1>
+            <p style='color: #888;'>This code will expire in 10 minutes.</p>
+            <div style='margin-top: 30px;'>
+                <a href='$verificationLink' style='background: #000; color: #fff; padding: 15px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;'>Verify Email Now</a>
+            </div>
+        </div>
+    </div>";
+
+    $mail->AltBody = "Welcome to ASENXO! Your verification code is: $otp. Link: $verificationLink";
 
     $mail->send();
-    
-    // Return success even if email fails (for testing)
-    echo json_encode(['success' => true, 'message' => 'OTP sent successfully']);
+    echo json_encode(['success' => true, 'message' => 'Email sent successfully']);
 
 } catch (Exception $e) {
-    // Log the error but still return success for testing
-    error_log("Mailer error in send-otp.php: " . $e->getMessage());
-    
-    // For testing purposes, return success anyway so the flow continues
-    echo json_encode(['success' => true, 'warning' => 'Email sending failed, but continuing with session storage']);
+    echo json_encode([
+        'success' => false, 
+        'error' => 'Mailer Error: ' . $mail->ErrorInfo
+    ]);
 }
-?>
