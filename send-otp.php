@@ -68,7 +68,7 @@ try {
             <p>Thank you for registering. Your verification code is:</p>
             <div class='otp-code'>" . $otp . "</div>
             <p>This code expires in 10 minutes.</p>
-            <p>Or click this link to verify: <a href='" . $verificationLink . "'>Verify Email</a></p>
+            <p>Click this link to verify: <a href='" . $verificationLink . "'>Verify Email</a></p>
         </div>
     </body>
     </html>

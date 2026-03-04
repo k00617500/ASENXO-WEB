@@ -221,201 +221,133 @@ if (empty($email)) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        (function() {
-            const SUPABASE_URL = 'https://hmxrblblcpbikkxcwwni.supabase.co';
-            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteHJibGJsY3BiaWtreGN3d25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODY0MDksImV4cCI6MjA4Nzg2MjQwOX0.qC4Lm2KbToc0f1syHpMWJmQqRhQTosNfFzBrfTXSWDw';
-            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+<script>
+    (function() {
+        const SUPABASE_URL = 'https://hmxrblblcpbikkxcwwni.supabase.co';
+        const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            // Get email from URL or session
-            const urlParams = new URLSearchParams(window.location.search);
-            const email = urlParams.get('email') || sessionStorage.getItem('pending_email');
-            
-            if (!email) {
-                window.location.href = 'register-mock.php';
-            }
+        const urlParams = new URLSearchParams(window.location.search);
+        const email = "<?php echo $email; ?>";
+        
+        const otpBoxes = document.querySelectorAll('.otp-box');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const resendBtn = document.getElementById('resendBtn');
+        const timerText = document.getElementById('timerText');
+        const verificationMessage = document.getElementById('verificationMessage');
 
-            // DOM elements
-            const displayEmail = document.getElementById('displayEmail');
-            const otpBoxes = document.querySelectorAll('.otp-box');
-            const verifyBtn = document.getElementById('verifyBtn');
-            const resendBtn = document.getElementById('resendBtn');
-            const timerText = document.getElementById('timerText');
-            const verificationMessage = document.getElementById('verificationMessage');
+        let resendTimerInterval = null;
+        let seconds = 59;
 
-            // Display email
-            if (displayEmail) displayEmail.textContent = email;
+        function showMessage(text, type = 'success') {
+            verificationMessage.className = `form-message ${type}`;
+            verificationMessage.innerHTML = text;
+        }
 
-            // State
-            let resendTimerInterval = null;
-            const RESEND_COOLDOWN = 59;
-            let seconds = RESEND_COOLDOWN;
+        // Timer Logic
+        function updateTimer() {
+            timerText.textContent = `Resend code in ${seconds} seconds`;
+            resendBtn.disabled = true;
+        }
 
-            // OTP input handling
-            otpBoxes.forEach((box, idx) => {
-                box.addEventListener('input', (e) => {
-                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                    if (e.target.value.length === 1 && idx < 5) {
-                        otpBoxes[idx + 1].focus();
-                    }
-                });
-
-                box.addEventListener('keydown', (e) => {
-                    if (e.key === 'Backspace' && !e.target.value && idx > 0) {
-                        otpBoxes[idx - 1].focus();
-                    }
-                });
-
-                box.addEventListener('paste', (e) => {
-                    e.preventDefault();
-                    const paste = (e.clipboardData || window.clipboardData).getData('text');
-                    if (/^\d{6}$/.test(paste)) {
-                        otpBoxes.forEach((box, i) => box.value = paste[i]);
-                        otpBoxes[5].focus();
-                    }
-                });
-            });
-
-            // Timer functions
-            function updateTimer() {
-                timerText.textContent = `Resend code in ${seconds} seconds`;
-                resendBtn.disabled = true;
-            }
-
-            function resetTimer() {
-                if (resendTimerInterval) clearInterval(resendTimerInterval);
-                seconds = RESEND_COOLDOWN;
-                updateTimer();
-
-                resendTimerInterval = setInterval(() => {
-                    seconds--;
-                    if (seconds <= 0) {
-                        clearInterval(resendTimerInterval);
-                        resendTimerInterval = null;
-                        timerText.textContent = 'Ready to resend';
-                        resendBtn.disabled = false;
-                    } else {
-                        updateTimer();
-                    }
-                }, 1000);
-            }
-
-            // Start timer
-            resetTimer();
-
-            // Show message function
-            function showMessage(text, type = 'success') {
-                verificationMessage.className = `form-message ${type}`;
-                verificationMessage.innerHTML = text;
-            }
-
-            // Verify OTP
-            async function verifyOtp() {
-                const token = Array.from(otpBoxes).map(b => b.value).join('');
-                if (token.length !== 6) {
-                    showMessage('Please enter the complete 6-digit code.', 'error');
-                    return;
-                }
-
-                verifyBtn.disabled = true;
-                verifyBtn.textContent = 'Verifying...';
-
-                try {
-                    // Get stored OTP from session
-                    const storedOtp = sessionStorage.getItem('pending_otp');
-                    const storedEmail = sessionStorage.getItem('pending_email');
-
-                    if (!storedOtp || !storedEmail) {
-                        throw new Error('Session expired. Please register again.');
-                    }
-
-                    if (email !== storedEmail) {
-                        throw new Error('Email mismatch. Please register again.');
-                    }
-
-                    if (token === storedOtp) {
-                        showMessage('✅ Email verified successfully! Redirecting...', 'success');
-                        
-                        // Update user metadata in Supabase
-                        try {
-                            const { error: updateError } = await supabase.auth.updateUser({
-                                data: { email_verified: true }
-                            });
-                            if (updateError) console.warn('Meta update warning:', updateError);
-                        } catch (updateErr) {
-                            console.warn('Could not update user meta:', updateErr);
-                        }
-
-                        // Clear session
-                        sessionStorage.removeItem('pending_email');
-                        sessionStorage.removeItem('pending_otp');
-                        sessionStorage.removeItem('pending_first_name');
-                        sessionStorage.removeItem('pending_last_name');
-                        sessionStorage.removeItem('pending_referral_code');
-
-                        setTimeout(() => {
-                            window.location.href = 'login-mock.php?verified=true';
-                        }, 2000);
-                    } else {
-                        throw new Error('Invalid verification code. Please try again.');
-                    }
-
-                } catch (err) {
-                    showMessage(err.message, 'error');
-                    verifyBtn.disabled = false;
-                    verifyBtn.textContent = 'Verify Email';
-                }
-            }
-
-            // Resend OTP
-            async function resendOtp() {
-                resendBtn.disabled = true;
-
-                try {
-                    // Generate new OTP
-                    const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
-                    
-                    // Update session
-                    sessionStorage.setItem('pending_otp', newOtp);
-                    
-                    // Show new OTP
-                    alert(`New verification code: ${newOtp}`);
-                    
-                    showMessage('✅ New verification code generated. Check the alert.', 'success');
-                    
-                    // Clear OTP inputs
-                    otpBoxes.forEach(box => box.value = '');
-                    otpBoxes[0].focus();
-                    
-                    // Reset timer
-                    resetTimer();
-
-                } catch (err) {
-                    showMessage(err.message, 'error');
+        function resetTimer() {
+            if (resendTimerInterval) clearInterval(resendTimerInterval);
+            seconds = 59;
+            updateTimer();
+            resendTimerInterval = setInterval(() => {
+                seconds--;
+                if (seconds <= 0) {
+                    clearInterval(resendTimerInterval);
+                    timerText.textContent = 'Ready to resend';
                     resendBtn.disabled = false;
+                } else {
+                    updateTimer();
                 }
+            }, 1000);
+        }
+
+        // OTP Input Focus Logic
+        otpBoxes.forEach((box, idx) => {
+            box.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                if (e.target.value.length === 1 && idx < 5) otpBoxes[idx + 1].focus();
+            });
+            box.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && idx > 0) otpBoxes[idx - 1].focus();
+            });
+        });
+
+        // VERIFY OTP LOGIC
+        async function verifyOtp() {
+            const enteredOtp = Array.from(otpBoxes).map(b => b.value).join('');
+            if (enteredOtp.length !== 6) {
+                showMessage('Please enter the 6-digit code.', 'error');
+                return;
             }
 
-            // Event listeners
-            verifyBtn.addEventListener('click', verifyOtp);
-            resendBtn.addEventListener('click', resendOtp);
+            verifyBtn.disabled = true;
+            verifyBtn.textContent = 'Verifying...';
 
-            // Enter key in last OTP box
-            otpBoxes[5].addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    verifyOtp();
+            try {
+                const { data: record, error: fetchError } = await supabase
+                    .from('email_verifications')
+                    .select('*')
+                    .eq('email', email)
+                    .single();
+
+                if (fetchError || !record) throw new Error('No active code found.');
+                if (record.attempts >= 5) throw new Error('Too many failed attempts. Resend a new code.');
+                if (new Date(record.expires_at) < new Date()) throw new Error('Code expired.');
+
+                if (enteredOtp === record.otp) {
+                    showMessage('✅ Verified! Updating profile...', 'success');
+                    await supabase.from('user_profiles').update({ email_verified: true }).eq('email', email);
+                    await supabase.from('email_verifications').delete().eq('email', email);
+                    setTimeout(() => window.location.href = 'login-mock.php?verified=true', 2000);
+                } else {
+                    await supabase.from('email_verifications').update({ attempts: (record.attempts || 0) + 1 }).eq('email', email);
+                    throw new Error('Invalid code. Please try again.');
                 }
-            });
+            } catch (err) {
+                showMessage(err.message, 'error');
+                verifyBtn.disabled = false;
+                verifyBtn.textContent = 'Verify Email';
+            }
+        }
 
-            // Cleanup timer on page unload
-            window.addEventListener('beforeunload', () => {
-                if (resendTimerInterval) clearInterval(resendTimerInterval);
-            });
+        // RESEND OTP LOGIC (The new part)
+        async function resendOtp() {
+            resendBtn.disabled = true;
+            try {
+                const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
+                const expiresAt = new Date(Date.now() + 10 * 60000).toISOString();
 
-            // Log for debugging
-            console.log('Current email:', email);
-            console.log('Stored OTP:', sessionStorage.getItem('pending_otp'));
-        })();
-    </script>
+                const { error } = await supabase.from('email_verifications').upsert({ 
+                    email: email, otp: newOtp, expires_at: expiresAt, attempts: 0 
+                });
+
+                if (error) throw error;
+                
+                // Note: Ensure your send-otp.php is set up to handle this POST request
+                fetch('send-otp.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, otp: newOtp })
+                });
+
+                alert(`New code sent: ${newOtp}`);
+                resetTimer();
+            } catch (err) {
+                showMessage('Resend failed: ' + err.message, 'error');
+                resendBtn.disabled = false;
+            }
+        }
+
+        // Init
+        resetTimer();
+        verifyBtn.addEventListener('click', verifyOtp);
+        resendBtn.addEventListener('click', resendOtp);
+    })();
+</script>
 </body>
 </html>
