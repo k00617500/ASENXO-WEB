@@ -225,7 +225,15 @@ if (empty($email)) {
     (function() {
         const SUPABASE_URL = 'https://hmxrblblcpbikkxcwwni.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteHJibGJsY3BiaWtreGN3d25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODY0MDksImV4cCI6MjA4Nzg2MjQwOX0.qC4Lm2KbToc0f1syHpMWJmQqRhQTosNfFzBrfTXSWDw';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            global: {
+                headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                }
+            }
+            });
 
         const urlParams = new URLSearchParams(window.location.search);
         const email = "<?php echo $email; ?>";
@@ -279,42 +287,47 @@ if (empty($email)) {
 
         // VERIFY OTP LOGIC
         async function verifyOtp() {
-            const enteredOtp = Array.from(otpBoxes).map(b => b.value).join('');
-            if (enteredOtp.length !== 6) {
-                showMessage('Please enter the 6-digit code.', 'error');
-                return;
-            }
+    const enteredOtp = Array.from(otpBoxes).map(b => b.value).join('');
+    if (enteredOtp.length !== 6) {
+        showMessage('Please enter the 6-digit code.', 'error');
+        return;
+    }
 
-            verifyBtn.disabled = true;
-            verifyBtn.textContent = 'Verifying...';
+    verifyBtn.disabled = true;
+    verifyBtn.textContent = 'Verifying...';
 
-            try {
-                const { data: record, error: fetchError } = await supabase
-                    .from('email_verifications')
-                    .select('*')
-                    .eq('email', email)
-                    .single();
+    try {
+        // QUERY THE DATABASE INSTEAD OF SESSION STORAGE
+        const { data: record, error: fetchError } = await supabase
+            .from('email_verifications')
+            .select('*')
+            .eq('email', email)
+            .single();
 
-                if (fetchError || !record) throw new Error('No active code found.');
-                if (record.attempts >= 5) throw new Error('Too many failed attempts. Resend a new code.');
-                if (new Date(record.expires_at) < new Date()) throw new Error('Code expired.');
-
-                if (enteredOtp === record.otp) {
-                    showMessage('✅ Verified! Updating profile...', 'success');
-                    await supabase.from('user_profiles').update({ email_verified: true }).eq('email', email);
-                    await supabase.from('email_verifications').delete().eq('email', email);
-                    setTimeout(() => window.location.href = 'login-mock.php?verified=true', 2000);
-                } else {
-                    await supabase.from('email_verifications').update({ attempts: (record.attempts || 0) + 1 }).eq('email', email);
-                    throw new Error('Invalid code. Please try again.');
-                }
-            } catch (err) {
-                showMessage(err.message, 'error');
-                verifyBtn.disabled = false;
-                verifyBtn.textContent = 'Verify Email';
-            }
+        if (fetchError || !record) {
+            throw new Error('No active verification code found for this email.');
         }
 
+        if (enteredOtp === record.otp) {
+            // SUCCESS: Update user profile status
+            await supabase.from('user_profiles').update({ email_verified: true }).eq('email', email);
+            await supabase.from('email_verifications').delete().eq('email', email);
+            
+            showMessage('✅ Verified! Redirecting...', 'success');
+            setTimeout(() => window.location.href = 'login-mock.php?verified=true', 2000);
+        } else {
+            // Update attempts in DB
+            await supabase.from('email_verifications')
+                .update({ attempts: (record.attempts || 0) + 1 })
+                .eq('email', email);
+            throw new Error('Invalid code. Please try again.');
+        }
+    } catch (err) {
+        showMessage(err.message, 'error');
+        verifyBtn.disabled = false;
+        verifyBtn.textContent = 'Verify Email';
+    }
+}
         // RESEND OTP LOGIC (The new part)
         async function resendOtp() {
             resendBtn.disabled = true;
