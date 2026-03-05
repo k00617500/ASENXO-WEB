@@ -87,6 +87,22 @@
 
     .repo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
     .repo-item { padding: 15px; background: rgba(128,128,128,0.05); border-radius: 10px; text-align: center; border: 1px solid var(--border-color); }
+
+    .matrix-input {
+      width: 100%;
+      padding: 8px;
+      background: #ffffff !important;
+      color: #000 !important;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .matrix-input:focus {
+      border-color: #2ecc71;
+      outline: none;
+    }
   </style>
 </head>
 <body>
@@ -263,91 +279,74 @@
 
   function renderBusinessForm() {
     return `
-      <div style="background: rgba(128,128,128,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; margin-top: 15px;">
-        <h4 style="margin: 0 0 20px 0; font-size: 14px; color: var(--accent);">Enterprise Details</h4>
-        <div class="form-grid">
-          <div class="input-group"><label>Enterprise ID</label><input id="c_eid" placeholder="Auto-generated"></div>
-          <div class="input-group"><label>Enterprise Name</label><input id="c_name"></div>
-          <div class="input-group" style="grid-column: span 2;"><label>Enterprise Address</label><input id="c_addr"></div>
-          
-          <div class="input-group"><label>Latitude</label><input type="number" step="any" id="c_lat" placeholder="e.g. 14.5995"></div>
-          <div class="input-group"><label>Longitude</label><input type="number" step="any" id="c_long" placeholder="e.g. 120.9842"></div>
-          
-          <div class="input-group"><label>Contact Person</label><input id="c_cp"></div>
-          <div class="input-group"><label>Enterprise Email</label><input type="email" id="c_email"></div>
-          <div class="input-group"><label>Year Established</label><input type="number" id="c_year" value="2024"></div>
-          <div class="input-group"><label>Current Capitalization</label><input type="number" step="0.01" id="c_cap"></div>
-          <div class="input-group"><label>Organization Type</label>
-            <select id="c_org">
-              <option>Sole Proprietorship</option>
-              <option>Partnership</option>
-              <option>Cooperative</option>
-              <option>Corporation</option>
-            </select>
-          </div>
-          <div class="input-group"><label>Business Type</label>
-              <select id="c_btype">
-                <option>Profit</option>
-                <option>Non-Profit</option>
-              </select>
-          </div>
-          <div class="input-group"><label>MSME Type</label>
-            <select id="c_mtype">
-              <option>Micro</option>
-              <option>Small</option>
-              <option>Medium</option>
-              <option>Enterprise</option>
-            </select>
-          </div>
-          <div class="input-group"><label>Industry Sector</label><input id="c_sector"></div>
-          <h4 style="margin: 25px 0 15px 0; font-size: 13px; color: var(--text-muted); text-transform: uppercase;">Regulatory Registrations</h4>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-        <div class="input-group"><label>DTI Registration No.</label><input id="c_dti"></div>
-        <div class="input-group"><label>Date of Registration</label><input type="date" id="c_dti_date"></div>
-        
-        <div class="input-group"><label>SEC Registration No.</label><input id="c_sec"></div>
-        <div class="input-group"><label>Date of Registration</label><input type="date" id="c_sec_date"></div>
-        
-        <div class="input-group"><label>CDA Registration No.</label><input id="c_cda"></div>
-        <div class="input-group"><label>Date of Registration</label><input type="date" id="c_cda_date"></div>
-        
-        <div class="input-group"><label>Other</label><input id="c_other" placeholder="e.g. Mayor's Permit No."></div>
-        <div class="input-group"><label>Registration Date</label><input type="date" id="c_other_date"></div>
-      </div>
-        </div>
-
-        <h4 style="margin: 30px 0 15px 0; font-size: 14px; color: var(--accent); border-top: 1px solid var(--border-color); padding-top: 20px;">Employment Information</h4>
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-top: 15px; color: #fff;">
       
-      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; align-items: center; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">
-        <div style="font-size: 11px; color: var(--text-muted); font-weight: 800;">TYPE OF EMPLOYMENT</div>
-        <div style="font-size: 11px; color: var(--text-muted); font-weight: 800; text-align: center;">MALE</div>
-        <div style="font-size: 11px; color: var(--text-muted); font-weight: 800; text-align: center;">FEMALE</div>
+      <h4 style="margin: 0 0 20px 0; font-size: 14px; color: var(--accent);">Enterprise Details</h4>
+      <div class="form-grid">
+         <div class="input-group"><label>Enterprise Name</label><input id="c_name"></div>
+         <div class="input-group" style="grid-column: span 2;"><label>Enterprise Address</label><input id="c_addr"></div>
+         <div class="input-group"><label>Latitude</label><input type="number" step="any" id="c_lat"></div>
+         <div class="input-group"><label>Longitude</label><input type="number" step="any" id="c_long"></div>
       </div>
 
-      <div style="font-size: 12px; font-weight: 700; margin: 10px 0;">Direct Workers</div>
-      <div class="form-grid" style="grid-template-columns: 2fr 1fr 1fr; margin-bottom: 10px;">
-        <div style="font-size: 11px; display: flex; align-items: center;">Production</div>
-        <input type="number" id="e_dp_m" value="0">
-        <input type="number" id="e_dp_f" value="0">
+      <div style="margin-top: 30px;">
+        <h4 style="margin-bottom: 20px; font-size: 14px; color: var(--accent); text-transform: uppercase;">Regulatory Registrations</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="input-group"><label>DTI Registration No.</label><input id="c_dti"></div>
+          <div class="input-group"><label>Date of Registration</label><input type="date" id="c_dti_date"></div>
+          
+          <div class="input-group"><label>SEC Registration No.</label><input id="c_sec"></div>
+          <div class="input-group"><label>Date of Registration</label><input type="date" id="c_sec_date"></div>
+          
+          <div class="input-group"><label>CDA Registration No.</label><input id="c_cda"></div>
+          <div class="input-group"><label>Date of Registration</label><input type="date" id="c_cda_date"></div>
+          
+          <div class="input-group"><label>Other</label><input id="c_other" placeholder="e.g. Mayor's Permit"></div>
+          <div class="input-group"><label>Registration Date</label><input type="date" id="c_other_date"></div>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px;">
+        <h4 style="margin-bottom: 20px; font-size: 14px; color: #2ecc71;">Employment Information</h4>
         
-        <div style="font-size: 11px; display: flex; align-items: center;">Non-Production</div>
-        <input type="number" id="e_dnp_m" value="0">
-        <input type="number" id="e_dnp_f" value="0">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+          <thead>
+            <tr style="color: rgba(255,255,255,0.5); text-transform: uppercase; font-size: 11px;">
+              <th style="text-align: left; padding: 10px 0;">Type of Employment</th>
+              <th style="text-align: center; padding: 10px;">Male</th>
+              <th style="text-align: center; padding: 10px;">Female</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td colspan="3" style="padding: 15px 0 5px 0; font-weight: 800;">Direct Workers</td></tr>
+            <tr>
+              <td style="padding: 10px 0; color: rgba(255,255,255,0.8);">Production</td>
+              <td><input type="number" id="e_dp_m" value="0" class="matrix-input"></td>
+              <td><input type="number" id="e_dp_f" value="0" class="matrix-input"></td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; color: rgba(255,255,255,0.8);">Non-Production</td>
+              <td><input type="number" id="e_dnp_m" value="0" class="matrix-input"></td>
+              <td><input type="number" id="e_dnp_f" value="0" class="matrix-input"></td>
+            </tr>
+            
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td colspan="3" style="padding: 25px 0 5px 0; font-weight: 800;">Indirect / Contract Workers</td></tr>
+            <tr>
+              <td style="padding: 10px 0; color: rgba(255,255,255,0.8);">Production</td>
+              <td><input type="number" id="e_ip_m" value="0" class="matrix-input"></td>
+              <td><input type="number" id="e_ip_f" value="0" class="matrix-input"></td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; color: rgba(255,255,255,0.8);">Non-Production</td>
+              <td><input type="number" id="e_inp_m" value="0" class="matrix-input"></td>
+              <td><input type="number" id="e_inp_f" value="0" class="matrix-input"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <div style="font-size: 12px; font-weight: 700; margin: 20px 0 10px 0;">Indirect / Contract Workers</div>
-      <div class="form-grid" style="grid-template-columns: 2fr 1fr 1fr;">
-        <div style="font-size: 11px; display: flex; align-items: center;">Production</div>
-        <input type="number" id="e_ip_m" value="0">
-        <input type="number" id="e_ip_f" value="0">
-        
-        <div style="font-size: 11px; display: flex; align-items: center;">Non-Production</div>
-        <input type="number" id="e_inp_m" value="0">
-        <input type="number" id="e_inp_f" value="0">
-      </div>
-
-      <button class="primary-btn" id="saveBizBtn" style="margin-top: 30px;" onclick="saveBusinessInfo()">Save & Continue</button>
-      </div>`;
+      <button class="primary-btn" id="saveBizBtn" style="margin-top: 40px; width: 100%;" onclick="saveBusinessInfo()">Save & Continue</button>
+    </div>`;
   }
 
   async function saveBusinessInfo() {
