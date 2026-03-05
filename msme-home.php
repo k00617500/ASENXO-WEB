@@ -35,9 +35,10 @@
       background-color: var(--bg-body);
       margin: 0; color: var(--text-main);
       transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
     }
 
-    /* Centering the icons in the circles */
+    /* Fixed Centering for Icons */
     .step-icon {
       display: flex !important;
       align-items: center;
@@ -49,8 +50,26 @@
     .step-icon.completed { background: var(--accent); color: #000; }
     .step-icon.current { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
 
-    /* Form UI */
+    /* Layout & Sidebar */
     .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; margin-bottom: 20px; }
+    
+    .sidebar-menu { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+    .sidebar-menu li { 
+        padding: 12px 15px; 
+        border-radius: 8px; 
+        margin-bottom: 5px; 
+        cursor: pointer; 
+        font-size: 14px; 
+        display: flex; 
+        align-items: center; 
+        gap: 12px;
+        transition: 0.2s;
+        color: var(--text-muted);
+    }
+    .sidebar-menu li.active { background: rgba(46, 204, 113, 0.1); color: var(--accent); font-weight: 700; }
+    .sidebar-menu li:hover:not(.active) { background: rgba(255,255,255,0.03); color: var(--text-main); }
+
+    /* Form UI */
     .input-group label { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 5px; display: block; }
     .input-group input, .input-group select {
       width: 100%; background: var(--input-bg); border: 1px solid var(--border-color);
@@ -62,75 +81,88 @@
       background: var(--accent); color: #000; border: none; padding: 12px;
       border-radius: 8px; font-weight: 800; cursor: pointer; font-family: inherit; width: 100%;
     }
-    .primary-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* Avatar Preview */
     #imagePreview {
       width: 100px; height: 100px; border-radius: 50%; border: 2px dashed var(--border-color);
       margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; overflow: hidden;
     }
     #imagePreview img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Repo Cards */
     .repo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
     .repo-item { padding: 15px; background: rgba(128,128,128,0.05); border-radius: 10px; text-align: center; border: 1px solid var(--border-color); }
-    .repo-val { font-size: 20px; font-weight: 800; display: block; color: var(--accent); }
-    .repo-lab { font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
   </style>
 </head>
 <body>
 
 <div class="app">
   <header style="height: 60px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 25px; background: var(--card-bg);">
-    <div style="font-weight: 900; font-size: 1.2rem;">ASENXO <span style="background:var(--accent); color:#000; font-size:9px; padding:2px 5px; border-radius:4px; margin-left:5px;">PROD</span></div>
+    <div style="font-weight: 900; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+        ASENXO <span style="background:var(--accent); color:#000; font-size:9px; padding:2px 5px; border-radius:4px; font-weight: 800;">PRODUCTION</span>
+    </div>
     <div style="display: flex; gap: 10px;">
       <button onclick="toggleTheme()" style="background:none; border:1px solid var(--border-color); color:var(--text-main); padding:8px; border-radius:8px; cursor:pointer;"><i class="fas fa-adjust"></i></button>
       <button onclick="handleLogout()" style="background:#ef4444; color:white; border:none; padding:8px 15px; border-radius:8px; font-weight:700; cursor:pointer;">Logout</button>
     </div>
   </header>
 
-  <div style="display: flex; min-height: calc(100vh - 60px);">
-    <nav style="width: 250px; border-right: 1px solid var(--border-color); padding: 25px;">
-      <div style="display: flex; align-items: center; margin-bottom: 30px; gap: 12px;">
-        <div id="sidebarAvatar" style="width: 40px; height: 40px; border-radius: 50%; background: #222; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
+  <div style="display: flex; height: calc(100vh - 60px);">
+    <nav style="width: 260px; border-right: 1px solid var(--border-color); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; background: var(--bg-body);">
+      
+      <div>
+        <div style="font-size: 11px; font-weight: 800; color: var(--text-muted); margin-bottom: 15px; padding-left: 10px; letter-spacing: 0.5px;">MSME DASHBOARD</div>
+        <ul class="sidebar-menu">
+            <li class="active"><i class="fas fa-cube"></i> Application Module</li>
+            <li><i class="fas fa-chart-line"></i> Progress Monitoring</li>
+            <li><i class="fas fa-cloud-upload-alt"></i> Document Upload History</li>
+            <li><i class="fas fa-history"></i> Revisions</li>
+            <li><i class="fas fa-file-alt"></i> Forms for Requirements</li>
+            <li><i class="fas fa-cog"></i> Settings</li>
+        </ul>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 12px; padding: 15px; background: rgba(128,128,128,0.05); border-radius: 12px; border: 1px solid var(--border-color);">
+        <div id="sidebarAvatar" style="width: 38px; height: 38px; border-radius: 50%; background: #222; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color); flex-shrink: 0;">
           <i class="fas fa-user"></i>
         </div>
-        <div>
-          <div id="sidebarName" style="font-weight: 700; font-size: 14px;">User</div>
-          <div style="font-size: 10px; color: var(--accent);">Owner</div>
+        <div style="overflow: hidden;">
+          <div id="sidebarName" style="font-weight: 700; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Loading...</div>
+          <div style="font-size: 10px; color: var(--accent); font-weight: 800;">VERIFIED OWNER</div>
         </div>
       </div>
-      <ul style="list-style: none; padding: 0;">
-        <li style="color: var(--accent); font-weight: 700; padding: 10px 0;"><i class="fas fa-home" style="margin-right: 10px;"></i> Dashboard</li>
-      </ul>
     </nav>
 
-    <main style="flex: 1; padding: 40px; display: grid; grid-template-columns: 1.8fr 1fr; gap: 30px;">
+    <main style="flex: 1; padding: 40px; display: grid; grid-template-columns: 1.8fr 1fr; gap: 30px; overflow-y: auto;">
       <section>
         <div class="card">
-          <h2 style="font-size: 18px; margin-bottom: 25px;"><i class="fas fa-clipboard-list" style="color: var(--accent); margin-right: 10px;"></i> Application Flow</h2>
+          <h2 style="font-size: 18px; margin-bottom: 25px;"><i class="fas fa-tasks" style="color: var(--accent); margin-right: 12px;"></i> Application Flow</h2>
           <ul id="dynamicSteps" style="list-style: none; padding: 0;"></ul>
         </div>
       </section>
 
       <aside>
         <div class="card">
-          <h3 style="margin-top: 0; font-size: 14px;">Overview</h3>
+          <h3 style="margin-top: 0; font-size: 14px; font-weight: 800;">Overview</h3>
           <div style="margin: 15px 0;">
-            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px;">
-              <span>Progress</span><span id="progressTxt">0%</span>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 8px;">
+              <span style="color: var(--text-muted);">Registration Progress</span><span id="progressTxt" style="font-weight: 800; color: var(--accent);">0%</span>
             </div>
             <div style="height: 6px; background: var(--border-color); border-radius: 10px; overflow: hidden;">
-              <div id="progressFill" style="width: 0%; height: 100%; background: var(--accent); transition: width 0.5s;"></div>
+              <div id="progressFill" style="width: 0%; height: 100%; background: var(--accent); transition: width 0.8s ease;"></div>
             </div>
           </div>
         </div>
 
         <div class="card">
-          <h3 style="margin-top: 0; font-size: 14px;">File Repository</h3>
+          <h3 style="margin-top: 0; font-size: 14px; font-weight: 800;">File Repository</h3>
           <div class="repo-grid">
-            <div class="repo-item"><span class="repo-val" id="filesUploaded">0</span><span class="repo-lab">Uploaded</span></div>
-            <div class="repo-item"><span class="repo-val" id="filesPending" style="color:#f1c40f">0</span><span class="repo-lab">Pending</span></div>
+            <div class="repo-item">
+              <span id="filesUploaded" style="font-size: 20px; font-weight: 800; display: block; color: var(--accent);">0</span>
+              <span style="font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Uploaded</span>
+            </div>
+            <div class="repo-item">
+              <span id="filesPending" style="font-size: 20px; font-weight: 800; display: block; color:#f1c40f">0</span>
+              <span style="font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Pending Review</span>
+            </div>
           </div>
         </div>
       </aside>
@@ -140,7 +172,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  // REPLACE THESE WITH YOUR ACTUAL KEYS
+  // MUST REPLACE WITH YOUR KEYS
   const S_URL = 'https://hmxrblblcpbikkxcwwni.supabase.co';
   const S_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteHJibGJsY3BiaWtreGN3d25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODY0MDksImV4cCI6MjA4Nzg2MjQwOX0.qC4Lm2KbToc0f1syHpMWJmQqRhQTosNfFzBrfTXSWDw'; 
   const sb = supabase.createClient(S_URL, S_KEY);
@@ -153,18 +185,12 @@
     { id: 1, title: "Account Selection", desc: "Entity type chosen" },
     { id: 2, title: "Identity Security", desc: "Verify mobile & email" },
     { id: 3, title: "Complete Your Information", desc: "Detailed owner profile" },
-    { id: 4, title: "Profile Image", desc: "Upload your photo" },
-    { id: 5, title: "Business Information", desc: "Business registration details" },
-    { id: 6, title: "Account Confirmation", desc: "Review and confirm" }
+    { id: 4, title: "Profile Image", desc: "Upload your photo" }
   ];
 
   async function init() {
     const { data: { session } } = await sb.auth.getSession();
-    if (!session) {
-        console.log("No session found, redirecting...");
-        window.location.href = 'login-mock.php';
-        return;
-    }
+    if (!session) return window.location.href = 'login.php';
     user = session.user;
 
     const { data: p } = await sb.from('user_profiles').select('*').eq('id', user.id).single();
@@ -173,18 +199,17 @@
       currentStep = p.current_step || 3;
       document.getElementById('sidebarName').innerText = `${p.first_name} ${p.last_name}`;
       
-      // Fetch avatar if exists
       const { data: op } = await sb.from('owner_profile').select('profile_pic_url').eq('owner_ID', user.id).single();
       if (op?.profile_pic_url) {
         document.getElementById('sidebarAvatar').innerHTML = `<img src="${op.profile_pic_url}" style="width:100%;height:100%;object-fit:cover;">`;
       }
-      
       renderSteps();
     }
   }
 
   function renderSteps() {
-    const perc = Math.round((currentStep / stepsData.length) * 100);
+    const totalSteps = 6; // Matching your progress bar logic
+    const perc = Math.round((currentStep / totalSteps) * 100);
     document.getElementById('progressFill').style.width = perc + '%';
     document.getElementById('progressTxt').innerText = perc + '%';
 
@@ -203,7 +228,6 @@
             <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">${s.desc}</div>
             ${isActive && s.id === 3 ? renderOwnerForm() : ''}
             ${isActive && s.id === 4 ? renderImageForm() : ''}
-            ${isActive && s.id > 4 ? `<button class="primary-btn" onclick="moveNext()" style="width:200px">Continue to Step ${s.id}</button>` : ''}
           </div>
         </li>
       `;
@@ -214,19 +238,19 @@
     return `
       <div style="background: rgba(128,128,128,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
         <div class="form-grid">
-          <div class="input-group"><label>Nickname</label><input id="o_nick"></div>
+          <div class="input-group"><label>Nickname</label><input id="o_nick" placeholder="e.g. aldrin"></div>
           <div class="input-group"><label>Date of birth</label><input type="date" id="o_dob"></div>
-          <div class="input-group"><label>Place of birth</label><input id="o_pob"></div>
+          <div class="input-group"><label>Place of birth</label><input id="o_pob" placeholder="City/Town"></div>
           <div class="input-group"><label>Nationality</label><input id="o_nat" value="Filipino"></div>
           <div class="input-group"><label>Sex</label><select id="o_sex"><option>Male</option><option>Female</option></select></div>
-          <div class="input-group"><label>Marital status</label><select id="o_mar"><option>Single</option><option>Married</option><option>Widowed</option></select></div>
-          <div class="input-group"><label>Spouse name</label><input id="o_spo" placeholder="N/A if none"></div>
-          <div class="input-group"><label>Contact number</label><input id="o_pho" placeholder="09xxxxxxxxx"></div>
-          <div class="input-group" style="grid-column: span 2;"><label>Full home address</label><input id="o_adr"></div>
-          <div class="input-group"><label>Enterprise name</label><input id="o_ent"></div>
-          <div class="input-group"><label>Enterprise designation</label><input id="o_des" placeholder="e.g. CEO"></div>
-          <div class="input-group"><label>Owner affiliations</label><input id="o_aff"></div>
-          <div class="input-group"><label>Highest educational attainment</label><input id="o_hea"></div>
+          <div class="input-group"><label>Marital status</label><select id="o_mar"><option>single</option><option>married</option></select></div>
+          <div class="input-group"><label>Spouse name</label><input id="o_spo" placeholder="who"></div>
+          <div class="input-group"><label>Contact number</label><input id="o_pho" placeholder="09123456789"></div>
+          <div class="input-group" style="grid-column: span 2;"><label>Full address</label><input id="o_adr" placeholder="Street, Brgy, City"></div>
+          <div class="input-group"><label>Enterprise name</label><input id="o_ent" placeholder="ASENXO"></div>
+          <div class="input-group"><label>Enterprise designation</label><input id="o_des" placeholder="Owner"></div>
+          <div class="input-group"><label>Affiliations</label><input id="o_aff"></div>
+          <div class="input-group"><label>Educational attainment</label><input id="o_hea"></div>
         </div>
         <button class="primary-btn" id="saveBtn" style="margin-top: 20px;" onclick="saveOwnerInfo()">Save & Continue</button>
       </div>`;
@@ -303,7 +327,7 @@
   }
 
   function toggleTheme() { document.body.classList.toggle('light-theme'); }
-  function handleLogout() { sb.auth.signOut().then(() => window.location.href = 'login-mock.php'); }
+  function handleLogout() { sb.auth.signOut().then(() => window.location.href = 'login.php'); }
   
   window.onload = init;
 </script>
