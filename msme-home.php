@@ -18,7 +18,7 @@
       --border-color: #222222;
       --text-main: #ffffff;
       --text-muted: #666666;
-      --input-bg: #000000;
+      --input-bg: #0a0a0a;
     }
 
     body.light-theme {
@@ -27,188 +27,164 @@
       --border-color: #e0e0e0;
       --text-main: #1a1a1a;
       --text-muted: #888888;
-      --input-bg: #f9f9f9;
+      --input-bg: #fdfdfd;
     }
 
     body {
       font-family: 'Bricolage Grotesque', sans-serif;
       background-color: var(--bg-body);
-      margin: 0;
-      color: var(--text-main);
+      margin: 0; color: var(--text-main);
       transition: background 0.3s, color 0.3s;
     }
 
-    /* Fixed Centering for Check Icons */
+    /* Centering the icons in the circles */
     .step-icon {
       display: flex !important;
       align-items: center;
       justify-content: center;
-      width: 28px;
-      height: 28px;
+      width: 28px; height: 28px;
       border-radius: 50%;
       flex-shrink: 0;
     }
-
     .step-icon.completed { background: var(--accent); color: #000; }
     .step-icon.current { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
 
-    /* Form Styling */
-    .input-group label { 
-      font-size: 11px; 
-      color: var(--text-muted); 
-      font-weight: 600; 
-      margin-bottom: 4px;
-      display: block;
-    }
-
+    /* Form UI */
+    .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; margin-bottom: 20px; }
+    .input-group label { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 5px; display: block; }
     .input-group input, .input-group select {
-      width: 100%;
-      background: var(--input-bg);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 10px;
-      border-radius: 8px;
-      font-family: inherit;
-      box-sizing: border-box;
+      width: 100%; background: var(--input-bg); border: 1px solid var(--border-color);
+      color: var(--text-main); padding: 10px; border-radius: 8px; font-family: inherit; box-sizing: border-box;
     }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-    .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; margin-bottom: 15px; }
+    .primary-btn {
+      background: var(--accent); color: #000; border: none; padding: 12px;
+      border-radius: 8px; font-weight: 800; cursor: pointer; font-family: inherit; width: 100%;
+    }
+    .primary-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    /* File Repository Card */
+    /* Avatar Preview */
+    #imagePreview {
+      width: 100px; height: 100px; border-radius: 50%; border: 2px dashed var(--border-color);
+      margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    #imagePreview img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Repo Cards */
     .repo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
     .repo-item { padding: 15px; background: rgba(128,128,128,0.05); border-radius: 10px; text-align: center; border: 1px solid var(--border-color); }
     .repo-val { font-size: 20px; font-weight: 800; display: block; color: var(--accent); }
-    .repo-lab { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
-
-    .primary-btn {
-      background: var(--accent);
-      color: #000;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
-    .theme-toggle { cursor: pointer; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 12px; border-radius: 8px; }
+    .repo-lab { font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
   </style>
 </head>
-<body> 
+<body>
 
 <div class="app">
   <header style="height: 60px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 25px; background: var(--card-bg);">
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <span style="font-weight: 900; letter-spacing: -0.5px; font-size: 1.2rem;">ASENXO</span>
-      <span style="background: var(--accent); color: #000; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">PRODUCTION</span>
-    </div>
-    <div style="display: flex; gap: 12px;">
-      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
-      <button onclick="handleLogout()" style="background:#ef4444; border:none; color:white; padding:8px 16px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer;">Logout</button>
+    <div style="font-weight: 900; font-size: 1.2rem;">ASENXO <span style="background:var(--accent); color:#000; font-size:9px; padding:2px 5px; border-radius:4px; margin-left:5px;">PROD</span></div>
+    <div style="display: flex; gap: 10px;">
+      <button onclick="toggleTheme()" style="background:none; border:1px solid var(--border-color); color:var(--text-main); padding:8px; border-radius:8px; cursor:pointer;"><i class="fas fa-adjust"></i></button>
+      <button onclick="handleLogout()" style="background:#ef4444; color:white; border:none; padding:8px 15px; border-radius:8px; font-weight:700; cursor:pointer;">Logout</button>
     </div>
   </header>
 
   <div style="display: flex; min-height: calc(100vh - 60px);">
-    <nav style="width: 260px; border-right: 1px solid var(--border-color); padding: 25px; display: flex; flex-direction: column;">
-      <div style="display: flex; align-items: center; margin-bottom: 40px; background: rgba(128,128,128,0.05); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color);">
-        <div id="sidebarAvatar" style="width: 40px; height: 40px; border-radius: 50%; background: #333; margin-right: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-          <i class="fas fa-user" style="color: #666;"></i>
+    <nav style="width: 250px; border-right: 1px solid var(--border-color); padding: 25px;">
+      <div style="display: flex; align-items: center; margin-bottom: 30px; gap: 12px;">
+        <div id="sidebarAvatar" style="width: 40px; height: 40px; border-radius: 50%; background: #222; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
+          <i class="fas fa-user"></i>
         </div>
         <div>
-          <div id="sidebarName" style="font-weight: 700; font-size: 14px;">Loading...</div>
-          <div style="font-size: 10px; color: var(--accent); font-weight: 700;">MSME OWNER</div>
+          <div id="sidebarName" style="font-weight: 700; font-size: 14px;">User</div>
+          <div style="font-size: 10px; color: var(--accent);">Owner</div>
         </div>
       </div>
-
-      <ul style="list-style: none; padding: 0; margin: 0;">
-        <li style="padding: 12px; background: rgba(46, 204, 113, 0.1); color: var(--accent); border-radius: 8px; font-weight: 700; margin-bottom: 5px;">
-          <i class="fas fa-home" style="margin-right: 12px;"></i> Dashboard
-        </li>
-        <li style="padding: 12px; opacity: 0.5; cursor: not-allowed;"><i class="fas fa-folder" style="margin-right: 12px;"></i> Applications</li>
-        <li style="padding: 12px; opacity: 0.5; cursor: not-allowed;"><i class="fas fa-wallet" style="margin-right: 12px;"></i> My Wallet</li>
-        <li style="padding: 12px; opacity: 0.5; cursor: not-allowed;"><i class="fas fa-cog" style="margin-right: 12px;"></i> Settings</li>
+      <ul style="list-style: none; padding: 0;">
+        <li style="color: var(--accent); font-weight: 700; padding: 10px 0;"><i class="fas fa-home" style="margin-right: 10px;"></i> Dashboard</li>
       </ul>
     </nav>
 
-    <main style="flex: 1; padding: 40px; display: grid; grid-template-columns: 1.8fr 1fr; gap: 30px; background-color: var(--bg-body);">
-      
+    <main style="flex: 1; padding: 40px; display: grid; grid-template-columns: 1.8fr 1fr; gap: 30px;">
       <section>
         <div class="card">
-          <h2 style="margin: 0 0 25px 0; font-size: 18px; font-weight: 800;"><i class="fas fa-stream" style="color: var(--accent); margin-right: 12px;"></i> Application Flow</h2>
-          <ul id="dynamicSteps" style="list-style: none; padding: 0; margin: 0;"></ul>
+          <h2 style="font-size: 18px; margin-bottom: 25px;"><i class="fas fa-clipboard-list" style="color: var(--accent); margin-right: 10px;"></i> Application Flow</h2>
+          <ul id="dynamicSteps" style="list-style: none; padding: 0;"></ul>
         </div>
       </section>
 
       <aside>
         <div class="card">
-          <h3 style="margin-top: 0; font-size: 15px;">Overview</h3>
-          <div style="margin: 20px 0;">
-            <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px;">
-              <span style="color: var(--text-muted);">Registration Progress</span>
-              <span id="progressTxt" style="font-weight: 800; color: var(--accent);">0%</span>
+          <h3 style="margin-top: 0; font-size: 14px;">Overview</h3>
+          <div style="margin: 15px 0;">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px;">
+              <span>Progress</span><span id="progressTxt">0%</span>
             </div>
-            <div style="height: 8px; background: var(--border-color); border-radius: 10px; overflow: hidden;">
-              <div id="progressFill" style="width: 0%; height: 100%; background: var(--accent); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+            <div style="height: 6px; background: var(--border-color); border-radius: 10px; overflow: hidden;">
+              <div id="progressFill" style="width: 0%; height: 100%; background: var(--accent); transition: width 0.5s;"></div>
             </div>
           </div>
         </div>
 
         <div class="card">
-          <h3 style="margin-top: 0; font-size: 15px;"><i class="fas fa-archive" style="margin-right: 10px; color: var(--accent);"></i> File Repository</h3>
+          <h3 style="margin-top: 0; font-size: 14px;">File Repository</h3>
           <div class="repo-grid">
-            <div class="repo-item">
-              <span class="repo-val" id="filesUploaded">0</span>
-              <span class="repo-lab">Uploaded</span>
-            </div>
-            <div class="repo-item">
-              <span class="repo-val" id="filesPending" style="color: #f1c40f;">0</span>
-              <span class="repo-lab">Pending</span>
-            </div>
+            <div class="repo-item"><span class="repo-val" id="filesUploaded">0</span><span class="repo-lab">Uploaded</span></div>
+            <div class="repo-item"><span class="repo-val" id="filesPending" style="color:#f1c40f">0</span><span class="repo-lab">Pending</span></div>
           </div>
         </div>
       </aside>
-
     </main>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  const S_URL = 'https://your-project.supabase.co';
+  // REPLACE THESE WITH YOUR ACTUAL KEYS
+  const S_URL = 'https://hmxrblblcpbikkxcwwni.supabase.co';
   const S_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteHJibGJsY3BiaWtreGN3d25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODY0MDksImV4cCI6MjA4Nzg2MjQwOX0.qC4Lm2KbToc0f1syHpMWJmQqRhQTosNfFzBrfTXSWDw'; 
   const sb = supabase.createClient(S_URL, S_KEY);
 
   let user = null;
+  let profile = null;
   let currentStep = 3;
 
   const stepsData = [
     { id: 1, title: "Account Selection", desc: "Entity type chosen" },
     { id: 2, title: "Identity Security", desc: "Verify mobile & email" },
     { id: 3, title: "Complete Your Information", desc: "Detailed owner profile" },
-    { id: 4, title: "Profile Image", desc: "Upload your photo" }
+    { id: 4, title: "Profile Image", desc: "Upload your photo" },
+    { id: 5, title: "Business Information", desc: "Business registration details" },
+    { id: 6, title: "Account Confirmation", desc: "Review and confirm" }
   ];
 
   async function init() {
-    const { data: { user: u } } = await sb.auth.getUser();
-    if (!u) return window.location.href = 'login-mock.php';
-    user = u;
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) {
+        console.log("No session found, redirecting...");
+        window.location.href = 'login-mock.php';
+        return;
+    }
+    user = session.user;
 
     const { data: p } = await sb.from('user_profiles').select('*').eq('id', user.id).single();
     if (p) {
+      profile = p;
       currentStep = p.current_step || 3;
       document.getElementById('sidebarName').innerText = `${p.first_name} ${p.last_name}`;
+      
+      // Fetch avatar if exists
+      const { data: op } = await sb.from('owner_profile').select('profile_pic_url').eq('owner_ID', user.id).single();
+      if (op?.profile_pic_url) {
+        document.getElementById('sidebarAvatar').innerHTML = `<img src="${op.profile_pic_url}" style="width:100%;height:100%;object-fit:cover;">`;
+      }
+      
       renderSteps();
     }
   }
 
-  function toggleTheme() {
-    document.body.classList.toggle('light-theme');
-    const icon = document.querySelector('#themeToggle i');
-    icon.className = document.body.classList.contains('light-theme') ? 'fas fa-sun' : 'fas fa-moon';
-  }
-
   function renderSteps() {
-    const perc = Math.round((currentStep / 6) * 100); // Assuming 6 total steps
+    const perc = Math.round((currentStep / stepsData.length) * 100);
     document.getElementById('progressFill').style.width = perc + '%';
     document.getElementById('progressTxt').innerText = perc + '%';
 
@@ -218,14 +194,16 @@
       const isActive = s.id === currentStep;
       
       return `
-        <li style="display: flex; gap: 20px; margin-bottom: 30px; position: relative;">
+        <li style="display: flex; gap: 20px; margin-bottom: 30px;">
           <div class="step-icon ${isDone ? 'completed' : (isActive ? 'current' : '')}">
-            ${isDone ? '<i class="fas fa-check" style="font-size: 12px;"></i>' : '<i class="fas fa-circle" style="font-size: 6px;"></i>'}
+            ${isDone ? '<i class="fas fa-check" style="font-size: 11px;"></i>' : '<i class="fas fa-circle" style="font-size: 6px;"></i>'}
           </div>
           <div style="flex: 1;">
-            <div style="font-size: 15px; font-weight: 700; color: ${isActive ? 'var(--accent)' : 'var(--text-main)'}">${s.title}</div>
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: ${isActive ? '15px' : '0'}">${s.desc}</div>
+            <div style="font-size: 15px; font-weight: 700; color: ${isActive ? 'var(--accent)' : 'inherit'}">${s.title}</div>
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">${s.desc}</div>
             ${isActive && s.id === 3 ? renderOwnerForm() : ''}
+            ${isActive && s.id === 4 ? renderImageForm() : ''}
+            ${isActive && s.id > 4 ? `<button class="primary-btn" onclick="moveNext()" style="width:200px">Continue to Step ${s.id}</button>` : ''}
           </div>
         </li>
       `;
@@ -234,26 +212,99 @@
 
   function renderOwnerForm() {
     return `
-      <div style="background: rgba(128,128,128,0.05); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; margin-top: 10px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <div class="input-group"><label>Nickname</label><input id="o_nick" placeholder="e.g. AJ"></div>
+      <div style="background: rgba(128,128,128,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
+        <div class="form-grid">
+          <div class="input-group"><label>Nickname</label><input id="o_nick"></div>
           <div class="input-group"><label>Date of birth</label><input type="date" id="o_dob"></div>
           <div class="input-group"><label>Place of birth</label><input id="o_pob"></div>
           <div class="input-group"><label>Nationality</label><input id="o_nat" value="Filipino"></div>
           <div class="input-group"><label>Sex</label><select id="o_sex"><option>Male</option><option>Female</option></select></div>
+          <div class="input-group"><label>Marital status</label><select id="o_mar"><option>Single</option><option>Married</option><option>Widowed</option></select></div>
+          <div class="input-group"><label>Spouse name</label><input id="o_spo" placeholder="N/A if none"></div>
           <div class="input-group"><label>Contact number</label><input id="o_pho" placeholder="09xxxxxxxxx"></div>
+          <div class="input-group" style="grid-column: span 2;"><label>Full home address</label><input id="o_adr"></div>
+          <div class="input-group"><label>Enterprise name</label><input id="o_ent"></div>
+          <div class="input-group"><label>Enterprise designation</label><input id="o_des" placeholder="e.g. CEO"></div>
+          <div class="input-group"><label>Owner affiliations</label><input id="o_aff"></div>
+          <div class="input-group"><label>Highest educational attainment</label><input id="o_hea"></div>
         </div>
-        <button class="primary-btn" style="width: 100%; margin-top: 25px;" onclick="moveNext()">Save & Continue</button>
+        <button class="primary-btn" id="saveBtn" style="margin-top: 20px;" onclick="saveOwnerInfo()">Save & Continue</button>
       </div>`;
+  }
+
+  function renderImageForm() {
+    return `
+      <div style="text-align: center; background: rgba(128,128,128,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px;">
+        <div id="imagePreview"><i class="fas fa-user" style="font-size: 30px; color: #333;"></i></div>
+        <input type="file" id="profileFile" accept="image/*" onchange="previewImg(this)" style="margin-bottom: 15px; font-size: 11px;">
+        <button class="primary-btn" id="upBtn" onclick="uploadImg()">Upload Photo</button>
+      </div>`;
+  }
+
+  function previewImg(input) {
+    if (input.files?.[0]) {
+      const reader = new FileReader();
+      reader.onload = e => document.getElementById('imagePreview').innerHTML = `<img src="${e.target.result}">`;
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  async function uploadImg() {
+    const file = document.getElementById('profileFile').files[0];
+    if (!file) return alert("Select a file first");
+    
+    const btn = document.getElementById('upBtn');
+    btn.disabled = true; btn.innerText = "Uploading...";
+
+    const filePath = `${user.id}/${Date.now()}_${file.name}`;
+    const { data, error } = await sb.storage.from('avatars').upload(filePath, file);
+
+    if (error) { alert(error.message); btn.disabled = false; return; }
+
+    const { data: { publicUrl } } = sb.storage.from('avatars').getPublicUrl(filePath);
+    await sb.from('owner_profile').update({ profile_pic_url: publicUrl }).eq('owner_ID', user.id);
+    
+    document.getElementById('sidebarAvatar').innerHTML = `<img src="${publicUrl}" style="width:100%;height:100%;object-fit:cover;">`;
+    moveNext();
+  }
+
+  async function saveOwnerInfo() {
+    const btn = document.getElementById('saveBtn');
+    btn.disabled = true; btn.innerText = "Saving...";
+
+    const payload = {
+      owner_ID: user.id,
+      owner_name: `${profile.first_name} ${profile.last_name}`,
+      owner_nickname: document.getElementById('o_nick').value,
+      owner_dob: document.getElementById('o_dob').value,
+      owner_pob: document.getElementById('o_pob').value,
+      owner_nationality: document.getElementById('o_nat').value,
+      owner_sex: document.getElementById('o_sex').value,
+      owner_marstat: document.getElementById('o_mar').value,
+      owner_spouse: document.getElementById('o_spo').value,
+      owner_contactnum: document.getElementById('o_pho').value,
+      owner_address: document.getElementById('o_adr').value,
+      owner_email: user.email,
+      enterprise_name: document.getElementById('o_ent').value,
+      enterprise_designation: document.getElementById('o_des').value,
+      owner_affiliations: document.getElementById('o_aff').value,
+      owner_hea: document.getElementById('o_hea').value
+    };
+
+    const { error } = await sb.from('owner_profile').upsert([payload]);
+    if (!error) moveNext();
+    else { alert(error.message); btn.disabled = false; btn.innerText = "Save & Continue"; }
   }
 
   async function moveNext() {
     currentStep++;
-    // Update Supabase logic here
+    await sb.from('user_profiles').update({ current_step: currentStep }).eq('id', user.id);
     renderSteps();
   }
 
-  function handleLogout() { window.location.href = 'login-mock.php'; }
+  function toggleTheme() { document.body.classList.toggle('light-theme'); }
+  function handleLogout() { sb.auth.signOut().then(() => window.location.href = 'login-mock.php'); }
+  
   window.onload = init;
 </script>
 </body>
