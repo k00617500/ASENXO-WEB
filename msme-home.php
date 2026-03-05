@@ -139,15 +139,15 @@
   async function init() {
     try {
       // THE FIX: Header injection
-      supabaseClient = supabase.createClient(URL, KEY, {
+      supabaseClient = supabaseClient.createClient(URL, KEY, {
         global: { headers: { 'apikey': KEY, 'Authorization': `Bearer ${KEY}` } }
       });
 
-      const { data: { user: authUser } } = await supabase.auth.getUser();
+      const { data: { user: authUser } } = await supabaseClient.auth.getUser();
       if (!authUser) { window.location.href = 'login.php'; return; }
       user = authUser;
 
-      const { data: p } = await supabase.from('user_profiles').select('*').eq('id', user.id).single();
+      const { data: p } = await supabaseClient.from('user_profiles').select('*').eq('id', user.id).single();
       if (p) {
         profile = p;
         document.getElementById('sidebarUserName').innerText = p.first_name + ' ' + p.last_name;
@@ -235,19 +235,19 @@
       owner_hea: document.getElementById('o_edu').value
     };
 
-    const { error } = await supabase.from('owner_profile').upsert([payload]);
+    const { error } = await supabaseClient.from('owner_profile').upsert([payload]);
     if (!error) nextStep();
     else { alert(error.message); btn.disabled = false; spn.style.display = 'none'; }
   }
 
   async function nextStep() {
     currentStep++;
-    await supabase.from('user_profiles').update({ current_step: currentStep }).eq('id', user.id);
+    await supabaseClient.from('user_profiles').update({ current_step: currentStep }).eq('id', user.id);
     render();
   }
 
   function logout() {
-    supabase.auth.signOut().then(() => window.location.href = 'login.php');
+    supabaseClient.auth.signOut().then(() => window.location.href = 'login.php');
   }
 
   window.onload = init;
