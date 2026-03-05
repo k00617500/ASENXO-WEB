@@ -300,6 +300,9 @@
           <div class="input-group"><label>Longitude</label><input type="number" step="any" id="c_long" placeholder="e.g. 120.9842"></div>
           
           <div class="input-group"><label>Contact Person</label><input id="c_cp"></div>
+          
+          <div class="input-group"><label>Contact Number</label><input type="tel" id="c_phone" placeholder="e.g. 09123456789"></div>
+          
           <div class="input-group"><label>Enterprise Email</label><input type="email" id="c_email"></div>
           <div class="input-group"><label>Year Established</label><input type="number" id="c_year" value="2024"></div>
           <div class="input-group"><label>Current Capitalization</label><input type="number" step="0.01" id="c_cap"></div>
@@ -348,7 +351,6 @@
 
         <div style="margin-top: 35px; border-top: 1px solid var(--border-color); padding-top: 25px;">
           <h4 style="margin-bottom: 20px; font-size: 14px; color: var(--accent); font-weight: 800;">Employment Information</h4>
-          
           <div style="overflow-x: auto;">
             <table style="width: 100%; border-collapse: collapse; min-width: 400px;">
               <thead>
@@ -370,7 +372,6 @@
                   <td style="padding: 5px 5px 15px;"><input type="number" id="e_dnp_m" class="matrix-input" value="0"></td>
                   <td style="padding: 5px 5px 15px;"><input type="number" id="e_dnp_f" class="matrix-input" value="0"></td>
                 </tr>
-                
                 <tr><td colspan="3" style="padding: 25px 5px 10px; font-size: 13px; font-weight: 700; color: var(--text-main);">Indirect / Contract Workers</td></tr>
                 <tr>
                   <td style="padding: 5px; font-size: 12px; color: var(--text-muted);">Production</td>
@@ -402,6 +403,7 @@
     enterprise_lat: parseFloat(document.getElementById('c_lat').value) || 0,
     enterprise_long: parseFloat(document.getElementById('c_long').value) || 0,
     contact_person: document.getElementById('c_cp').value,
+    contact_number: document.getElementById('c_phone').value,
     enterprise_email: document.getElementById('c_email').value,
     year_established: parseInt(document.getElementById('c_year').value) || 0, 
     current_capitalization: parseFloat(document.getElementById('c_cap').value) || 0,
