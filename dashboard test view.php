@@ -152,43 +152,19 @@
       </div>
     </nav>
 
-    <main style="flex: 1; padding: 40px; display: grid; grid-template-columns: 1.8fr 1fr; gap: 30px; overflow-y: auto;">
-      <section>
-        <div class="card">
-          <h2 style="font-size: 18px; margin-bottom: 25px;"><i class="fas fa-tasks" style="color: var(--accent); margin-right: 12px;"></i> Application Flow</h2>
-          <ul id="dynamicSteps" style="list-style: none; padding: 0;"></ul>
-        </div>
-      </section>
+    <main style="flex: 1; padding: 40px; overflow-y: auto;">
+  <div id="admin_list_view">
+    <div class="card">
+      <h2 style="font-size: 18px; margin-bottom: 20px;">Pending MSME Applications</h2>
+      <div id="msme_user_list" style="display: flex; flex-direction: column; gap: 10px;">
+        <p style="color: var(--text-muted);">Fetching users...</p>
+      </div>
+    </div>
+  </div>
 
-      <aside>
-        <div class="card">
-          <h3 style="margin-top: 0; font-size: 14px; font-weight: 800;">Overview</h3>
-          <div style="margin: 15px 0;">
-            <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 8px;">
-              <span style="color: var(--text-muted);">Registration Progress</span><span id="progressTxt" style="font-weight: 800; color: var(--accent);">0%</span>
-            </div>
-            <div style="height: 6px; background: var(--border-color); border-radius: 10px; overflow: hidden;">
-              <div id="progressFill" style="width: 0%; height: 100%; background: var(--accent); transition: width 0.8s ease;"></div>
-            </div>
-          </div>
-        </div>
-
-          <div class="card">
-            <h3 style="margin-top: 0; font-size: 14px; font-weight: 800;">File Repository</h3>
-            <div class="repo-grid">
-              <div class="repo-item">
-                <span id="filesUploaded" style="font-size: 20px; font-weight: 800; display: block; color: var(--accent);">0</span>
-                <span style="font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Uploaded</span>
-              </div>
-              <div class="repo-item">
-                <span id="filesPending" style="font-size: 20px; font-weight: 800; display: block; color:#f1c40f">0</span>
-                <span style="font-size: 9px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Pending Review</span>
-              </div>
-            </div>
-          </div>
-       </aside>
-
-    </main>
+  <div id="admin_review_panel" style="display: none;">
+    </div>
+</main>
   </div>
 </div>
 
@@ -198,69 +174,100 @@
   const S_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteHJibGJsY3BiaWtreGN3d25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODY0MDksImV4cCI6MjA4Nzg2MjQwOX0.qC4Lm2KbToc0f1syHpMWJmQqRhQTosNfFzBrfTXSWDw'; 
   const sb = supabase.createClient(S_URL, S_KEY);
 
-  let user = null;
-  let profile = null;
-  let currentStep = 3;
+  // Initialize Admin View
+window.onload = () => {
+  fetchMSMEUsers();
+};
 
-  const stepsData = [
-    { id: 1, title: "Account Selection", desc: "Entity type chosen" },
-    { id: 2, title: "Identity Security", desc: "Verify mobile & email" },
-    { id: 3, title: "Owner Information", desc: "Detailed personal data" },
-    { id: 4, title: "Profile Image", desc: "Upload profile image" },
-    { id: 5, title: "Business Information", desc: "Enterprise details" },
-    { id: 6, title: "Complete Business Information", desc: "Business details" },
-    { id: 7, title: "Account Confirmation", desc: "Review and confirm" },
-    { id: 8, title: "Submit Required Documents", desc: "PDF, images" },
-    { id: 9, title: "Application Status", desc: "Pending review" },
-    { id: 10, title: "Technology Needs Assessment", desc: "Based on survey" },
-    { id: 11, title: "Endorsement Status", desc: "Waiting for approval" }
-  ];
+async function fetchMSMEUsers() {
+  const listContainer = document.getElementById('msme_user_list');
+  
+  // Fetch users from the company_profile table
+  const { data: companies, error } = await sb
+    .from('company_profile')
+    .select('user_id, enterprise_name, contact_numb'); // Using 'contact_numb' as per your schema
 
-  async function init() {
-    const { data: { session } } = await sb.auth.getSession();
-    if (!session) return window.location.href = 'login.php';
-    user = session.user;
+  if (error) {
+    listContainer.innerHTML = `<p style="color:red">Error: ${error.message}</p>`;
+    return;
+  }
 
-    const { data: p } = await sb.from('user_profiles').select('*').eq('id', user.id).single();
-    if (p) {
-      profile = p;
-      currentStep = p.current_step || 3;
-      document.getElementById('sidebarName').innerText = `${p.first_name} ${p.last_name}`;
-      
-      const { data: op } = await sb.from('owner_profile').select('profile_pic_url').eq('owner_ID', user.id).single();
-      if (op?.profile_pic_url) {
-        document.getElementById('sidebarAvatar').innerHTML = `<img src="${op.profile_pic_url}" style="width:100%;height:100%;object-fit:cover;">`;
-      }
-      renderSteps();
+  listContainer.innerHTML = companies.map(biz => `
+    <div class="repo-item" style="display: flex; justify-content: space-between; align-items: center; text-align: left;">
+      <div>
+        <strong style="color: var(--accent);">${biz.enterprise_name || 'Unnamed Business'}</strong>
+        <div style="font-size: 11px; color: var(--text-muted);">UID: ${biz.user_id}</div>
+      </div>
+      <button class="primary-btn" style="width: auto; padding: 5px 15px; font-size: 12px;" 
+        onclick="openReview('${biz.user_id}')">REVIEW DATA</button>
+    </div>
+  `).join('');
+}
+
+async function openReview(userId) {
+  // 1. Show the panel and hide the list
+  document.getElementById('admin_list_view').style.display = 'none';
+  const panel = document.getElementById('admin_review_panel');
+  panel.style.display = 'block';
+  
+  // 2. Inject the HTML structure
+  panel.innerHTML = renderAdminReviewView(userId);
+  
+  // 3. Load the specific data
+  await loadAdminData(userId);
+}
+
+function closeAdminView() {
+  document.getElementById('admin_list_view').style.display = 'block';
+  document.getElementById('admin_review_panel').style.display = 'none';
+}
+
+async function loadAdminData(userId) {
+  const { data: owner } = await sb.from('owner_profile').select('*').eq('owner_ID', userId).single();
+  const { data: company } = await sb.from('company_profile').select('*').eq('user_id', userId).single();
+
+  if (owner) {
+    document.getElementById('adm_user_title').innerText = owner.owner_name || "Unknown";
+    document.getElementById('adm_o_nick').value = owner.owner_nickname || "";
+    document.getElementById('adm_o_sex').value = owner.owner_sex || "";
+    document.getElementById('adm_o_pob').value = owner.owner_pob || "";
+    document.getElementById('adm_view_photo').href = owner.profile_pic_url || "#";
+  }
+
+  if (company) {
+    document.getElementById('adm_c_name').value = company.enterprise_name || "";
+    // Corrected to match your Screenshot (145).png schema: contact_numb
+    document.getElementById('adm_c_phone').value = company.contact_numb || ""; 
+    document.getElementById('adm_c_email').value = company.email || ""; // Schema shows 'email', not 'enterprise_email'
+  }
+}
+
+async function saveAdminEdits(userId) {
+  const updates = {
+    owner: {
+      owner_nickname: document.getElementById('adm_o_nick').value,
+      owner_sex: document.getElementById('adm_o_sex').value,
+      owner_pob: document.getElementById('adm_o_pob').value
+    },
+    company: {
+      enterprise_name: document.getElementById('adm_c_name').value,
+      contact_numb: document.getElementById('adm_c_phone').value, // Corrected column name
+      email: document.getElementById('adm_c_email').value // Corrected column name
     }
-  }
+  };
 
-  function renderSteps() {
-    const perc = Math.round((currentStep / stepsData.length) * 100);
-    document.getElementById('progressFill').style.width = perc + '%';
-    document.getElementById('progressTxt').innerText = perc + '%';
+  const { error: err1 } = await sb.from('owner_profile').update(updates.owner).eq('owner_ID', userId);
+  const { error: err2 } = await sb.from('company_profile').update(updates.company).eq('user_id', userId);
 
-    const list = document.getElementById('dynamicSteps');
-    list.innerHTML = stepsData.map(s => {
-      const isDone = s.id < currentStep;
-      const isActive = s.id === currentStep;
-      
-      return `
-        <li style="display: flex; gap: 20px; margin-bottom: 30px;">
-          <div class="step-icon ${isDone ? 'completed' : (isActive ? 'current' : '')}">
-            ${isDone ? '<i class="fas fa-check" style="font-size: 11px;"></i>' : '<i class="fas fa-circle" style="font-size: 6px;"></i>'}
-          </div>
-          <div style="flex: 1;">
-            <div style="font-size: 15px; font-weight: 700; color: ${isActive ? 'var(--accent)' : 'inherit'}">${s.title}</div>
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">${s.desc}</div>
-            ${isActive && s.id === 3 ? renderOwnerForm() : ''}
-            ${isActive && s.id === 4 ? renderImageForm() : ''}
-            ${isActive && s.id === 5 ? renderBusinessForm() : ''}
-          </div>
-        </li>
-      `;
-    }).join('');
+  if (!err1 && !err2) {
+    alert("Record updated successfully!");
+    closeAdminView();
+    fetchMSMEUsers(); // Refresh the list
+  } else {
+    alert("Update failed. Check console.");
+    console.error(err1, err2);
   }
+}
 
   function renderAdminReviewView(userId) {
   return `
@@ -319,48 +326,6 @@
       </div>
     </div>`;
 }
-
-async function loadAdminData(userId) {
-  // 1. Fetch Owner Profile
-  const { data: owner } = await sb.from('owner_profile').select('*').eq('owner_ID', userId).single();
-  // 2. Fetch Company Profile
-  const { data: company } = await sb.from('company_profile').select('*').eq('user_id', userId).single();
-
-  if (owner) {
-    document.getElementById('adm_user_title').innerText = owner.owner_name;
-    document.getElementById('adm_o_nick').value = owner.owner_nickname;
-    document.getElementById('adm_o_sex').value = owner.owner_sex;
-    document.getElementById('adm_o_pob').value = owner.owner_pob;
-    document.getElementById('adm_view_photo').href = owner.profile_pic_url;
-  }
-
-  if (company) {
-    document.getElementById('adm_c_name').value = company.enterprise_name;
-    document.getElementById('adm_c_phone').value = company.contact_number;
-    document.getElementById('adm_c_email').value = company.enterprise_email;
-  }
-}
-
-async function saveAdminEdits(userId) {
-  const updates = {
-    owner: {
-      owner_nickname: document.getElementById('adm_o_nick').value,
-      owner_sex: document.getElementById('adm_o_sex').value,
-      owner_pob: document.getElementById('adm_o_pob').value
-    },
-    company: {
-      enterprise_name: document.getElementById('adm_c_name').value,
-      contact_number: document.getElementById('adm_c_phone').value,
-      enterprise_email: document.getElementById('adm_c_email').value
-    }
-  };
-
-  const { error: err1 } = await sb.from('owner_profile').update(updates.owner).eq('owner_ID', userId);
-  const { error: err2 } = await sb.from('company_profile').update(updates.company).eq('user_id', userId);
-
-  if (!err1 && !err2) alert("Record updated successfully!");
-}
-
 </script>
 </body>
 </html>
