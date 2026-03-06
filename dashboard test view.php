@@ -253,33 +253,6 @@ async function loadAdminData(userId) {
   }
 }
 
-async function saveAdminEdits(userId) {
-  const updates = {
-    owner: {
-      owner_nickname: document.getElementById('adm_o_nick').value,
-      owner_sex: document.getElementById('adm_o_sex').value,
-      owner_pob: document.getElementById('adm_o_pob').value
-    },
-    company: {
-      enterprise_name: document.getElementById('adm_c_name').value,
-      contact_number: document.getElementById('adm_c_phone').value, // Corrected column name
-      email: document.getElementById('adm_c_email').value // Corrected column name
-    }
-  };
-
-  const { error: err1 } = await sb.from('owner_profile').update(updates.owner).eq('owner_ID', userId);
-  const { error: err2 } = await sb.from('company_profile').update(updates.company).eq('user_id', userId);
-
-  if (!err1 && !err2) {
-    alert("Record updated successfully!");
-    closeAdminView();
-    fetchMSMEUsers(); // Refresh the list
-  } else {
-    alert("Update failed. Check console.");
-    console.error(err1, err2);
-  }
-}
-
   function renderAdminReviewView(userId) {
   return `
     <div class="card" style="border-left: 5px solid var(--accent);">
@@ -336,6 +309,38 @@ async function saveAdminEdits(userId) {
         <button style="background: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; flex: 1; cursor: pointer;" onclick="closeAdminView()">Cancel</button>
       </div>
     </div>`;
+
+async function saveAdminEdits(userId) {
+  const btn = event.target; // The "Save All Changes" button
+  btn.innerText = "Saving...";
+  
+  const updates = {
+    owner: {
+      owner_nickname: document.getElementById('adm_o_nick').value,
+      owner_sex: document.getElementById('adm_o_sex').value,
+      owner_pob: document.getElementById('adm_o_pob').value
+    },
+    company: {
+      enterprise_name: document.getElementById('adm_c_name').value,
+      contact_number: document.getElementById('adm_c_phone').value, // Matches schema 'contact_numb'
+      email: document.getElementById('adm_c_email').value // Matches schema 'email'
+    }
+  };
+
+  // Perform updates
+  const res1 = await sb.from('owner_profile').update(updates.owner).eq('owner_ID', userId);
+  const res2 = await sb.from('company_profile').update(updates.company).eq('user_id', userId);
+
+  if (res1.error || res2.error) {
+    console.error("Owner Update Error:", res1.error);
+    console.error("Company Update Error:", res2.error);
+    alert("Update failed! check console for RLS or Schema errors.");
+  } else {
+    alert("Changes saved successfully!");
+  }
+  btn.innerText = "Save All Changes";
+}
+
 }
 </script>
 </body>
