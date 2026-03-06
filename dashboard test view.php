@@ -182,18 +182,29 @@ window.onload = () => {
 async function fetchMSMEUsers() {
   const listContainer = document.getElementById('msme_user_list');
   
-  // Fetch users from the company_profile table
+  // Log attempt
+  console.log("Fetching MSME users...");
+
   const { data: companies, error } = await sb
     .from('company_profile')
-    .select('user_id, enterprise_name, contact_number'); // Using 'contact_numb' as per your schema
+    .select('user_id, enterprise_name, contact_number');
 
   if (error) {
+    console.error("Supabase Error:", error);
     listContainer.innerHTML = `<p style="color:red">Error: ${error.message}</p>`;
     return;
   }
 
+  // LOG THE DATA: If this is [], your RLS is blocking you.
+  console.log("Retrieved Data:", companies);
+
+  if (!companies || companies.length === 0) {
+    listContainer.innerHTML = `<p style="color: var(--text-muted); padding: 20px;">No pending applications found or Access Denied (RLS).</p>`;
+    return;
+  }
+
   listContainer.innerHTML = companies.map(biz => `
-    <div class="repo-item" style="display: flex; justify-content: space-between; align-items: center; text-align: left;">
+    <div class="repo-item" style="display: flex; justify-content: space-between; align-items: center; text-align: left; margin-bottom: 10px;">
       <div>
         <strong style="color: var(--accent);">${biz.enterprise_name || 'Unnamed Business'}</strong>
         <div style="font-size: 11px; color: var(--text-muted);">UID: ${biz.user_id}</div>
