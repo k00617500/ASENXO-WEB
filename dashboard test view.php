@@ -309,6 +309,7 @@ async function loadAdminData(userId) {
         <button style="background: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; flex: 1; cursor: pointer;" onclick="closeAdminView()">Cancel</button>
       </div>
     </div>`;
+  }
 
 async function saveAdminEdits(userId) {
   const btn = event.target; // The "Save All Changes" button
@@ -341,7 +342,6 @@ async function saveAdminEdits(userId) {
   btn.innerText = "Save All Changes";
 }
 
-}
 </script>
 </body>
 </html>
