@@ -185,7 +185,7 @@ async function fetchMSMEUsers() {
   // Fetch users from the company_profile table
   const { data: companies, error } = await sb
     .from('company_profile')
-    .select('user_id, enterprise_name, contact_numb'); // Using 'contact_numb' as per your schema
+    .select('user_id, enterprise_name, contact_number'); // Using 'contact_numb' as per your schema
 
   if (error) {
     listContainer.innerHTML = `<p style="color:red">Error: ${error.message}</p>`;
@@ -237,7 +237,7 @@ async function loadAdminData(userId) {
   if (company) {
     document.getElementById('adm_c_name').value = company.enterprise_name || "";
     // Corrected to match your Screenshot (145).png schema: contact_numb
-    document.getElementById('adm_c_phone').value = company.contact_numb || ""; 
+    document.getElementById('adm_c_phone').value = company.contact_number || ""; 
     document.getElementById('adm_c_email').value = company.email || ""; // Schema shows 'email', not 'enterprise_email'
   }
 }
@@ -251,7 +251,7 @@ async function saveAdminEdits(userId) {
     },
     company: {
       enterprise_name: document.getElementById('adm_c_name').value,
-      contact_numb: document.getElementById('adm_c_phone').value, // Corrected column name
+      contact_number: document.getElementById('adm_c_phone').value, // Corrected column name
       email: document.getElementById('adm_c_email').value // Corrected column name
     }
   };
