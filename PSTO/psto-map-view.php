@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ASENXO · BENEFICIARY MAP</title>
+  <title>Map View | ASENXO</title>
   <!-- FAVICON -->
   <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/000000/marker.png">
   <!-- Google Font & Font Awesome -->
