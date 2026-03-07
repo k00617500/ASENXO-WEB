@@ -99,7 +99,7 @@
   async function fetchMSMEUsers() {
     const listContainer = document.getElementById('msme_user_list');
     
-    const { data: companies, error } = await sb.from('company_profile').select('user_id, enterprise_name, contact_numb');
+    const { data: companies, error } = await sb.from('company_profile').select('user_id, enterprise_name, contact_number');
 
     if (error) {
       listContainer.innerHTML = `<p style="color:red">Error loading users: ${error.message}</p>`;
