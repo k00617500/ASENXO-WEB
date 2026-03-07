@@ -106,7 +106,6 @@ body {
     flex: 1;
 }
 
-/* ----- STACKED LABELS  ----- */
 .input-group {
     margin-bottom: 1.5rem;
     width: 100%;
@@ -136,7 +135,6 @@ body {
     border-color: var(--accent);
 }
 
-/* Password wrapper  */
 .password-wrapper {
     position: relative;
     display: flex;
@@ -165,7 +163,6 @@ body {
     color: var(--accent);
 }
 
-/* Row for remember me & forgot password (inline) */
 .row {
     display: flex;
     justify-content: space-between;
