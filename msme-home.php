@@ -488,7 +488,7 @@ async function saveStep5() {
       emp_indirect_prod_male: parseInt(document.getElementById('m_i_p').value) || 0,
       emp_indirect_prod_female: parseInt(document.getElementById('f_i_p').value) || 0,
       emp_indirect_nonprod_male: parseInt(document.getElementById('m_i_np').value) || 0,
-      emp_idnirect_nonprod_female: parseInt(document.getElementById('f_i_np').value) || 0
+      emp_indirect_nonprod_female: parseInt(document.getElementById('f_i_np').value) || 0
     };
     // Using update instead of upsert so we don't accidentally wipe Step 5 data
     const { error } = await sb.from('company_profile').update(payload).eq('user_id', user.id);
