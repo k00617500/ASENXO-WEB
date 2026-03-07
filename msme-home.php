@@ -205,23 +205,35 @@
   ];
 
   async function init() {
+    // Check if a session exists
     const { data: { session } } = await sb.auth.getSession();
     if (!session) return window.location.href = 'login-mock.php';
     user = session.user;
 
-    const { data: p } = await sb.from('user_profiles').select('*').eq('id', user.id).single();
-    if (p) {
-      profile = p;
-      currentStep = p.current_step || 3;
-      document.getElementById('sidebarName').innerText = `${p.first_name} ${p.last_name}`;
-      
-      const { data: op } = await sb.from('owner_profile').select('profile_pic_url').eq('owner_ID', user.id).single();
-      if (op?.profile_pic_url) {
-        document.getElementById('sidebarAvatar').innerHTML = `<img src="${op.profile_pic_url}" style="width:100%;height:100%;object-fit:cover;">`;
-      }
-      renderSteps();
+    // Fetch the user's profile and check for errors
+    const { data: p, error } = await sb.from('user_profiles').select('*').eq('id', user.id).single();
+    
+    if (error || !p) {
+        return window.location.href = 'login-mock.php';
     }
-  }
+
+    // ROLE SECURITY CHECK: Redirect non-MSME users
+    if (p.role !== 'msme') {
+        alert("Unauthorized access. Redirecting to your dashboard.");
+        return window.location.href = p.role === 'psto' ? 'psto-home.php' : 'login-mock.php';
+    }
+
+    // Render the MSME Dashboard if authorized
+    profile = p;
+    currentStep = p.current_step || 3;
+    document.getElementById('sidebarName').innerText = `${p.first_name} ${p.last_name}`;
+    
+    const { data: op } = await sb.from('owner_profile').select('profile_pic_url').eq('owner_ID', user.id).single();
+    if (op?.profile_pic_url) {
+      document.getElementById('sidebarAvatar').innerHTML = `<img src="${op.profile_pic_url}" style="width:100%;height:100%;object-fit:cover;">`;
+    }
+    renderSteps();
+}
 
   function renderSteps() {
     const perc = Math.round((currentStep / stepsData.length) * 100);

@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
-<link rel="stylesheet" href="../src/css/psto-ben-stat-style.css">
+<link rel="stylesheet" href="src/css/psto-ben-stat-style.css">
 
 <style>
     /* Intro Animations */
@@ -186,7 +186,31 @@
 </main>
 </div></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// 1. Initialize Supabase (Using the keys from your msme-home file)
+const S_URL = 'https://hmxrblblcpbikkxcwwni.supabase.co';
+const S_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhteHJibGJsY3BiaWtreGN3d25pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODY0MDksImV4cCI6MjA4Nzg2MjQwOX0.qC4Lm2KbToc0f1syHpMWJmQqRhQTosNfFzBrfTXSWDw'; // Replace with the actual long string from msme-home.php
+const sb = supabase.createClient(S_URL, S_KEY);
+
+// 2. Protect the PSTO Dashboard
+async function verifyPstoAccess() {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return window.location.href = 'login-mock.php';
+
+    const userId = session.user.id;
+    const { data: p, error } = await sb.from('user_profiles').select('role').eq('id', userId).single();
+
+    // ROLE SECURITY CHECK: Redirect non-PSTO users
+    if (error || !p || p.role !== 'psto') {
+        alert("Unauthorized access. You are not a PSTO admin.");
+        return window.location.href = p?.role === 'msme' ? 'msme-home.php' : 'login-mock.php';
+    }
+}
+
+// 3. Execute the check immediately on load
+verifyPstoAccess();
+
 // ---------- beneficiary data ----------
 const beneficiaries = [
   {name:'Han Jim Marketing Corporation',date:'2026-02-12', status:'pending', scheduled: ''},

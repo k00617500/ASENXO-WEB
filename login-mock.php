@@ -105,48 +105,55 @@ $verified = $_GET['verified'] ?? false;
                 });
             }
 
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-
-                if (!email || !password) {
-                    formMessage.className = 'form-message error';
-                    formMessage.textContent = 'Please enter both email and password.';
-                    return;
-                }
-
-                loginBtn.disabled = true;
-                loginBtn.textContent = 'Logging in...';
-
-                try {
-                    const { data, error } = await supabase.auth.signInWithPassword({
-                        email,
-                        password
-                    });
-
-                    if (error) {
-                        if (error.message.includes('Email not confirmed')) {
-                            throw new Error('Please verify your email first. Check your inbox for the verification code.');
-                        }
-                        throw error;
-                    }
-
-                    formMessage.className = 'form-message success';
-                    formMessage.textContent = 'Login successful! Redirecting...';
+            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    const formMessage = document.getElementById('formMessage');
+                    const loginBtn = document.getElementById('loginBtn');
                     
-                    setTimeout(() => {
-                        window.location.href = 'msme-home.php';
-                    }, 1500);
+                    loginBtn.disabled = true;
+                    loginBtn.textContent = 'Signing In...';
+                    formMessage.style.display = 'none';
 
-                } catch (err) {
-                    formMessage.className = 'form-message error';
-                    formMessage.textContent = err.message;
-                    loginBtn.disabled = false;
-                    loginBtn.textContent = 'Sign In';
-                }
-            });
+                    try {
+                        // 1. Authenticate user
+                        const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+                            email: email,
+                            password: password
+                        });
 
+                        if (authError) throw authError;
+
+                        // 2. Fetch the user's role from user_profiles table
+                        const userId = authData.session.user.id;
+                        const { data: profile, error: profileError } = await supabase
+                            .from('user_profiles')
+                            .select('role')
+                            .eq('id', userId)
+                            .single();
+
+                        if (profileError) throw profileError;
+
+                        // 3. Route the user to their respective dashboard
+                        if (profile.role === 'msme') {
+                            window.location.href = 'msme-home.php';
+                        } else if (profile.role === 'psto') {
+                            window.location.href = 'psto-home.php';
+                        } else {
+                            throw new Error("Invalid user role detected.");
+                        }
+
+                    } catch (err) {
+                        formMessage.className = 'form-message error';
+                        formMessage.textContent = err.message;
+                        formMessage.style.display = 'block';
+                    } finally {
+                        loginBtn.disabled = false;
+                        loginBtn.textContent = 'Sign In';
+                    }
+                });
+                
             document.getElementById('googleLogin').addEventListener('click', async () => {
                 const { error } = await supabase.auth.signInWithOAuth({ 
                     provider: 'google',

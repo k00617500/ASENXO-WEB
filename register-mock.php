@@ -209,22 +209,60 @@ session_start();
     const password = document.querySelector('input[name="password"]').value;
     const firstName = document.querySelector('input[name="first_name"]').value;
     const lastName = document.querySelector('input[name="last_name"]').value;
-    const referralCode = document.querySelector('input[name="referral_code"]').value;
+    const referralCode = document.querySelector('input[name="referral_code"]').value.trim(); // Trim spaces
 
     signupBtn.disabled = true;
     signupBtn.textContent = 'Creating account...';
 
     try {
+        let assignedRole = 'msme'; // Default to MSME
+
+        // 1. VALIDATE REFERRAL CODE (If provided)
+        if (referralCode !== '') {
+            // Check the database for the code
+            const { data: codeData, error: codeError } = await supabase
+                .from('referral_codes')
+                .select('role, is_active')
+                .eq('code', referralCode)
+                .single();
+
+            // If code doesn't exist or isn't active, block registration
+            if (codeError || !codeData || !codeData.is_active) {
+                throw new Error('Invalid or expired referral code. Leave blank if you are registering as an MSME.');
+            }
+
+            // Assign the role attached to that specific code
+            assignedRole = codeData.role; 
+        }
+
+        // 2. SIGN UP THE USER
         const { data, error: authError } = await supabase.auth.signUp({
             email,
             password,
             options: { 
-                data: { first_name: firstName, last_name: lastName, referral_code: referralCode }
+                data: { 
+                    first_name: firstName, 
+                    last_name: lastName, 
+                    role: assignedRole // Store the assigned role in user_metadata
+                }
             }
         });
 
         if (authError) throw authError;
 
+        // 3. (Optional but Recommended) Insert user profile to a user_profiles table 
+        // If you rely on user_profiles for your login routing:
+        if (data.user) {
+            await supabase.from('user_profiles').insert({
+                id: data.user.id,
+                first_name: firstName,
+                last_name: lastName,
+                role: assignedRole,
+                email: email
+            });
+        }
+
+        // 4. OTP GENERATION (Your existing logic)
         const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
         const expiresAt = new Date(Date.now() + 10 * 60000).toISOString();
 
@@ -253,7 +291,7 @@ session_start();
             console.warn('Email fetch failed, but code is in DB.');
         }
 
-        showMessage('✅ Email Sent! Please check your Email.', 'success');
+        showMessage('✅ Account Created! Please check your Email for the OTP.', 'success');
         
         setTimeout(() => {
             window.location.href = 'verification.php?email=' + encodeURIComponent(email);
